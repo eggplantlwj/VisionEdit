@@ -1,0 +1,66 @@
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\bin\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\bin\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\bin\Debug\halcondotnet.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\bin\Debug\halcondotnet.xml
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.6\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\bin\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\bin\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\bin\Debug\halcondotnet.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\bin\Debug\halcondotnet.xml
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.7\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\bin\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\bin\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\bin\Debug\halcondotnet.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\bin\Debug\halcondotnet.xml
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.4\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\bin\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\bin\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\bin\Debug\halcondotnet.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\bin\Debug\halcondotnet.xml
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.5\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.pdb
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\bin\Debug\halcondotnet.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\bin\Debug\halcondotnet.xml
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+C:\Users\李康\Desktop\My Projects\5 Vision & Motion Pro\VisionAndMotionPro V1.0.0.3\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.dll.config
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.dll
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Tool.pdb
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\ViewROI.Properties.Resources.resources
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\HWindow_Tool.dll
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\HWindow_Tool.pdb
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Final.resx
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Final.cs
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\bin\Debug\HWindow_Final.designer.cs
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x86\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache

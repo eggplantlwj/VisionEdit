@@ -1,0 +1,6 @@
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\4 HWindow_Tool.csprojResolveAssemblyReference.cache
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\ViewROI.Properties.Resources.resources
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\4 HWindow_Tool.csproj.GenerateResource.Cache
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\HWindow_Tool.dll
+E:\VisionAndMotionPro V0.0.0.3\VisionAndMotionPro V0.0.0.3\ImageWindow\obj\x64\Debug\HWindow_Tool.pdb
