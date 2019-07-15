@@ -20,6 +20,7 @@ namespace VisionEdit
         public FormImageWindow myFormImageWindow = new FormImageWindow();
         public FormJobManage myFormJobManage = new FormJobManage();
         public FormToolBox myFormToolBox = new FormToolBox();
+        public FormLog myFormLog = new FormLog();
         #endregion
 
         public FormMain()
@@ -52,6 +53,7 @@ namespace VisionEdit
             myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
             myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
             myFormImageWindow.Show(this.dockPanel1, DockState.Document);
+            myFormLog.Show(this.dockPanel1, DockState.DockBottom);
         }
 
         #region 按照配置文件初始化Dockpanel
@@ -71,6 +73,10 @@ namespace VisionEdit
                     {
                         return myFormJobManage;
                     }
+                    if (persistString == typeof(FormLog).ToString())
+                    {
+                        return myFormLog;
+                    }
                     if (persistString == typeof(FormImageWindow).ToString())
                     {
                         return myFormImageWindow;
@@ -84,19 +90,28 @@ namespace VisionEdit
                 //配置文件不存在或配置文件有问题时 按系统默认规则加载子窗体
                 myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
                 myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
+                myFormLog.Show(this.dockPanel1, DockState.DockBottom);
                 myFormImageWindow.Show(this.dockPanel1, DockState.Document);
             }
         }
         #endregion
 
-
+        /// <summary>
+        /// 关闭时保存当前panel配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if(File.Exists(m_DockPath))
             {
                 dockPanel1.SaveAsXml(this.m_DockPath);
-            }
-            
+            } 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.lbTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }

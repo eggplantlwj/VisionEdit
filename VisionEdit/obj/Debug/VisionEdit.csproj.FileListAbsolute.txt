@@ -18,3 +18,4 @@ F:\VSCode\VisionEditTest\VisionEdit\bin\Debug\HalconWindowTest.exe
 F:\VSCode\VisionEditTest\VisionEdit\bin\Debug\halcondotnet.dll
 F:\VSCode\VisionEditTest\VisionEdit\bin\Debug\HalconWindowTest.pdb
 F:\VSCode\VisionEditTest\VisionEdit\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\VisionEdit\obj\Debug\VisionEdit.FormLib.FormLog.resources
