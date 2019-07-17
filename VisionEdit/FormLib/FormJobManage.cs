@@ -31,5 +31,9 @@ namespace VisionEdit.FormLib
                 return _instance;
             }
         }
+
+        private void FormJobManage_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

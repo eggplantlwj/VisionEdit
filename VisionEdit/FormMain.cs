@@ -17,10 +17,10 @@ namespace VisionEdit
     {
         #region 变量定义
         private string m_DockPath { get; set; } = string.Empty;
-        public FormImageWindow myFormImageWindow = new FormImageWindow();
-        public FormJobManage myFormJobManage = new FormJobManage();
-        public FormToolBox myFormToolBox = new FormToolBox();
-        public FormLog myFormLog = new FormLog();
+        public static FormImageWindow myFormImageWindow = new FormImageWindow();
+        public static FormJobManage myFormJobManage = new FormJobManage();
+        public static FormLog myFormLog = new FormLog();
+        public FormToolBox myFormToolBox = new FormToolBox(myFormLog, myFormJobManage);
         #endregion
 
         public FormMain()
@@ -54,6 +54,8 @@ namespace VisionEdit
             myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
             myFormImageWindow.Show(this.dockPanel1, DockState.Document);
             myFormLog.Show(this.dockPanel1, DockState.DockBottom);
+            // 初始化JOB
+            InitJob();
         }
 
         #region 按照配置文件初始化Dockpanel
@@ -112,6 +114,17 @@ namespace VisionEdit
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.lbTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        public void InitJob()
+        {
+            // 初始化加载默认Job
+            myFormJobManage.tabControl1.TabPages.Add("defultJob");
+            GlobalParams.myJobTreeView = new TreeView();
+            GlobalParams.myVisionJob = new VisionJob(GlobalParams.myJobTreeView, myFormLog, "defultJob");
+            myFormJobManage.tabControl1.TabPages[0].Controls.Add(GlobalParams.myJobTreeView);
+            GlobalParams.myJobTreeView.Dock = DockStyle.Fill;
+            GlobalParams.myJobTreeView.ImageList = myFormToolBox.imageList1;
         }
     }
 }

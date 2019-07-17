@@ -29,28 +29,31 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("流程");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Halcon窗口");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Basler");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("HIKVision");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("获取图像", new System.Windows.Forms.TreeNode[] {
-            treeNode15,
-            treeNode16,
-            treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("滤波");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("平滑");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("去噪");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("图像预处理", new System.Windows.Forms.TreeNode[] {
-            treeNode19,
-            treeNode20,
-            treeNode21});
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("形状匹配");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("可变形匹配");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("灰度匹配");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("匹配", new System.Windows.Forms.TreeNode[] {
-            treeNode23,
-            treeNode24,
-            treeNode25});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("流程", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Halcon窗口", 3, 3);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Basler");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("HIKVision");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("获取图像", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("滤波");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("平滑");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("去噪");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("图像预处理", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("形状匹配");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("可变形匹配");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("灰度匹配");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("匹配", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("找线");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("几何", new System.Windows.Forms.TreeNode[] {
+            treeNode14});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormToolBox));
             this.tvw_ToolBox = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -68,45 +71,58 @@
             this.tvw_ToolBox.Indent = 32;
             this.tvw_ToolBox.Location = new System.Drawing.Point(0, 4);
             this.tvw_ToolBox.Name = "tvw_ToolBox";
-            treeNode14.ImageIndex = 1;
-            treeNode14.Name = "NodeJob";
-            treeNode14.Text = "流程";
-            treeNode15.ImageIndex = 3;
-            treeNode15.Name = "节点1";
-            treeNode15.Text = "Halcon窗口";
-            treeNode16.ImageKey = "图像.png";
-            treeNode16.Name = "节点2";
-            treeNode16.Text = "Basler";
-            treeNode17.ImageKey = "图像.png";
-            treeNode17.Name = "节点3";
-            treeNode17.Text = "HIKVision";
-            treeNode18.ImageIndex = 4;
-            treeNode18.Name = "节点0";
-            treeNode18.Text = "获取图像";
-            treeNode19.Name = "节点5";
-            treeNode19.Text = "滤波";
-            treeNode20.Name = "节点6";
-            treeNode20.Text = "平滑";
-            treeNode21.Name = "节点7";
-            treeNode21.Text = "去噪";
-            treeNode22.Name = "节点4";
-            treeNode22.Text = "图像预处理";
-            treeNode23.Name = "节点9";
-            treeNode23.Text = "形状匹配";
-            treeNode24.Name = "节点10";
-            treeNode24.Text = "可变形匹配";
-            treeNode25.Name = "节点11";
-            treeNode25.Text = "灰度匹配";
-            treeNode26.Name = "节点8";
-            treeNode26.Text = "匹配";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "NodeJob";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "流程";
+            treeNode2.ImageIndex = 3;
+            treeNode2.Name = "节点1";
+            treeNode2.SelectedImageIndex = 3;
+            treeNode2.Tag = "HalconToolInterface";
+            treeNode2.Text = "Halcon窗口";
+            treeNode3.ImageKey = "图像.png";
+            treeNode3.Name = "节点2";
+            treeNode3.SelectedImageIndex = 3;
+            treeNode3.Text = "Basler";
+            treeNode4.ImageKey = "图像.png";
+            treeNode4.Name = "节点3";
+            treeNode4.SelectedImageIndex = 3;
+            treeNode4.Text = "HIKVision";
+            treeNode5.ImageIndex = 4;
+            treeNode5.Name = "节点0";
+            treeNode5.Text = "获取图像";
+            treeNode6.Name = "节点5";
+            treeNode6.Text = "滤波";
+            treeNode7.Name = "节点6";
+            treeNode7.Text = "平滑";
+            treeNode8.Name = "节点7";
+            treeNode8.Text = "去噪";
+            treeNode9.Name = "节点4";
+            treeNode9.Text = "图像预处理";
+            treeNode10.Name = "节点9";
+            treeNode10.Text = "形状匹配";
+            treeNode11.Name = "节点10";
+            treeNode11.Text = "可变形匹配";
+            treeNode12.Name = "节点11";
+            treeNode12.Text = "灰度匹配";
+            treeNode13.Name = "节点8";
+            treeNode13.Text = "匹配";
+            treeNode14.Name = "FindLine";
+            treeNode14.Tag = "FindLine";
+            treeNode14.Text = "找线";
+            treeNode15.Name = "节点0";
+            treeNode15.Text = "几何";
             this.tvw_ToolBox.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode18,
-            treeNode22,
-            treeNode26});
+            treeNode1,
+            treeNode5,
+            treeNode9,
+            treeNode13,
+            treeNode15});
             this.tvw_ToolBox.SelectedImageIndex = 4;
             this.tvw_ToolBox.Size = new System.Drawing.Size(367, 545);
             this.tvw_ToolBox.TabIndex = 1;
+            this.tvw_ToolBox.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvw_ToolBox_AfterSelect);
+            this.tvw_ToolBox.DoubleClick += new System.EventHandler(this.tvw_ToolBox_DoubleClick);
             // 
             // imageList1
             // 
@@ -117,6 +133,36 @@
             this.imageList1.Images.SetKeyName(2, "流程图.png");
             this.imageList1.Images.SetKeyName(3, "图像.png");
             this.imageList1.Images.SetKeyName(4, "文件夹.png");
+            this.imageList1.Images.SetKeyName(5, "20190709065619943_easyicon_net_256.ico");
+            this.imageList1.Images.SetKeyName(6, "20190715063459237_easyicon_net_256.ico");
+            this.imageList1.Images.SetKeyName(7, "20190716033549111_easyicon_net_128.ico");
+            this.imageList1.Images.SetKeyName(8, "20190716033559344_easyicon_net_128.ico");
+            this.imageList1.Images.SetKeyName(9, "avatar_guy_male_man_user_64px_1212479_easyicon.net.ico");
+            this.imageList1.Images.SetKeyName(10, "avatar_male_man_user_64px_1212481_easyicon.net.ico");
+            this.imageList1.Images.SetKeyName(11, "camera_96px_1157134_easyicon.net.ico");
+            this.imageList1.Images.SetKeyName(12, "start.ico");
+            this.imageList1.Images.SetKeyName(13, "stop.ico");
+            this.imageList1.Images.SetKeyName(14, "User_64px_1115223_easyicon.net.ico");
+            this.imageList1.Images.SetKeyName(15, "user_64px_1218470_easyicon.net.ico");
+            this.imageList1.Images.SetKeyName(16, "保存.png");
+            this.imageList1.Images.SetKeyName(17, "保存2.png");
+            this.imageList1.Images.SetKeyName(18, "保存3.png");
+            this.imageList1.Images.SetKeyName(19, "打开.png");
+            this.imageList1.Images.SetKeyName(20, "复位.png");
+            this.imageList1.Images.SetKeyName(21, "工具箱.ico");
+            this.imageList1.Images.SetKeyName(22, "工具箱.png");
+            this.imageList1.Images.SetKeyName(23, "镜头.png");
+            this.imageList1.Images.SetKeyName(24, "开始.png");
+            this.imageList1.Images.SetKeyName(25, "流程.ico");
+            this.imageList1.Images.SetKeyName(26, "流程.png");
+            this.imageList1.Images.SetKeyName(27, "流程图.png");
+            this.imageList1.Images.SetKeyName(28, "删除.png");
+            this.imageList1.Images.SetKeyName(29, "停止.png");
+            this.imageList1.Images.SetKeyName(30, "图像.png");
+            this.imageList1.Images.SetKeyName(31, "文件夹.png");
+            this.imageList1.Images.SetKeyName(32, "相机.png");
+            this.imageList1.Images.SetKeyName(33, "新建.png");
+            this.imageList1.Images.SetKeyName(34, "新建2.png");
             // 
             // richTextBoxEx1
             // 
@@ -154,6 +200,6 @@
 
         private System.Windows.Forms.TreeView tvw_ToolBox;
         private DevComponents.DotNetBar.Controls.RichTextBoxEx richTextBoxEx1;
-        private System.Windows.Forms.ImageList imageList1;
+        public System.Windows.Forms.ImageList imageList1;
     }
 }
