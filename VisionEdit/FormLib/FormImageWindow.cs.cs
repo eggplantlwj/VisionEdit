@@ -17,6 +17,7 @@ namespace VisionEdit.FormLib
         public FormImageWindow()
         {
             InitializeComponent();
+            _instance = this;
         }
         public string m_fileName = string.Empty;
         /// <summary>

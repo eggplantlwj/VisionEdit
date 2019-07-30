@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VisionEdit
 {
@@ -10,7 +11,14 @@ namespace VisionEdit
     {
         public static void CreateNewJob()
         {
+            try
+            {
+               
+            }
+            catch
+            {
 
+            }
         }
     }
 }

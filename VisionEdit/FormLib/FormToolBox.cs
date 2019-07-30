@@ -27,7 +27,23 @@ namespace VisionEdit.FormLib
 
         private void tvw_ToolBox_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            if(e.Node.Level == 0)
+            {
+                this.richTextBoxEx1.Text = e.Node.Text;
+            }
+            else if(e.Node.Level == 1)
+            {
+                object selectTag = tvw_ToolBox.SelectedNode.Tag;
+                if (selectTag != null)
+                {
+                    IToolInfo insertTool = VisionToolFactory.CreateToolVision((ToolType)Enum.Parse(typeof(ToolType), selectTag.ToString()));
+                    this.richTextBoxEx1.Text = insertTool.toolDescription;
+                }
+                else
+                {
+                    this.richTextBoxEx1.Text = "此工具尚未开发";
+                }
+            } 
         }
 
         private void tvw_ToolBox_DoubleClick(object sender, EventArgs e)
@@ -58,22 +74,29 @@ namespace VisionEdit.FormLib
         /// </summary>
         /// <param name="tool">工具类型</param>
         /// <param name="isInsert">插入位置，当为-1时，表示在末尾插入，当不为-1时，表示被插入的工具索引</param>
-        internal void Add_Tool(ToolType tool, int insertPos = -1)
+        internal void Add_Tool(ToolType tool, int insertPos = -1, int imageKey = 0)
         {
             string toolName = GetNewToolName(tool.ToString());
             IToolInfo insertTool = VisionToolFactory.CreateToolVision(tool, toolName);
             TreeNode insertNode = new TreeNode();
             insertNode = GlobalParams.myJobTreeView.Nodes.Add("", insertTool.toolName, (int)tool, (int)tool); // 该工具对应的节点
+            
             // 判断节点是否添加默认输入输出图
+            // 输入
+            for (int i = 0; i < insertTool.toolInput.Count; i++)
+            {
+                TreeNode childrenInputNode = insertNode.Nodes.Add("<--" + insertTool.toolInput[i].IOName);
+                childrenInputNode.Tag = insertTool.toolInput[i].ioType;
+                childrenInputNode.ForeColor = Color.DarkMagenta;
+            }
+            // 输出
             for (int i = 0; i < insertTool.toolOutput.Count; i++)
             {
-                TreeNode childrenNode = new TreeNode();
-                childrenNode.Text = "-->" + insertTool.toolOutput[i].IOName;
-                childrenNode.Tag = insertTool.toolOutput[i].ioType;
-                insertNode.Nodes.Add(childrenNode);
+                TreeNode childrenOutputNode = insertNode.Nodes.Add("-->" + insertTool.toolOutput[i].IOName);
+                childrenOutputNode.Tag = insertTool.toolOutput[i].ioType;
+                childrenOutputNode.ForeColor = Color.Blue;
             }
-           
-
+            insertNode.Expand();
             GlobalParams.myVisionJob.L_toolList.Add(insertTool);
         }
 
@@ -125,6 +148,9 @@ namespace VisionEdit.FormLib
             }
         }
 
-        
+        private void tvw_ToolBox_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

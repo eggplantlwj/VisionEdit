@@ -42,6 +42,10 @@ namespace VisionEdit
         /// </summary>
         public double recordElapseTime { get; set; }
         /// <summary>
+        /// 编辑节点前节点文本，用于修改工具名称
+        /// </summary>
+        public string nodeTextBeforeEdit { get; set; } = string.Empty;
+        /// <summary>
         /// 标准图像字典，用于存储标准图像路径和图像对象
         /// </summary>
         public Dictionary<string, HObject> D_standardImage { get; set; } = new Dictionary<string, HObject>();

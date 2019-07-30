@@ -8,22 +8,18 @@ namespace VisionEdit
 {
     public enum ToolType:int
     {
-        None,
         Job,
-        HalconToolInterface,
+        HalconTool,
         SDK_Basler,
-        SDK_Congex,
         SDK_PointGray,
-        SDK_IMAVision,
-        SDK_MindVision,
         SDK_HIKVision,
+        BlobAnalyse,
+        FindLine,
+        FindCircle,
         ShapeMatch,
         EyeHandCalibration,
         CircleCalibration,
         SubImage,
-        BlobAnalyse,
-        FindLine,
-        FindCircle,
         CreateROI,
         CreatePosition,
         CoorTrans,
@@ -43,6 +39,7 @@ namespace VisionEdit
         Logic,
         Output,
         CreateLine,
+        None
     }
 
     public enum DataType
@@ -100,4 +97,6 @@ namespace VisionEdit
         失败,
         成功,
     }
+
+
 }

@@ -14,6 +14,8 @@ namespace VisionEdit
 {
     public class VisionJob : IVisionJob
     {
+        public delegate void CreateLineDelegate(TreeView inputTreeView, TreeNode startNode, TreeNode endNode);
+        CreateLineDelegate createLineDelegateFun;
         public TreeView tvwOnWorkJob = new TreeView();
         FormLog myFormLog = null;
 
@@ -22,6 +24,7 @@ namespace VisionEdit
             tvwOnWorkJob = inputTreeView;
             this.myFormLog = inputFormLog;
             this.JobName = jobName;
+            createLineDelegateFun = new CreateLineDelegate(CreateLine);
         }
 
         /// <summary>
@@ -29,7 +32,7 @@ namespace VisionEdit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        internal void TvwJobItemDrag(object sender, ItemDragEventArgs e)//左键拖动  
+        internal void TvwJob_ItemDrag(object sender, ItemDragEventArgs e)//左键拖动  
         {
             try
             {
@@ -88,7 +91,7 @@ namespace VisionEdit
                 //获得拖放中的节点
                 TreeNode moveNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
                 //根据鼠标坐标确定要移动到的目标节点  
-                Point pt;
+                System.Drawing.Point pt;
                 TreeNode targeNode;  // 目标节点
                 pt = ((TreeView)(sender)).PointToClient(new System.Drawing.Point(e.X, e.Y));
                 targeNode = tvwOnWorkJob.GetNodeAt(pt);
@@ -132,7 +135,7 @@ namespace VisionEdit
                         {
                             if (L_toolList[i].toolName == moveNode.Text)
                             {
-                                SwapDataFun(L_toolList, i, targeNode.Index);
+                                SwapDataFun(L_toolList, i, targeNode.Parent.Index);
                                 break;
                             }
                         }
@@ -175,7 +178,7 @@ namespace VisionEdit
                     else            //第一次连接源就需要添加到输入输出集合
                         D_itemAndSource.Add(targeNode, moveNode);
                     GetToolInfoByToolName(this.JobName, targeNode.Parent.Text).GetInput(input.Substring(3)).value = "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
-                    targeNode.Text = input + "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
+                    targeNode.Text = input + "《- " + moveNode.Parent.Text + ". " + moveNode.Text.Substring(3);
                     DrawLine();
 
                     //移除拖放的节点  
@@ -189,7 +192,7 @@ namespace VisionEdit
             }
             catch (Exception ex)
             {
-                myFormLog.ShowLog("释放节点出错，原因： " + ex.Message);
+                myFormLog.ShowLog("释放节点出错，原因： " + ex.Message + ex.StackTrace.ToString());
             }
         }
 
@@ -218,14 +221,15 @@ namespace VisionEdit
 
                         foreach (KeyValuePair<TreeNode, TreeNode> item in D_itemAndSource)
                         {
-                            CreateLine(tree, item.Key, item.Value);
+                            // 将此划线线程委托到JOB管理界面
+                            FormJobManage.Instance.Invoke(createLineDelegateFun, new object[] { tree, item.Key, item.Value });
                         }
                         Application.DoEvents();
                         tvwOnWorkJob.MouseWheel -= new MouseEventHandler(CancelUpDowm_MouseWheel);
                         isDrawing = false;
                     });
                     th.IsBackground = true;
-                    th.ApartmentState = ApartmentState.STA;             //此处要加一行，否则画线时会报错
+                    //th.ApartmentState = ApartmentState.STA;             
                     th.Start();
                 }
             }
@@ -243,6 +247,32 @@ namespace VisionEdit
             }
         }
 
+        #region 绘制输入输出指向线
+        internal void tvw_job_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            nodeTextBeforeEdit = tvwOnWorkJob.SelectedNode.Text;
+        }
+        internal void Draw_Line(object sender, TreeViewEventArgs e)
+        {
+            tvwOnWorkJob.Refresh();
+            DrawLine();
+        }
+        internal void tbc_jobs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tvwOnWorkJob.Refresh();
+            DrawLine();
+        }
+        public void DrawLineWithoutRefresh(object sender, MouseEventArgs e)
+        {
+            tvwOnWorkJob.Update();
+            DrawLine();
+        }
+        internal void MyJobTreeView_ChangeUICues(object sender, UICuesEventArgs e)
+        {
+            tvwOnWorkJob.Update();
+            DrawLine();
+        }
+        #endregion
 
         /// <summary>
         /// 画Treeview控件两个节点之间的连线
@@ -363,6 +393,7 @@ namespace VisionEdit
             }
             catch { }
         }
+
 
         /// <summary>
         /// 交换List中的两个位置的值

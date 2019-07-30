@@ -43,6 +43,14 @@ namespace VisionEdit
             }
             return null;
         }
+        public static IToolInfo CreateToolVision(ToolType animalType)
+        {
+            if (animalTypeDic.ContainsKey(animalType))
+            {
+                return (IToolInfo)Activator.CreateInstance(animalTypeDic[animalType]);
+            }
+            return null;
+        }
     }
 
     //自定义Attribute

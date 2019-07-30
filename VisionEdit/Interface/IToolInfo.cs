@@ -37,7 +37,10 @@ namespace VisionEdit
         /// 工具输出字典集合
         /// </summary>
         public List<ToolIO> toolOutput { get; set; }
-
+        /// <summary>
+        /// 工具作用描述
+        /// </summary>
+        public string toolDescription { get; set; }
         public IToolInfo()
         {
             enable = true;

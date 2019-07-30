@@ -16,6 +16,7 @@ namespace VisionEdit.FormLib
         public FormJobManage()
         {
             InitializeComponent();
+            _instance = this;
         }
 
         /// <summary>

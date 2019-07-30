@@ -28,6 +28,7 @@ namespace VisionEdit
             InitializeComponent();
             m_DockPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
             InitDockPanel();
+            _instance = this;
         }
         /// <summary>
         /// 窗体对象实例
@@ -55,7 +56,7 @@ namespace VisionEdit
             myFormImageWindow.Show(this.dockPanel1, DockState.Document);
             myFormLog.Show(this.dockPanel1, DockState.DockBottom);
             // 初始化JOB
-            InitJob();
+            CreateInitJob();
         }
 
         #region 按照配置文件初始化Dockpanel
@@ -116,7 +117,7 @@ namespace VisionEdit
             this.lbTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
-        public void InitJob()
+        public void CreateInitJob()
         {
             // 初始化加载默认Job
             myFormJobManage.tabControl1.TabPages.Add("defultJob");
@@ -124,7 +125,39 @@ namespace VisionEdit
             GlobalParams.myVisionJob = new VisionJob(GlobalParams.myJobTreeView, myFormLog, "defultJob");
             myFormJobManage.tabControl1.TabPages[0].Controls.Add(GlobalParams.myJobTreeView);
             GlobalParams.myJobTreeView.Dock = DockStyle.Fill;
-            GlobalParams.myJobTreeView.ImageList = myFormToolBox.imageList1;
+            GlobalParams.myJobTreeView.ImageList = myFormToolBox.imageListTool;
+            GlobalParams.myJobTreeView.Font = new Font("微软雅黑", 9, FontStyle.Bold);
+
+            GlobalParams.myJobTreeView.Scrollable = true;
+            GlobalParams.myJobTreeView.ItemHeight = 20;
+            GlobalParams.myJobTreeView.ShowLines = false;
+            GlobalParams.myJobTreeView.AllowDrop = true;
+            //myTreeView.ImageList = Job.imageList;
+
+            // 在窗体UI出现变化时，更新画线
+            GlobalParams.myJobTreeView.AfterSelect += GlobalParams.myVisionJob.tvw_job_AfterSelect;
+            GlobalParams.myJobTreeView.ChangeUICues += GlobalParams.myVisionJob.MyJobTreeView_ChangeUICues;
+            myFormJobManage.SizeChanged += GlobalParams.myVisionJob.tbc_jobs_SelectedIndexChanged;
+            //节点间拖拽
+            GlobalParams.myJobTreeView.ItemDrag += new ItemDragEventHandler(GlobalParams.myVisionJob.TvwJob_ItemDrag);
+            GlobalParams.myJobTreeView.DragEnter += new DragEventHandler(GlobalParams.myVisionJob.TvwJob_DragEnter);
+            GlobalParams.myJobTreeView.DragDrop += new DragEventHandler(GlobalParams.myVisionJob.TvwJob_DragDrop);
+
+            //以下事件为画线事件
+            GlobalParams.myJobTreeView.MouseMove += GlobalParams.myVisionJob.DrawLineWithoutRefresh;
+            GlobalParams.myJobTreeView.AfterExpand += GlobalParams.myVisionJob.Draw_Line;
+            GlobalParams.myJobTreeView.AfterCollapse += GlobalParams.myVisionJob.Draw_Line;
+
+            Application.DoEvents();
+
+            //默认添加ImageAcquistionTool工具
+            myFormToolBox.Add_Tool(ToolType.HalconTool);
+
+            //默认选中第一个工具节点
+            GlobalParams.myJobTreeView.SelectedNode = GlobalParams.myJobTreeView.Nodes[0];
+
+            //展开已默认添加的工具的输入输出项
+            GlobalParams.myJobTreeView.ExpandAll();
         }
     }
 }
