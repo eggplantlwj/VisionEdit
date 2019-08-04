@@ -1,0 +1,4 @@
+F:\VSCode\VisionEditTest\CommonMethods\bin\Debug\CommonMethods.dll
+F:\VSCode\VisionEditTest\CommonMethods\bin\Debug\CommonMethods.pdb
+F:\VSCode\VisionEditTest\CommonMethods\obj\Debug\CommonMethods.dll
+F:\VSCode\VisionEditTest\CommonMethods\obj\Debug\CommonMethods.pdb

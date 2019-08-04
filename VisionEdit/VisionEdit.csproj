@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=14.0.0.15, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
-    <Reference Include="halcondotnet, Version=19.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+    <Reference Include="halcondotnet, Version=17.12.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\halcondotnet.dll</HintPath>
     </Reference>
@@ -86,19 +86,10 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalParams.cs" />
-    <Compile Include="Interface\DataStruct.cs" />
-    <Compile Include="Interface\EnumList.cs" />
-    <Compile Include="Interface\ToolBase.cs" />
     <Compile Include="OperateJob.cs" />
-    <Compile Include="Interface\IToolInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interface\VisionJobInterface.cs" />
-    <Compile Include="ToolLib\FindLine.cs" />
-    <Compile Include="ToolLib\HalconTool.cs" />
     <Compile Include="VisionJob.cs" />
-    <Compile Include="VisionTool\VisionToolFactory.cs" />
-    <Compile Include="VisionTool\VisionToolList.cs" />
     <EmbeddedResource Include="FormLib\FormImageWindow.cs.resx">
       <DependentUpon>FormImageWindow.cs.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,9 +154,33 @@
     <None Include="Resources\保存21.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HalconWindowTest\HalconWindowTest.csproj">
+    <ProjectReference Include="..\CommonMethods\CommonHelper.csproj">
+      <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
+      <Name>CommonHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataStruct\DataStruct.csproj">
+      <Project>{df3d4d4c-02df-4f92-9fd4-0a861f64b0ef}</Project>
+      <Name>DataStruct</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FindCircle\FindCircleTool.csproj">
+      <Project>{3d2739db-5618-49bf-bf5c-5cccd6a55c64}</Project>
+      <Name>FindCircleTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FindLine\FindLineTool.csproj">
+      <Project>{c3bb2b1c-ed0c-4879-a6d3-d86342c5086e}</Project>
+      <Name>FindLineTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HalconTool\HalconTool.csproj">
+      <Project>{F5669FB7-77EC-44B9-898B-6D575B7D26EA}</Project>
+      <Name>HalconTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HalconWindowTest\HalconWindow.csproj">
       <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
-      <Name>HalconWindowTest</Name>
+      <Name>HalconWindow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VisionJobFactory\VisionJobFactory.csproj">
+      <Project>{4D539EB2-E847-4D42-B6FA-03B2546DAFD7}</Project>
+      <Name>VisionJobFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

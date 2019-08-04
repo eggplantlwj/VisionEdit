@@ -1,4 +1,4 @@
-﻿namespace HalconWindowTest.HalconWindow
+﻿namespace HalconWindow.HalconWindow
 {
     partial class HWindow_Final
     {

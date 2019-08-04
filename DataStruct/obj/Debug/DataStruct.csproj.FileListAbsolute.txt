@@ -1,0 +1,6 @@
+F:\VSCode\VisionEditTest\DataStruct\bin\Debug\DataStruct.dll
+F:\VSCode\VisionEditTest\DataStruct\bin\Debug\DataStruct.pdb
+F:\VSCode\VisionEditTest\DataStruct\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\DataStruct\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\DataStruct\obj\Debug\DataStruct.dll
+F:\VSCode\VisionEditTest\DataStruct\obj\Debug\DataStruct.pdb

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HalconDotNet;
+using CommonMethods;
 using VisionEdit.FormLib;
 
 namespace VisionEdit
@@ -26,6 +27,9 @@ namespace VisionEdit
             this.JobName = jobName;
             createLineDelegateFun = new CreateLineDelegate(CreateLine);
         }
+
+       
+
 
         /// <summary>
         /// 拖动工具节点
@@ -195,6 +199,8 @@ namespace VisionEdit
                 myFormLog.ShowLog("释放节点出错，原因： " + ex.Message + ex.StackTrace.ToString());
             }
         }
+        
+
 
         private static Graphics graph;
         /// <summary>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommonMethods;
 using VisionEdit.FormLib;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -147,17 +148,24 @@ namespace VisionEdit
             GlobalParams.myJobTreeView.MouseMove += GlobalParams.myVisionJob.DrawLineWithoutRefresh;
             GlobalParams.myJobTreeView.AfterExpand += GlobalParams.myVisionJob.Draw_Line;
             GlobalParams.myJobTreeView.AfterCollapse += GlobalParams.myVisionJob.Draw_Line;
-
+            // 在流程节点上操作时
+            GlobalParams.myJobTreeView.MouseDoubleClick += OperateJob.TreeViewJob_DoubleClick; ;
+            GlobalParams.myJobTreeView.DoubleClick += MyJobTreeView_DoubleClick;
             Application.DoEvents();
 
             //默认添加ImageAcquistionTool工具
             myFormToolBox.Add_Tool(ToolType.HalconTool);
-
+            myFormToolBox.Add_Tool(ToolType.FindLine);
             //默认选中第一个工具节点
             GlobalParams.myJobTreeView.SelectedNode = GlobalParams.myJobTreeView.Nodes[0];
 
             //展开已默认添加的工具的输入输出项
             GlobalParams.myJobTreeView.ExpandAll();
+        }
+
+        private void MyJobTreeView_DoubleClick(object sender, EventArgs e)
+        {
+            
         }
     }
 }

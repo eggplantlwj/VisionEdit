@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HalconWindowTest.HalconWindow;
+using HalconWindow.HalconWindow;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace VisionEdit.FormLib

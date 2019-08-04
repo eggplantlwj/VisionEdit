@@ -1,0 +1,8 @@
+F:\VSCode\VisionEditTest\HalconTool\bin\Debug\HalconTool.dll
+F:\VSCode\VisionEditTest\HalconTool\bin\Debug\HalconTool.pdb
+F:\VSCode\VisionEditTest\HalconTool\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\HalconTool\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\HalconTool\obj\Debug\HalconTool.FormHalconTool.resources
+F:\VSCode\VisionEditTest\HalconTool\obj\Debug\HalconTool.csproj.GenerateResource.Cache
+F:\VSCode\VisionEditTest\HalconTool\obj\Debug\HalconTool.dll
+F:\VSCode\VisionEditTest\HalconTool\obj\Debug\HalconTool.pdb

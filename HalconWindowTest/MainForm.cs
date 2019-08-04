@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HalconWindowTest.HalconWindow;
+using HalconWindow.HalconWindow;
 
-namespace HalconWindowTest
+namespace HalconWindow
 {
     public partial class MainForm : Form
     {

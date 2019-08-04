@@ -1,0 +1,17 @@
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\FindLineTool.dll
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\FindLineTool.pdb
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\CommonMethods.dll
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\DataStruct.dll
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\HalconWindow.exe
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\ToolBase.dll
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\CommonMethods.pdb
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\DataStruct.pdb
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\HalconWindow.pdb
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\ToolBase.pdb
+F:\VSCode\VisionEditTest\FindLine\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\FindLine\obj\Debug\FindLineTool.csprojResolveAssemblyReference.cache
+F:\VSCode\VisionEditTest\FindLine\obj\Debug\FindLineTool.FormFindLine.resources
+F:\VSCode\VisionEditTest\FindLine\obj\Debug\FindLineTool.csproj.GenerateResource.Cache
+F:\VSCode\VisionEditTest\FindLine\obj\Debug\FindLineTool.dll
+F:\VSCode\VisionEditTest\FindLine\obj\Debug\FindLineTool.pdb

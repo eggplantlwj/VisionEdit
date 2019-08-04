@@ -1,0 +1,9 @@
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\ToolBase.dll
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\ToolBase.pdb
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\ToolBase\obj\Debug\ToolBase.dll
+F:\VSCode\VisionEditTest\ToolBase\obj\Debug\ToolBase.pdb
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\CommonMethods.dll
+F:\VSCode\VisionEditTest\ToolBase\bin\Debug\CommonMethods.pdb
+F:\VSCode\VisionEditTest\ToolBase\obj\Debug\ToolBase.csprojResolveAssemblyReference.cache

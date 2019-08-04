@@ -1,0 +1,11 @@
+F:\VSCode\VisionEditTest\HalconWindowTest\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\HalconWindowTest\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindowTest.HalconWindow.HWindow_Final.resources
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindowTest.MainForm.resources
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindowTest.csproj.GenerateResource.Cache
+F:\VSCode\VisionEditTest\HalconWindowTest\bin\Debug\HalconWindow.exe.config
+F:\VSCode\VisionEditTest\HalconWindowTest\bin\Debug\HalconWindow.exe
+F:\VSCode\VisionEditTest\HalconWindowTest\bin\Debug\HalconWindow.pdb
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindow.Properties.Resources.resources
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindow.exe
+F:\VSCode\VisionEditTest\HalconWindowTest\obj\Debug\HalconWindow.pdb

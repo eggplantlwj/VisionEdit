@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VisionEdit.VisionTool;
+using CommonMethods;
+using VisionJobFactory;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace VisionEdit.FormLib

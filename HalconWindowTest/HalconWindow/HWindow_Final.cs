@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using HalconDotNet;
 
-namespace HalconWindowTest.HalconWindow
+namespace HalconWindow.HalconWindow
 {
     public partial class HWindow_Final : UserControl
     {

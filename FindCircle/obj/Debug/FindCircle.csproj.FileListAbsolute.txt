@@ -1,0 +1,13 @@
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\halcondotnet.dll
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\HalconWindow.exe
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\HalconWindow.pdb
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\halcondotnet.xml
+F:\VSCode\VisionEditTest\FindCircle\obj\Debug\FindCircle.csprojResolveAssemblyReference.cache
+F:\VSCode\VisionEditTest\FindCircle\obj\Debug\FindCircle.FormFindCircle.resources
+F:\VSCode\VisionEditTest\FindCircle\obj\Debug\FindCircle.csproj.GenerateResource.Cache
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\FindCircleTool.dll
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\FindCircleTool.pdb
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\DataStruct.dll
+F:\VSCode\VisionEditTest\FindCircle\bin\Debug\DataStruct.pdb
+F:\VSCode\VisionEditTest\FindCircle\obj\Debug\FindCircleTool.dll
+F:\VSCode\VisionEditTest\FindCircle\obj\Debug\FindCircleTool.pdb
