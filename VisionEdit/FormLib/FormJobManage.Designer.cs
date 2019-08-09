@@ -68,6 +68,7 @@
             this.btnSignael.TabIndex = 1;
             this.btnSignael.Text = "单次运行";
             this.btnSignael.UseVisualStyleBackColor = true;
+            this.btnSignael.Click += new System.EventHandler(this.btnSignael_Click);
             // 
             // picDeleteJob
             // 

@@ -4,75 +4,160 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using CommonMethods;
 using HalconDotNet;
+using ToolBase;
 
 namespace HalconTool
 {
-    public class HalconTool
+    public class HalconTool: IToolBase
     {
         /// <summary>
         /// 流程名
         /// </summary>
-        internal string jobName = string.Empty;
+        public string jobName = string.Empty;
         /// <summary>
         /// 曝光时间
         /// </summary>
-        internal Int32 exposure = 30;
+        public Int32 exposure = 5;
         /// <summary>
         /// 图像的获取方式
         /// </summary>
-        //internal ImageSourceMode imageSourceMode = ImageSourceMode.FormDevice;
+        public ImageSourceMode imageSourceMode = ImageSourceMode.FormDevice;
         /// <summary>
         /// 是否处于实时采集模式
         /// </summary>
-        internal bool realTimeMode = false;
+        public bool realTimeMode = false;
         /// <summary>
         /// 相机句柄
         /// </summary>
-        internal Int64 cameraHandle = -1;
+        public Int64 cameraHandle = -1;
         /// <summary>
         /// 设备信息字符串，包括了相机SN、品牌等信息
         /// </summary>
-        internal string deviceInfoStr = string.Empty;
+        public string deviceInfoStr = string.Empty;
         /// <summary>
         /// 实时采集线程
         /// </summary>
-        internal static Thread th_acq;         //Thread类不能序列化，所以申明为静态的
+        public static Thread th_acq ;         //Thread类不能序列化，所以申明为静态的
         /// <summary>
         /// 读取文件夹图像模式时每次运行是否自动切换图像
         /// </summary>
-        internal bool autoSwitch = true;
+        public bool autoSwitch = true;
         /// <summary>
         /// 是否将彩色图像转化成灰度图像 
         /// </summary>
-        internal bool RGBToGray = true;
+        public bool RGBToGray = true;
         /// <summary>
         /// 工作模式为读取文件夹图像时，当前图像的名称
         /// </summary>
-        internal string currentImageName = "";
+        public string currentImageName = "";
         /// <summary>
         /// 工作模式为读取文件夹图像时，当前显示的图片的索引
         /// </summary>
-        internal int currentImageIndex = 0;
+        public int currentImageIndex = 0;
         /// <summary>
         /// 文件夹中的图像文件集合
         /// </summary>
-        internal List<string> L_imageFile = new List<string>();
+        public List<string> L_imageFile = new List<string>();
         /// <summary>
         /// 单张图像的文件路径
         /// </summary>
-        internal string imagePath = string.Empty;
+        public string imagePath = string.Empty;
         /// <summary>
         /// 图像文件夹路径
         /// </summary>
-        internal string imageDirectoryPath = string.Empty;
+        public string imageDirectoryPath = string.Empty;
         /// <summary>
         /// 输出图像
         /// </summary>
-        internal HObject outputImage;
+        public HObject outputImage = null;
+        /// <summary>
+        /// 输出图像的路径
+        /// </summary>
+        public string outputImageFilePath = null;
         /// <summary>
         /// 读取单张图像或批量读取文件夹图像工作模式
         /// </summary>
-        //internal WorkMode workMode = WorkMode.ReadMultImage;
+        internal WorkMode workMode = WorkMode.ReadMultImage;
+
+        public ToolRunStatu toolRunStatu
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public HObject inputImage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool ReadImage(out string filePath)
+        {
+            filePath = string.Empty;
+            HTuple channelCount = 0;
+            OpenFileDialog dig_openImage = new OpenFileDialog();
+            dig_openImage.Title = "请选择图像文件路径";
+            dig_openImage.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            dig_openImage.Filter = "图像文件(*.*)|*.*|图像文件(*.png)|*.png|图像文件(*.jpg)|*.jpg|图像文件(*.tif)|*.tif";
+            if (dig_openImage.ShowDialog() == DialogResult.OK)
+            {
+                filePath = dig_openImage.FileName;
+                outputImageFilePath = dig_openImage.FileName;
+            }
+            return true;
+        }
+
+        public void Run()
+        {
+            DispImage();
+        }
+
+        public void DispImage()
+        {
+            HObject image = new HObject();
+            try
+            {
+                if(outputImageFilePath != null)
+                {
+                    HOperatorSet.ReadImage(out image, outputImageFilePath);
+                    if (RGBToGray)
+                    {
+                        HTuple channel;
+                        HOperatorSet.CountChannels(image, out channel);
+                        if (channel == 3)
+                            HOperatorSet.Rgb1ToGray(image, out image);
+                    }
+                    outputImage = image;
+                }
+            }
+            catch
+            {
+                FormHalconTool.Instance.txbLog.Text = "图像文件异常或路径不合法";
+                CommonMethods.CommonMethods.Delay(1000);
+                return;
+            }
+            if (outputImage != null)
+            {
+                FormHalconTool.Instance.myHwindow.HobjectToHimage(outputImage);
+            }
+            
+        }
     }
 }

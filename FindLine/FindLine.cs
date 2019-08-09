@@ -11,68 +11,84 @@ namespace FindLineTool
     [Serializable]
     public class FindLine:IToolBase
     {
-        internal bool toolEnable = true;
+        public bool toolEnable = true;
         /// <summary>
         /// 输入姿态
         /// </summary>
-        internal PosXYU inputPose = new PosXYU();
+        public PosXYU inputPose = new PosXYU();
         /// <summary>
         /// 制作模板时的输入位姿
         /// </summary>
-        internal PosXYU templatePose = new PosXYU();
+        public PosXYU templatePose = new PosXYU();
         /// <summary>
         /// 期望线起点行坐标
         /// </summary>
-        internal HTuple expectLineStartRow = 200;
+        public HTuple expectLineStartRow = 200;
         /// <summary>
         /// 卡尺
         /// </summary>
-        internal HObject contours;
+        public HObject contoursDisp = null;
+        /// <summary>
+        /// 箭头
+        /// </summary>
+        public HObject arrowDisp = null;
+        /// <summary>
+        /// 交点
+        /// </summary>
+        public HObject crossDisp = null;
         /// <summary>
         /// 期望线起点列坐标
         /// </summary>
-        internal HTuple expectLineStartCol = 200;
+        public HTuple expectLineStartCol = 200;
         /// <summary>
         /// 期望线终点行坐标
         /// </summary>
-        internal HTuple expectLineEndRow = 200;
+        public HTuple expectLineEndRow = 200;
         /// <summary>
         /// 期望线终点列坐标
         /// </summary>
-        internal HTuple expectLineEndCol = 600;
+        public HTuple expectLineEndCol = 600;
         /// <summary>
         /// 找边极性，从明到暗或从暗到明
         /// </summary>
-        internal string polarity = "negative";
+        public string polarity = "negative";
         /// <summary>
         /// 卡尺数量
         /// </summary>
-        internal int cliperNum = 20;
+        public int cliperNum = 20;
         /// <summary>
         /// 卡尺高
         /// </summary>
-        internal int length = 80;
+        public int length = 80;
         /// <summary>
         /// 卡尺宽
         /// </summary>
-        internal int weidth = 5;
+        public int weidth = 5;
         /// <summary>
         /// 边阈值
         /// </summary>
-        internal int threshold = 30;
+        public int threshold = 30;
         /// <summary>
         /// 边Sigma
         /// </summary>
-        internal double sigma = 1.0;
+        public double sigma = 1.0;
         /// <summary>
         /// 选择所查找到的边
         /// </summary>
-        internal string edgeSelect = "all";
+        public string edgeSelect = "all";
         /// <summary>
         /// 分数阈值
         /// </summary>
-        internal double _minScore = 0.5;
-        internal double minScore
+        public double _minScore = 0.5;
+        /// <summary>
+        /// 矩形框显示
+        /// </summary>
+        public bool dispRec = true;
+        /// <summary>
+        /// 交点显示
+        /// </summary>
+        public bool dispCross = true;
+        public double minScore
         {
             get
             {
@@ -93,11 +109,15 @@ namespace FindLineTool
                     _minScore = value;
                 }
             }
-        } 
+        }
         /// <summary>
         /// 找到的线段
         /// </summary>
-        internal Line resultLine = new Line();
+        public Line resultLine = null;
+        /// <summary>
+        /// 显示的线
+        /// </summary>
+        public HObject LineDisp = null;
         /// <summary>
         /// 新的跟随姿态变化后的预期线信息
         /// </summary>
@@ -168,12 +188,15 @@ namespace FindLineTool
             set { _angle = value; }
         }
 
-        public HObject inputImage { get; set; }
+        public HObject inputImage { get; set; } = null;
 
-        public ToolRunStatu toolRunStatu { get; set; }
+        public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
         public void DispImage()
         {
-            FormFindLine.Instance.myHwindow.HobjectToHimage(inputImage);
+            if(inputImage != null)
+            {
+                FormFindLine.Instance.myHwindow.HobjectToHimage(inputImage);
+            }
         }
 
         public void UpdateImage()
@@ -184,7 +207,11 @@ namespace FindLineTool
 
         public void Run()
         {
-            if(inputImage == null)
+            HTuple homMat2DArrow = null;
+            HObject arrow = null, arrowTrans = null;
+            HObject drawLine = null, imageReducedLine;
+            
+            if (inputImage == null)
             {
                 FormFindLine.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
                 toolRunStatu = ToolRunStatu.Not_Input_Image;
@@ -237,61 +264,35 @@ namespace FindLineTool
 
                 //显示所有卡尺
                 HTuple pointRow, pointCol;
-                HOperatorSet.GetMetrologyObjectMeasures(out contours, handleID, new HTuple("all"), new HTuple("all"), out pointRow, out pointCol);
-                HOperatorSet.SetColor(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, new HTuple("blue"));
-                HOperatorSet.DispObj(contours, FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow);
-                FormFindLine.Instance.myHwindow.DispObj(contours, "blue");
+                HOperatorSet.GetMetrologyObjectMeasures(out contoursDisp, handleID, new HTuple("all"), new HTuple("all"), out pointRow, out pointCol);
+                
 
                 //显示指示找线方向的箭头
-                HTuple arrowAngle;
-                HOperatorSet.AngleLx(newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol, out arrowAngle);
-                #region 测试箭头
 
-                
+                #region 测试箭头
+                HTuple arrowRow = null, arrowColumn = null;
+                HOperatorSet.GenRegionLine(out drawLine, newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol);
+                HOperatorSet.ReduceDomain(inputImage, drawLine, out imageReducedLine);
+                HOperatorSet.GetRegionPoints(imageReducedLine, out arrowRow, out arrowColumn);
+                if(arrowRow.Length < 200)
+                {
+                    CommonMethods.CommonMethods.gen_arrow_contour_xld(out arrow, arrowRow[0], arrowColumn[0], arrowRow[arrowRow.Length-1], arrowColumn[arrowRow.Length - 1], 20, 20);
+                }
+                else
+                {
+                    CommonMethods.CommonMethods.gen_arrow_contour_xld(out arrow, arrowRow[0], arrowColumn[0], arrowRow[200], arrowColumn[200], 20, 20);
+                }
+                HOperatorSet.VectorAngleToRigid(newExpectLineStartRow, newExpectLineStartCol, 0, (newExpectLineStartRow + newExpectLineEndRow) / 2, (newExpectLineStartCol + newExpectLineEndCol) / 2, new HTuple(-90).TupleRad(), out homMat2DArrow);
+                HOperatorSet.AffineTransContourXld(arrow, out arrowDisp, homMat2DArrow);
                 #endregion
-                arrowAngle = arrowAngle + Math.PI / 2;
-                arrowAngle = arrowAngle.TupleDeg();
-                HTuple row = (newExpectLineStartRow + newExpectLineEndRow) / 2;
-                HTuple column = (newExpectLineStartCol + newExpectLineEndCol) / 2;
-                double drow, dcolumn;
-                double arrowLength = length + 100;
-                if (0 <= arrowAngle && arrowAngle <= 90)
-                {
-                    drow = Math.Abs(arrowLength * Math.Sin(((HTuple)arrowAngle).TupleRad()));
-                    dcolumn = Math.Abs(arrowLength * Math.Cos(((HTuple)arrowAngle).TupleRad()));
-                    HOperatorSet.DispArrow(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, row, column, row - drow, column + dcolumn, 5.0);
-                }
-                else if (arrowAngle > 90 && arrowAngle <= 180)
-                {
-                    drow = arrowLength * Math.Sin(((HTuple)(180 - arrowAngle)).TupleRad());
-                    dcolumn = arrowLength * Math.Cos(((HTuple)(180 - arrowAngle)).TupleRad());
-                    HOperatorSet.DispArrow(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, row, column, row - drow, column - dcolumn, 5.0);
-                }
-                else if (arrowAngle < 0 && arrowAngle >= -90)
-                {
-                    drow = arrowLength * Math.Sin(((HTuple)arrowAngle * -1).TupleRad());
-                    dcolumn = arrowLength * Math.Cos(((HTuple)arrowAngle * -1).TupleRad());
-                    HOperatorSet.DispArrow(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, row, column, row + drow, column + dcolumn, 5.0);
-                }
-                else if (arrowAngle < -90 && arrowAngle >= -180)
-                {
-                    drow = Math.Abs(arrowLength * Math.Sin(((HTuple)arrowAngle + 180).TupleRad()));
-                    dcolumn = Math.Abs(arrowLength * Math.Cos(((HTuple)arrowAngle + 180).TupleRad()));
-                    HOperatorSet.DispArrow(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, row, column, row + drow, column - dcolumn, 5.0);
-                }
 
                 //把点显示出来
-                HObject cross;
-                HOperatorSet.GenCrossContourXld(out cross, pointRow, pointCol, new HTuple(12), new HTuple(0));
-                HOperatorSet.SetColor(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, new HTuple("orange"));
-                HOperatorSet.DispObj(cross, FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow);
-                FormFindLine.Instance.myHwindow.DispObj(cross, "orange");
+                HOperatorSet.GenCrossContourXld(out crossDisp, pointRow, pointCol, new HTuple(12), new HTuple(0));
 
                 //得到所找到的线
                 HTuple parameter;
-                HObject line;
                 HOperatorSet.GetMetrologyObjectResult(handleID, new HTuple("all"), new HTuple("all"), new HTuple("result_type"), new HTuple("all_param"), out parameter);
-                HOperatorSet.GetMetrologyObjectResultContour(out line, handleID, new HTuple("all"), new HTuple("all"), new HTuple(1.5));
+                HOperatorSet.GetMetrologyObjectResultContour(out LineDisp, handleID, new HTuple("all"), new HTuple("all"), new HTuple(1.5));
 
                 if (parameter.Length >= 4)
                 {
@@ -302,16 +303,12 @@ namespace FindLineTool
                     Point start = new Point() { Row = ResultLineStartRow, Col = ResultLineStartCol };
                     Point end = new Point() { Row = ResultLineEndRow, Col = ResultLineEndCol };
                     resultLine = new Line() { StartPoint = start, EndPoint = end };
-
-                    //显示找到的线
-                    HOperatorSet.SetColor(FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow, new HTuple("green"));
-                    // HOperatorSet.DispObj(line, GetWindowHandle(jobName));
-                    FormFindLine.Instance.myHwindow.hWindowControl.HalconWindow.SetLineWidth(2);
-                    FormFindLine.Instance.myHwindow.DispObj(line, "green");
                 }
+                DispMainWindow(FormFindLine.Instance.myHwindow);
                 HOperatorSet.AngleLx(ResultLineStartRow, ResultLineStartCol, ResultLineEndRow, ResultLineEndCol, out _angle);
                 HOperatorSet.ClearMetrologyModel(handleID);
-
+                // 参数传递
+                ParamsTrans();
                 FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
                 FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
                 FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
@@ -322,6 +319,12 @@ namespace FindLineTool
             catch (Exception ex)
             {
                 FormFindLine.Instance.TextBoxMessageDisp("工具运行异常" + ex.Message, System.Drawing.Color.Red);
+            }
+            finally
+            {
+                //homMat2DArrow.Dispose();
+                //arrow.Dispose();
+                //arrowTrans.Dispose();
             }
         }
 
@@ -363,6 +366,35 @@ namespace FindLineTool
             
         }
 
+        /// <summary>
+        /// 将数据传递给FindlineToolInterface
+        /// </summary>
+        private void ParamsTrans()
+        {
+            FormFindLine.Instance.myToolInfo.toolOutput.Clear();
+            FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputXld", resultLine, DataType.Line));
+            FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("StartPoint.Row", ResultLineStartRow, DataType.IntValue));
+            FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("StartPoint.Column", ResultLineStartCol, DataType.IntValue));
+            FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("EndPoint.Row", ResultLineEndRow, DataType.IntValue));
+            FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("EndPoint.Column", ResultLineEndCol, DataType.IntValue));
+        }
+
+        public void DispMainWindow(HWindow_Final window)
+        {
+            // 显示矩形
+            if (dispRec)
+            {
+                window.DispObj(contoursDisp, "blue");
+            }
+            // 显示交点
+            if (dispCross)
+            {
+                window.DispObj(arrowDisp, "red");
+                window.DispObj(crossDisp, "orange");
+            }
+            //显示找到的线
+            window.DispObj(LineDisp, "green");
+        }
         
     }
 }

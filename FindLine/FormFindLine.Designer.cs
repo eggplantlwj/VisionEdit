@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFindLine));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chBDispCross = new System.Windows.Forms.CheckBox();
+            this.chBDispRec = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,10 +55,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tbx_minScore = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.tbx_caliperLength2 = new System.Windows.Forms.TextBox();
+            this.tbx_Sigma = new System.Windows.Forms.TextBox();
             this.tbx_caliperLength = new System.Windows.Forms.TextBox();
             this.tbx_threshold = new System.Windows.Forms.TextBox();
             this.tbx_caliperNum = new System.Windows.Forms.TextBox();
@@ -64,20 +71,13 @@
             this.btn_moveCliperRegion = new System.Windows.Forms.Button();
             this.cbx_edgeSelect = new System.Windows.Forms.ComboBox();
             this.txbLog = new System.Windows.Forms.TextBox();
-            this.tbx_Sigma = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.tbx_caliperLength2 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -127,6 +127,39 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(563, 479);
             this.panel1.TabIndex = 272;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chBDispCross);
+            this.groupBox3.Controls.Add(this.chBDispRec);
+            this.groupBox3.Location = new System.Drawing.Point(296, 200);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(213, 96);
+            this.groupBox3.TabIndex = 319;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "显示";
+            // 
+            // chBDispCross
+            // 
+            this.chBDispCross.AutoSize = true;
+            this.chBDispCross.Location = new System.Drawing.Point(29, 60);
+            this.chBDispCross.Name = "chBDispCross";
+            this.chBDispCross.Size = new System.Drawing.Size(96, 16);
+            this.chBDispCross.TabIndex = 0;
+            this.chBDispCross.Text = "结果显示交点";
+            this.chBDispCross.UseVisualStyleBackColor = true;
+            this.chBDispCross.CheckedChanged += new System.EventHandler(this.chBDispCross_CheckedChanged);
+            // 
+            // chBDispRec
+            // 
+            this.chBDispRec.AutoSize = true;
+            this.chBDispRec.Location = new System.Drawing.Point(29, 29);
+            this.chBDispRec.Name = "chBDispRec";
+            this.chBDispRec.Size = new System.Drawing.Size(108, 16);
+            this.chBDispRec.TabIndex = 0;
+            this.chBDispRec.Text = "结果显示矩形框";
+            this.chBDispRec.UseVisualStyleBackColor = true;
+            this.chBDispRec.CheckedChanged += new System.EventHandler(this.chBDispRec_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -343,6 +376,17 @@
             this.label5.TabIndex = 279;
             this.label5.Text = "结果选择：";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Location = new System.Drawing.Point(34, 280);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(65, 20);
+            this.label16.TabIndex = 302;
+            this.label16.Text = "卡尺宽：";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -353,6 +397,17 @@
             this.label14.Size = new System.Drawing.Size(65, 20);
             this.label14.TabIndex = 302;
             this.label14.Text = "卡尺长：";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Location = new System.Drawing.Point(36, 347);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(54, 20);
+            this.label15.TabIndex = 310;
+            this.label15.Text = "Sigma:";
             // 
             // label13
             // 
@@ -386,6 +441,24 @@
             this.label11.Size = new System.Drawing.Size(51, 20);
             this.label11.TabIndex = 298;
             this.label11.Text = "极性：";
+            // 
+            // tbx_caliperLength2
+            // 
+            this.tbx_caliperLength2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbx_caliperLength2.Location = new System.Drawing.Point(124, 277);
+            this.tbx_caliperLength2.Margin = new System.Windows.Forms.Padding(2);
+            this.tbx_caliperLength2.Name = "tbx_caliperLength2";
+            this.tbx_caliperLength2.Size = new System.Drawing.Size(92, 26);
+            this.tbx_caliperLength2.TabIndex = 301;
+            // 
+            // tbx_Sigma
+            // 
+            this.tbx_Sigma.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbx_Sigma.Location = new System.Drawing.Point(126, 344);
+            this.tbx_Sigma.Margin = new System.Windows.Forms.Padding(2);
+            this.tbx_Sigma.Name = "tbx_Sigma";
+            this.tbx_Sigma.Size = new System.Drawing.Size(92, 26);
+            this.tbx_Sigma.TabIndex = 309;
             // 
             // tbx_caliperLength
             // 
@@ -429,24 +502,26 @@
             // 
             // btn_runFindLineTool
             // 
+            this.btn_runFindLineTool.BackColor = System.Drawing.Color.White;
             this.btn_runFindLineTool.Location = new System.Drawing.Point(440, 400);
             this.btn_runFindLineTool.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_runFindLineTool.Name = "btn_runFindLineTool";
             this.btn_runFindLineTool.Size = new System.Drawing.Size(90, 48);
             this.btn_runFindLineTool.TabIndex = 270;
             this.btn_runFindLineTool.Text = "运行";
-            this.btn_runFindLineTool.UseVisualStyleBackColor = true;
+            this.btn_runFindLineTool.UseVisualStyleBackColor = false;
             this.btn_runFindLineTool.Click += new System.EventHandler(this.btn_runFindLineTool_Click);
             // 
             // btn_moveCliperRegion
             // 
+            this.btn_moveCliperRegion.BackColor = System.Drawing.Color.White;
             this.btn_moveCliperRegion.Location = new System.Drawing.Point(296, 400);
             this.btn_moveCliperRegion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_moveCliperRegion.Name = "btn_moveCliperRegion";
             this.btn_moveCliperRegion.Size = new System.Drawing.Size(90, 48);
             this.btn_moveCliperRegion.TabIndex = 269;
             this.btn_moveCliperRegion.Text = "编辑卡尺";
-            this.btn_moveCliperRegion.UseVisualStyleBackColor = true;
+            this.btn_moveCliperRegion.UseVisualStyleBackColor = false;
             this.btn_moveCliperRegion.Click += new System.EventHandler(this.btn_moveCliperRegion_Click);
             // 
             // cbx_edgeSelect
@@ -473,77 +548,6 @@
             this.txbLog.Size = new System.Drawing.Size(1129, 21);
             this.txbLog.TabIndex = 274;
             // 
-            // tbx_Sigma
-            // 
-            this.tbx_Sigma.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbx_Sigma.Location = new System.Drawing.Point(126, 344);
-            this.tbx_Sigma.Margin = new System.Windows.Forms.Padding(2);
-            this.tbx_Sigma.Name = "tbx_Sigma";
-            this.tbx_Sigma.Size = new System.Drawing.Size(92, 26);
-            this.tbx_Sigma.TabIndex = 309;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.Location = new System.Drawing.Point(36, 347);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(54, 20);
-            this.label15.TabIndex = 310;
-            this.label15.Text = "Sigma:";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Controls.Add(this.checkBox1);
-            this.groupBox3.Location = new System.Drawing.Point(296, 200);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(213, 96);
-            this.groupBox3.TabIndex = 319;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "显示";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(29, 29);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(108, 16);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "结果显示矩形框";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(29, 60);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(96, 16);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "结果显示交点";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // tbx_caliperLength2
-            // 
-            this.tbx_caliperLength2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbx_caliperLength2.Location = new System.Drawing.Point(124, 277);
-            this.tbx_caliperLength2.Margin = new System.Windows.Forms.Padding(2);
-            this.tbx_caliperLength2.Name = "tbx_caliperLength2";
-            this.tbx_caliperLength2.Size = new System.Drawing.Size(92, 26);
-            this.tbx_caliperLength2.TabIndex = 301;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(34, 280);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(65, 20);
-            this.label16.TabIndex = 302;
-            this.label16.Text = "卡尺宽：";
-            // 
             // FormFindLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -554,18 +558,19 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormFindLine";
             this.Text = "找线工具";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFindLine_FormClosing);
             this.Load += new System.EventHandler(this.FormFindLine_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -611,8 +616,8 @@
         private System.Windows.Forms.Label label15;
         public System.Windows.Forms.TextBox tbx_Sigma;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chBDispCross;
+        private System.Windows.Forms.CheckBox chBDispRec;
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.TextBox tbx_caliperLength2;
     }

@@ -32,6 +32,7 @@ namespace VisionEdit
         public static void TreeViewJob_DoubleClick(object sender, MouseEventArgs e)
         {
             //判断是否在节点上双击
+            object toolClass = new object();
             TreeViewHitTestInfo test = GlobalParams.myJobTreeView.HitTest(e.X, e.Y);
             TreeNode selectNode = test.Node.Level == 0 ? test.Node : test.Node.Parent;
             selectNode.ExpandAll();
@@ -41,9 +42,9 @@ namespace VisionEdit
                 {
                     string AssemblyName = GlobalParams.myVisionJob.L_toolList[i].FormToolName.Split('.')[0];
                     string className = GlobalParams.myVisionJob.L_toolList[i].FormToolName;
-                    object toolClass = GlobalParams.myVisionJob.L_toolList[i];
+                    toolClass = GlobalParams.myVisionJob.L_toolList[i];
                     GlobalParams.myVisionJob.L_toolList[i].FormTool = (Form)Assembly.Load(AssemblyName).CreateInstance(className, false, BindingFlags.Default, null, new object[] { toolClass }, null, null);
-                    GlobalParams.myVisionJob.L_toolList[i].FormTool.Show();
+                    GlobalParams.myVisionJob.L_toolList[i].FormTool.ShowDialog();
                 }
             }
         }

@@ -36,5 +36,10 @@ namespace VisionEdit.FormLib
         private void FormJobManage_Load(object sender, EventArgs e)
         {
         }
+
+        private void btnSignael_Click(object sender, EventArgs e)
+        {
+            GlobalParams.myVisionJob.Run();
+        }
     }
 }

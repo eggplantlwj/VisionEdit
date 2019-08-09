@@ -416,7 +416,6 @@ namespace HalconWindow.HalconWindow
 
         }
 
-
         #endregion
 
         /// <summary>

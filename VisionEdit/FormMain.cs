@@ -123,7 +123,7 @@ namespace VisionEdit
             // 初始化加载默认Job
             myFormJobManage.tabControl1.TabPages.Add("defultJob");
             GlobalParams.myJobTreeView = new TreeView();
-            GlobalParams.myVisionJob = new VisionJob(GlobalParams.myJobTreeView, myFormLog, "defultJob");
+            GlobalParams.myVisionJob = new VisionJob(GlobalParams.myJobTreeView, myFormLog, myFormImageWindow, "defultJob");
             myFormJobManage.tabControl1.TabPages[0].Controls.Add(GlobalParams.myJobTreeView);
             GlobalParams.myJobTreeView.Dock = DockStyle.Fill;
             GlobalParams.myJobTreeView.ImageList = myFormToolBox.imageListTool;
@@ -150,7 +150,7 @@ namespace VisionEdit
             GlobalParams.myJobTreeView.AfterCollapse += GlobalParams.myVisionJob.Draw_Line;
             // 在流程节点上操作时
             GlobalParams.myJobTreeView.MouseDoubleClick += OperateJob.TreeViewJob_DoubleClick; ;
-            GlobalParams.myJobTreeView.DoubleClick += MyJobTreeView_DoubleClick;
+            GlobalParams.myJobTreeView.MouseClick += GlobalParams.myVisionJob.tvw_job_MouseClick;
             Application.DoEvents();
 
             //默认添加ImageAcquistionTool工具

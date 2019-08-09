@@ -178,6 +178,10 @@
       <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
       <Name>HalconWindow</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ToolBase\ToolBase.csproj">
+      <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
+      <Name>ToolBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VisionJobFactory\VisionJobFactory.csproj">
       <Project>{4D539EB2-E847-4D42-B6FA-03B2546DAFD7}</Project>
       <Name>VisionJobFactory</Name>

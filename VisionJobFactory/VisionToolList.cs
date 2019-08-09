@@ -43,10 +43,10 @@ namespace VisionJobFactory
     {
         ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
         ToolIO outputXld = new ToolIO("outputXld", null, DataType.Line);
-        ToolIO startPointRow = new ToolIO("StartPointRow", null, DataType.Point);
-        ToolIO startPointColumn = new ToolIO("StartPointRow", null, DataType.Point);
-        ToolIO endPointRow = new ToolIO("EndPointRow", null, DataType.Point);
-        ToolIO endPointColumn = new ToolIO("EndPointColumn", null, DataType.Point);
+        ToolIO startPointRow = new ToolIO("StartPointRow", null, DataType.IntValue);
+        ToolIO startPointColumn = new ToolIO("StartPointColumn", null, DataType.IntValue);
+        ToolIO endPointRow = new ToolIO("EndPointRow", null, DataType.IntValue);
+        ToolIO endPointColumn = new ToolIO("EndPointColumn", null, DataType.IntValue);
         public FindLineToolInterface(string toolName)
         {
             enable = true;

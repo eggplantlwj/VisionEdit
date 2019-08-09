@@ -14,6 +14,7 @@ namespace VisionEdit.FormLib
 {
     public partial class FormImageWindow : DockContent
     {
+        public HWindow_Final myHWindow = new HWindow_Final();
         public FormImageWindow()
         {
             InitializeComponent();
@@ -36,7 +37,6 @@ namespace VisionEdit.FormLib
 
         private void FormImageWindow_Load(object sender, EventArgs e)
         {
-            HWindow_Final myHWindow = new HWindow_Final();
             this.panel1.Controls.Add(myHWindow);
             myHWindow.Dock = DockStyle.Fill;
         }

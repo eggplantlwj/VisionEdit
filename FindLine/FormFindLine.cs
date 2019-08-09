@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,15 +27,25 @@ namespace FindLineTool
         {
             get
             {
-                lock (_instance)
+                if(_instance != null)
                 {
-                    if (_instance == null)
+                    lock (_instance)
                     {
-                        object line = new object();
-                        _instance = new FormFindLine(ref line);
-                    } 
+                        if (_instance == null)
+                        {
+                            object line = new object();
+                            _instance = new FormFindLine(ref line);
+                        }
+                        return _instance;
+                    }
+                }
+                else
+                {
+                    object line = new object();
+                    _instance = new FormFindLine(ref line);
                     return _instance;
                 }
+                
             }
         }
 
@@ -45,9 +56,9 @@ namespace FindLineTool
             _instance = this;
             myToolInfo = (IToolInfo)findLine;
             myFindLine = (FindLine)myToolInfo.tool;
-            myFindLine.inputImage = ComGlobalParams.inputImageGlobal; // 暂时直接将图像传递给该工具
+            //myFindLine.inputImage = ComGlobalParams.inputImageGlobal; // 暂时直接将图像传递给该工具
             myFindLine.DispImage();
-            
+
         }
 
         private void FormFindLine_Load(object sender, EventArgs e)
@@ -59,8 +70,10 @@ namespace FindLineTool
 
         private void btn_moveCliperRegion_Click(object sender, EventArgs e)
         {
+            myFindLine.UpdateImage();
             myFindLine.DrawExpectLine(myHwindow);
         }
+
 
         public void TextBoxMessageDisp(string mes, Color setColor)
         {
@@ -84,7 +97,7 @@ namespace FindLineTool
             myFindLine.threshold = Convert.ToInt16(tbx_threshold.Text.Trim());
             myFindLine.length = Convert.ToInt16(tbx_caliperLength.Text.Trim());
             myFindLine.weidth = Convert.ToInt16(tbx_caliperLength2.Text.Trim());
-            myFindLine.polarity = cbx_polarity.SelectedItem.ToString() == "由明到暗" ? "negative":"positive";
+            myFindLine.polarity = cbx_polarity.SelectedItem.ToString() == "从明到暗" ? "negative":"positive";
             myFindLine.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
             myFindLine.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
             // Run
@@ -105,12 +118,14 @@ namespace FindLineTool
             tbx_expectLineEndCol.Text = myFindLine.expectLineEndCol.ToString();
             cbx_edgeSelect.Text = myFindLine.edgeSelect;
             tbx_minScore.Text = myFindLine.minScore.ToString();
-            cbx_polarity.Text = myFindLine.polarity == "positive" ? "由暗到明" : "由明到暗";
+            cbx_polarity.Text = myFindLine.polarity == "positive" ? "从暗到明" : "从明到暗";
             tbx_caliperNum.Text = myFindLine.cliperNum.ToString();
             tbx_caliperLength.Text = myFindLine.length.ToString();
             tbx_threshold.Text = myFindLine.threshold.ToString();
             tbx_Sigma.Text = myFindLine.sigma.ToString();
             tbx_caliperLength2.Text = myFindLine.weidth.ToString();
+            chBDispRec.Checked = myFindLine.dispRec;
+            chBDispCross.Checked = myFindLine.dispCross;
         }
 
         #region 输入检查
@@ -165,6 +180,40 @@ namespace FindLineTool
                 tbx_expectLineEndCol.Text = "600";
             }
         }
+        
+        private void chBDispRec_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chBDispRec.Checked)
+            {
+                myFindLine.dispRec = true;
+            }
+            else
+            {
+                myFindLine.dispRec = false;
+            }
+            
+        }
+
+        private void chBDispCross_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chBDispCross.Checked)
+            {
+                myFindLine.dispCross = true;
+            }
+            else
+            {
+                myFindLine.dispCross = false;
+            }
+        }
         #endregion
+
+        private void FormFindLine_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myHwindow.Dispose();
+            this.Dispose();
+            this.Dispose();
+            GC.Collect();
+            
+        }
     }
 }

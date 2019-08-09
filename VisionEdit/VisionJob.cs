@@ -9,7 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMethods;
+using FindLineTool;
+using HalconDotNet;
+using ToolBase;
 using VisionEdit.FormLib;
+using VisionJobFactory;
 
 namespace VisionEdit
 {
@@ -19,12 +23,14 @@ namespace VisionEdit
         CreateLineDelegate createLineDelegateFun;
         public TreeView tvwOnWorkJob = new TreeView();
         FormLog myFormLog = null;
+        FormImageWindow myFormImageWindow = null;
 
-        public VisionJob(TreeView inputTreeView, FormLog inputFormLog, string jobName)
+        public VisionJob(TreeView inputTreeView, FormLog inputFormLog, FormImageWindow inputFormImageWindow, string jobName)
         {
             tvwOnWorkJob = inputTreeView;
             this.myFormLog = inputFormLog;
             this.JobName = jobName;
+            this.myFormImageWindow = inputFormImageWindow;
             createLineDelegateFun = new CreateLineDelegate(CreateLine);
         }
 
@@ -182,7 +188,7 @@ namespace VisionEdit
                     else            //第一次连接源就需要添加到输入输出集合
                         D_itemAndSource.Add(targeNode, moveNode);
                     GetToolInfoByToolName(this.JobName, targeNode.Parent.Text).GetInput(input.Substring(3)).value = "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
-                    targeNode.Text = input + "《- " + moveNode.Parent.Text + ". " + moveNode.Text.Substring(3);
+                    targeNode.Text = input + "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
                     DrawLine();
 
                     //移除拖放的节点  
@@ -279,6 +285,22 @@ namespace VisionEdit
             DrawLine();
         }
         #endregion
+
+        internal void tvw_job_MouseClick(object sender, MouseEventArgs e)
+        {
+            //判断是否在节点单击
+            TreeViewHitTestInfo test = GlobalParams.myJobTreeView.HitTest(e.X, e.Y);
+            if(e.Button == MouseButtons.Right && test.Node.Level == 1)
+            {
+                GlobalParams.myJobTreeView.ContextMenuStrip = rightClickMenu;
+                rightClickMenu.Items.Clear();
+                if(test.Node.Text.Contains("《"))
+                {
+                    rightClickMenu.Items.Add("删除连线");
+                    rightClickMenu.Items[0].Click += DeleteLine;
+                }
+            }
+        }
 
         /// <summary>
         /// 画Treeview控件两个节点之间的连线
@@ -430,7 +452,7 @@ namespace VisionEdit
                 {
                     if (L_toolList[i].toolName == toolName)
                     {
-                        return (IToolInfo)L_toolList[i];
+                        return L_toolList[i];
                     }
                 }
                 return new IToolInfo();
@@ -440,6 +462,288 @@ namespace VisionEdit
                 myFormLog.ShowLog("根据工具名获取工具信息出错！原因： " + ex.Message);
                 return new IToolInfo();
             }
+        }
+
+        /// <summary>
+        /// 通过TreeNode节点文本获取节点
+        /// </summary>
+        /// <param name="nodeText">节点文本</param>
+        /// <returns>节点对象</returns>
+        internal TreeNode GetToolNodeByNodeText(string nodeText)
+        {
+            try
+            {
+                foreach (TreeNode toolNode in GlobalParams.myJobTreeView.Nodes)
+                {
+                    if (((TreeNode)toolNode).Text != nodeText)
+                    {
+                        foreach (TreeNode itemNode in ((TreeNode)toolNode).Nodes)
+                        {
+                            if (((TreeNode)itemNode).Text.Substring(3) == nodeText)
+                            {
+                                return itemNode;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return toolNode;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                myFormLog.ShowLog(ex.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 删除连线及值传递
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteLine(object sender, EventArgs e)
+        {
+            try
+            {
+                if (GlobalParams.myJobTreeView.SelectedNode == null)
+                {
+                    return;
+                }
+                string nodeText = GlobalParams.myJobTreeView.SelectedNode.Text.ToString();
+                int level = GlobalParams.myJobTreeView.SelectedNode.Level;
+                string fatherNodeText = string.Empty;
+
+                foreach (TreeNode toolNode in GlobalParams.myJobTreeView.Nodes)
+                {
+                    if (level == 1)
+                    {
+                        fatherNodeText = GlobalParams.myJobTreeView.SelectedNode.Parent.Text;
+                        if (toolNode.Text == fatherNodeText)
+                        {
+                            foreach (var itemNode in toolNode.Nodes)
+                            {
+                                if (itemNode != null)
+                                {
+                                    if (((TreeNode)itemNode).Text == nodeText)
+                                    {
+                                        // 移除连线集合中的这条连线
+                                        for (int i = 0; i < D_itemAndSource.Count; i++)
+                                        {
+                                            if (((TreeNode)itemNode) == D_itemAndSource.Keys.ToArray()[i] || ((TreeNode)itemNode) == D_itemAndSource[D_itemAndSource.Keys.ToArray()[i]])
+                                                D_itemAndSource.Remove(D_itemAndSource.Keys.ToArray()[i]);
+                                        }
+                                        // 修改节点的显示
+                                        for (int i = 0; i < L_toolList.Count; i++)
+                                        {
+                                            if (L_toolList[i].toolName == fatherNodeText)
+                                            {
+                                                for (int j = 0; j < L_toolList[i].toolInput.Count; j++)
+                                                {
+                                                    string last = Regex.Split(nodeText, "《")[1]; // "《"后边的部分
+                                                    string ConnectString = "《" + last; // 拼接后字符
+                                                    if (L_toolList[i].toolInput[j].value.ToString() == ConnectString)
+                                                    {
+                                                       string source = Regex.Split(nodeText, "《")[0]; // "《"之前的部分，即未连线初始部分
+                                                        L_toolList[i].toolInput[j].value = null; //重新置null
+                                                        ((TreeNode)itemNode).Text = source;
+                                                    }
+                                                }
+                                                for (int j = 0; j < L_toolList[i].toolOutput.Count; j++)
+                                                {
+                                                    if (L_toolList[i].toolOutput[j].IOName == nodeText.Substring(3))
+                                                        L_toolList[i].RemoveOutputIO(nodeText.Substring(3));
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.SaveErrorInfo(ex);
+            }
+        }
+
+        /// <summary>
+        /// 删除项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteItem(object sender, EventArgs e)
+        {
+            try
+            {
+                if (GlobalParams.myJobTreeView.SelectedNode == null)
+                    return;
+                string nodeText = GlobalParams.myJobTreeView.SelectedNode.Text.ToString();
+                int level = GlobalParams.myJobTreeView.SelectedNode.Level;
+                string fatherNodeText = string.Empty;
+
+                //如果是子节点
+                if (level == 1)
+                {
+                    fatherNodeText = GlobalParams.myJobTreeView.SelectedNode.Parent.Text;
+                }
+                foreach (TreeNode toolNode in GlobalParams.myJobTreeView.Nodes)
+                {
+                    if (level == 1)
+                    {
+                        if (toolNode.Text == fatherNodeText)
+                        {
+                            foreach (var itemNode in toolNode.Nodes)
+                            {
+                                if (itemNode != null)
+                                {
+                                    if (((TreeNode)itemNode).Text == nodeText)
+                                    {
+                                        //移除连线集合中的这条连线
+                                        for (int i = 0; i < D_itemAndSource.Count; i++)
+                                        {
+                                            if (((TreeNode)itemNode) == D_itemAndSource.Keys.ToArray()[i] || ((TreeNode)itemNode) == D_itemAndSource[D_itemAndSource.Keys.ToArray()[i]])
+                                                D_itemAndSource.Remove(D_itemAndSource.Keys.ToArray()[i]);
+                                        }
+
+                                        ((TreeNode)itemNode).Remove();
+                                        GlobalParams.myJobTreeView.SelectedNode = null;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (((TreeNode)toolNode).Text == nodeText)
+                        {
+                            ((TreeNode)toolNode).Remove();
+                            break;
+                        }
+                    }
+                }
+
+                //如果是父节点
+                if (level == 0)
+                {
+                    for (int i = 0; i < L_toolList.Count; i++)
+                    {
+                        if (L_toolList[i].toolName == nodeText)
+                        {
+                            try
+                            {
+                                //移除连线集合中的这条连线
+                                for (int j = D_itemAndSource.Count - 1; j >= 0; j--)
+                                {
+                                    if (nodeText == D_itemAndSource.Keys.ToArray()[j].Parent.Text || nodeText == D_itemAndSource[D_itemAndSource.Keys.ToArray()[j]].Parent.Text)
+                                        D_itemAndSource.Remove(D_itemAndSource.Keys.ToArray()[j]);
+                                }
+                            }
+                            catch { }
+
+                            L_toolList.RemoveAt(i);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < L_toolList.Count; i++)
+                    {
+                        if (L_toolList[i].toolName == fatherNodeText)
+                        {
+                            for (int j = 0; j < L_toolList[i].toolInput.Count; j++)
+                            {
+                                if (L_toolList[i].toolInput[j].value.ToString() == Regex.Split(nodeText, "《")[0])
+                                    L_toolList[i].RemoveInputIO(Regex.Split(nodeText, "《")[0]);
+                            }
+                            for (int j = 0; j < L_toolList[i].toolOutput.Count; j++)
+                            {
+                                if (L_toolList[i].toolOutput[j].IOName == nodeText.Substring(3))
+                                    L_toolList[i].RemoveOutputIO(nodeText.Substring(3));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogHelper.SaveErrorInfo(ex);
+            }
+        }
+
+        public void Run()
+        {
+            for(int i = 0; i < L_toolList.Count; i++)
+            {
+                TreeNode treeNode = GetToolNodeByNodeText(L_toolList[i].toolName);
+                inputItemNum = (L_toolList[i]).toolInput.Count;
+                outputItemNum = (L_toolList[i]).toolOutput.Count;
+                switch(L_toolList[i].toolType)
+                {
+                    #region halconTool
+                    case ToolType.HalconTool:
+                        HalconTool.HalconTool myHalconTool = (HalconTool.HalconTool)L_toolList[i].tool;
+                        myHalconTool.Run();
+                        if(myHalconTool.outputImage == null)
+                        {
+                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                        }
+                        else
+                        {
+                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
+                            myFormImageWindow.myHWindow.HobjectToHimage(myHalconTool.outputImage);
+                        }
+                        break;
+                    #endregion
+                    #region
+                    case ToolType.FindLine:
+                        FindLine myFindLine = (FindLine)L_toolList[i].tool;
+                        for (int j = 0; j < inputItemNum; j++)
+                        {
+                            if(L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
+                            {
+                                treeNode.ForeColor = Color.Red;
+                                myFormLog.ShowLog(L_toolList[i].toolName + "  无输入图像");
+                            }
+                            else
+                            {
+                                string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
+                                if (L_toolList[i].toolInput[j].IOName == "InputImage")
+                                {
+                                    string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
+                                    sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
+                                    string toolItem = Regex.Split(sourceFrom, " . ")[1];
+                                    myFindLine.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
+                                   // myFindLine.Run();
+                                }
+                                if(myFindLine.resultLine != null)
+                                {
+                                    myFindLine.DispMainWindow(myFormImageWindow.myHWindow);
+                                    FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
+                                }
+                                else
+                                {
+                                    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                                }
+                            }
+                            
+                            
+                        }
+                        break;
+                        #endregion
+                }
+            }
+        }
+
+        public void FormLogDisp(string mes, Color color, TreeNode  treeNode)
+        {
+            myFormLog.ShowLog(mes);
+            treeNode.ForeColor = color;
         }
     }
 
