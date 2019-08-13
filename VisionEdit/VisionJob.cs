@@ -686,7 +686,7 @@ namespace VisionEdit
                     #region halconTool
                     case ToolType.HalconTool:
                         HalconTool.HalconTool myHalconTool = (HalconTool.HalconTool)L_toolList[i].tool;
-                        myHalconTool.Run();
+                        myHalconTool.Run(SoftwareRunState.Release);
                         if(myHalconTool.outputImage == null)
                         {
                             FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
@@ -717,61 +717,74 @@ namespace VisionEdit
                                     sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
                                     string toolItem = Regex.Split(sourceFrom, " . ")[1];
                                     myFindLine.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
-                                   // myFindLine.Run();
-                                }
-                                if(myFindLine.resultLine != null)
-                                {
-                                    myFindLine.DispMainWindow(myFormImageWindow.myHWindow);
-                                    FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
-                                }
-                                else
-                                {
-                                    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
                                 }
                             }
-                            
-                            
+                        }
+                        myFindLine.Run(SoftwareRunState.Release);
+                        if (myFindLine.toolRunStatu == ToolRunStatu.Succeed)
+                        {
+                            myFindLine.DispMainWindow(myFormImageWindow.myHWindow);
+                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
+                        }
+                        else
+                        {
+                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
                         }
                         break;
                     #endregion
 
                     case ToolType.Caliper:
                         Caliper myCaliper = (Caliper)L_toolList[i].tool;
-                        if(L_toolList[i].FormTool == null)
-                        {
-                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
-                            continue;
-                        }
+                        //if(L_toolList[i].FormTool == null)
+                        //{
+                        //    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                        //    continue;
+                        //}
                         for (int j = 0; j < inputItemNum; j++)
                         {
-                            if (L_toolList[i].toolInput[j].IOName == "inputImage" && L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
+                            if (L_toolList[i].toolInput[j].IOName == "InputImage" && L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
                             {
                                 treeNode.ForeColor = Color.Red;
                                 myFormLog.ShowLog(L_toolList[i].toolName + "  无输入图像");
+                                break;
                             }
                             else
                             {
-                                string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
-                                if (L_toolList[i].toolInput[j].IOName == "InputImage")
+                                if(L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value != null)
                                 {
+                                    string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
                                     string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
                                     sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
                                     string toolItem = Regex.Split(sourceFrom, " . ")[1];
-                                    myCaliper.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
-                                    myCaliper.Run();
-                                }
-                                if (myCaliper.ResulttRow != null)
-                                {
-                                    myCaliper.DispMainWindow(myFormImageWindow.myHWindow);
-                                    FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
-                                }
-                                else
-                                {
-                                    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                                    if (L_toolList[i].toolInput[j].IOName == "InputImage")
+                                    {
+                                        myCaliper.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
+                                    }
+                                    if(L_toolList[i].toolInput[j].IOName == "inputCenterRow")
+                                    {
+                                        myCaliper.expectRecStartRow = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
+                                    }
+                                    if (L_toolList[i].toolInput[j].IOName == "inputCenterCol")
+                                    {
+                                        myCaliper.expectRecStartColumn = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
+                                    }
+                                    if (L_toolList[i].toolInput[j].IOName == "inputPhi")
+                                    {
+                                        myCaliper.expectAngle = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
+                                    }
+                                    
                                 }
                             }
-
-
+                        }
+                        myCaliper.Run(SoftwareRunState.Release);
+                        if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
+                        {
+                            myCaliper.DispMainWindow(myFormImageWindow.myHWindow);
+                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
+                        }
+                        else
+                        {
+                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
                         }
                         break;
                 }

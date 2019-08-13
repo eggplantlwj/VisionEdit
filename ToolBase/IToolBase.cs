@@ -10,8 +10,9 @@ namespace ToolBase
 {
     public interface IToolBase
     {
+        SoftwareRunState softwareRunState { get; set; }
         ToolRunStatu toolRunStatu { get; set; }
-        void Run(); 
+        void Run(SoftwareRunState softwareRunState); 
         HObject inputImage { get; set; }
         void DispImage();
     }

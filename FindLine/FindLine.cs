@@ -187,10 +187,18 @@ namespace FindLineTool
             }
             set { _angle = value; }
         }
-
+        /// <summary>
+        /// 输入图像
+        /// </summary>
         public HObject inputImage { get; set; } = null;
-
+        /// <summary>
+        /// 工具运行结果
+        /// </summary>
         public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
+        /// <summary>
+        ///  软件运行状态
+        /// </summary>
+        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
         public void DispImage()
         {
             if(inputImage != null)
@@ -205,7 +213,7 @@ namespace FindLineTool
             DispImage();
         }
 
-        public void Run()
+        public void Run(SoftwareRunState softwareRunState)
         {
             HTuple homMat2DArrow = null;
             HObject arrow = null, arrowTrans = null;
@@ -213,7 +221,10 @@ namespace FindLineTool
             
             if (inputImage == null)
             {
-                FormFindLine.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+                if(softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormFindLine.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+                }
                 toolRunStatu = ToolRunStatu.Not_Input_Image;
                 return;
             }
@@ -304,20 +315,24 @@ namespace FindLineTool
                     Point end = new Point() { Row = ResultLineEndRow, Col = ResultLineEndCol };
                     resultLine = new Line() { StartPoint = start, EndPoint = end };
                 }
-                DispMainWindow(FormFindLine.Instance.myHwindow);
                 HOperatorSet.AngleLx(ResultLineStartRow, ResultLineStartCol, ResultLineEndRow, ResultLineEndCol, out _angle);
+                if (softwareRunState == SoftwareRunState.Debug)
+                {
+                    DispMainWindow(FormFindLine.Instance.myHwindow);
+                    FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
+                    FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
+                    FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
+                    FormFindLine.Instance.tbx_resultEndCol.Text = ResultLineEndCol.ToString();
+                    FormFindLine.Instance.TextBoxMessageDisp("运行成功", System.Drawing.Color.Green);
+                }
                 HOperatorSet.ClearMetrologyModel(handleID);
                 // 参数传递
                 ParamsTrans();
-                FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
-                FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
-                FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
-                FormFindLine.Instance.tbx_resultEndCol.Text = ResultLineEndCol.ToString();
-                FormFindLine.Instance.TextBoxMessageDisp("运行成功", System.Drawing.Color.Green);
                 toolRunStatu = ToolRunStatu.Succeed;
             }
             catch (Exception ex)
             {
+                toolRunStatu = ToolRunStatu.Not_Succeed;
                 FormFindLine.Instance.TextBoxMessageDisp("工具运行异常" + ex.Message, System.Drawing.Color.Red);
             }
             finally
@@ -352,7 +367,7 @@ namespace FindLineTool
                     FormFindLine.Instance.tbx_expectLineEndCol.Text = expectLineEndCol.TupleString("10.3f");
                     myHwindow.DrawModel = false;
                     
-                    Run();
+                    Run(SoftwareRunState.Debug);
                 }
                 catch (Exception ex)
                 {

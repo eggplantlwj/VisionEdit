@@ -80,7 +80,7 @@ namespace FindLineTool
             txbLog.BackColor = setColor;
             txbLog.Text = mes;
             txbLog.Font = new Font("微软雅黑", 10, FontStyle.Bold);
-            CommonMethods.CommonMethods.Delay(2000);
+          //  CommonMethods.CommonMethods.Delay(2000);
             txbLog.BackColor = Color.White;
         }
 
@@ -101,7 +101,7 @@ namespace FindLineTool
             myFindLine.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
             myFindLine.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
             // Run
-            myFindLine.Run();
+            myFindLine.Run(SoftwareRunState.Debug);
         }
 
         public void InitTool()

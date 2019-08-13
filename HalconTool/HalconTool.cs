@@ -81,32 +81,16 @@ namespace HalconTool
         /// 读取单张图像或批量读取文件夹图像工作模式
         /// </summary>
         internal WorkMode workMode = WorkMode.ReadMultImage;
+        public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
+       
 
-        public ToolRunStatu toolRunStatu
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public HObject inputImage { get; set; } = null;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public HObject inputImage
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        /// <summary>
+        /// 运行模式
+        /// </summary>
+        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
+        
 
         public bool ReadImage(out string filePath)
         {
@@ -124,8 +108,9 @@ namespace HalconTool
             return true;
         }
 
-        public void Run()
+        public void Run(SoftwareRunState softwareState)
         {
+            softwareRunState = softwareState;
             DispImage();
         }
 
@@ -149,13 +134,18 @@ namespace HalconTool
             }
             catch
             {
-                FormHalconTool.Instance.txbLog.Text = "图像文件异常或路径不合法";
-                CommonMethods.CommonMethods.Delay(1000);
+                if(softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormHalconTool.Instance.txbLog.Text = "图像文件异常或路径不合法";
+                }
                 return;
             }
             if (outputImage != null)
             {
-                FormHalconTool.Instance.myHwindow.HobjectToHimage(outputImage);
+                if (softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormHalconTool.Instance.myHwindow.HobjectToHimage(outputImage);
+                }   
             }
             
         }

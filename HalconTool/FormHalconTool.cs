@@ -91,7 +91,7 @@ namespace HalconTool
             {
                 
             }
-            myHalconTool.DispImage();
+            myHalconTool.Run(SoftwareRunState.Debug);
             ParamsTrans();
         }
 

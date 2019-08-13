@@ -19,14 +19,14 @@ namespace CaliperTool
         public IToolInfo myToolInfo = null;
         public HWindow_Final myHwindow = new HWindow_Final();
 
-        private static FormCaliper _instance;
+        private static FormCaliper _instance = null;
         public FormCaliper(ref object caliper)
         {
             InitializeComponent();
             myToolInfo = (IToolInfo)caliper;
             myCaliper = (Caliper)myToolInfo.tool;
             _instance = this;
-
+            myCaliper.DispImage();
         }
         public static FormCaliper Instance
         {
@@ -86,7 +86,7 @@ namespace CaliperTool
             txbLog.BackColor = setColor;
             txbLog.Text = mes;
             txbLog.Font = new Font("微软雅黑", 10, FontStyle.Bold);
-            CommonMethods.CommonMethods.Delay(2000);
+            //CommonMethods.CommonMethods.Delay(2000);
             txbLog.BackColor = Color.White;
         }
 
@@ -98,12 +98,12 @@ namespace CaliperTool
             myCaliper.expectAngle = Convert.ToDouble(tbx_expectPhi.Text.Trim());
             // 运行参数
             myCaliper.threshold = Convert.ToInt16(tbx_threshold.Text.Trim());
-            myCaliper.length1 = Convert.ToInt16(tbx_caliperLength1.Text.Trim());
-            myCaliper.length2 = Convert.ToInt16(tbx_caliperLength2.Text.Trim());
+            myCaliper.length1 = Convert.ToDouble(tbx_caliperLength1.Text.Trim());
+            myCaliper.length2 = Convert.ToDouble(tbx_caliperLength2.Text.Trim());
             myCaliper.polarity = cbx_polarity.SelectedItem.ToString() == "从明到暗" ? "negative" : "positive";
             myCaliper.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
             myCaliper.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
-            myCaliper.Run();
+            myCaliper.Run(SoftwareRunState.Debug);
         }
     }
 }

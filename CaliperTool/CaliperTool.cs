@@ -118,6 +118,9 @@ namespace CaliperTool
 
         public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
 
+        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
+       
+
         public void DispImage()
         {
             if (inputImage != null)
@@ -174,13 +177,16 @@ namespace CaliperTool
             DispImage();
         }
 
-        public void Run()
+        public void Run(SoftwareRunState softwareRunState)
         {
             HTuple HMeasureHandle = new HTuple();
             HTuple resultRow, resultCol;
             if (inputImage == null)
             {
-                FormCaliper.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+                if(softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormCaliper.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+                }
                 toolRunStatu = ToolRunStatu.Not_Input_Image;
                 return;
             }
@@ -217,18 +223,25 @@ namespace CaliperTool
                 }
                 
                 //把点显示出来
-                HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(12), new HTuple(0));
-                DispMainWindow(FormCaliper.Instance.myHwindow);
+                HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(60), new HTuple(0));
+                if(softwareRunState == SoftwareRunState.Debug)
+                {
+                    DispMainWindow(FormCaliper.Instance.myHwindow);
+                    FormCaliper.Instance.tbx_resultStartRow.Text = ResulttRow.ToString();
+                    FormCaliper.Instance.tbx_resultStartCol.Text = ResultCol.ToString();
+                    FormCaliper.Instance.TextBoxMessageDisp("运行成功", System.Drawing.Color.Green);
+                }
                 // 参数传递
                 ParamsTrans();
-                FormCaliper.Instance.tbx_resultStartRow.Text = ResulttRow.ToString();
-                FormCaliper.Instance.tbx_resultStartCol.Text = ResultCol.ToString();
-                FormCaliper.Instance.TextBoxMessageDisp("运行成功", System.Drawing.Color.Green);
                 toolRunStatu = ToolRunStatu.Succeed;
             }
             catch (Exception ex)
             {
-                FormCaliper.Instance.TextBoxMessageDisp("工具运行异常" + ex.Message, System.Drawing.Color.Red);
+                toolRunStatu = ToolRunStatu.Not_Succeed;
+                if (softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormCaliper.Instance.TextBoxMessageDisp("工具运行异常" + ex.Message, System.Drawing.Color.Red);
+                }   
             }
             finally
             {
@@ -243,9 +256,13 @@ namespace CaliperTool
         /// </summary>
         private void ParamsTrans()
         {
-            FormCaliper.Instance.myToolInfo.toolOutput.Clear();
-            FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterRow", ResulttRow, DataType.IntValue));
-            FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterColumn", ResultCol, DataType.IntValue));
+            if(FormCaliper.Instance.myToolInfo != null)
+            {
+                FormCaliper.Instance.myToolInfo.toolOutput.Clear();
+                FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterRow", ResulttRow, DataType.IntValue));
+                FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterColumn", ResultCol, DataType.IntValue));
+            }
+            
         }
 
         public void DispMainWindow(HWindow_Final window)
@@ -258,7 +275,7 @@ namespace CaliperTool
             // 显示交点
             if (dispCross)
             {
-                window.DispObj(crossDisp, "orange");
+                window.DispObj(crossDisp, "yellow");
             }
             //显示找到的线
           //  window.DispObj(LineDisp, "green");

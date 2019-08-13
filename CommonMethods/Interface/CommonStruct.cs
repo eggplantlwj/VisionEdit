@@ -55,6 +55,12 @@ namespace CommonMethods
         Pose,
     }
 
+    public enum SoftwareRunState
+    {
+        Debug,
+        Release
+    }
+
     public enum ToolRunStatu
     {
         Not_Run,
