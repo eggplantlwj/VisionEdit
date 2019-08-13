@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonMethods;
 using HalconDotNet;
+using HalconWindow.HalconWindow;
+using ToolBase;
 using static DataStruct.DataStruct;
 
 namespace CaliperTool
 {
     [Serializable]
-    public class CaliperTool:IToolInfo
+    public class Caliper: IToolBase
     {
         public bool toolEnable = true;
         /// <summary>
@@ -48,11 +50,11 @@ namespace CaliperTool
         /// <summary>
         /// 卡尺高
         /// </summary>
-        public int length1 = 40;
+        public HTuple length1 = 40;
         /// <summary>
         /// 卡尺宽
         /// </summary>
-        public int length2 = 40;
+        public HTuple length2 = 40;
         /// <summary>
         /// 找边极性，从明到暗或从暗到明
         /// </summary>
@@ -77,86 +79,189 @@ namespace CaliperTool
         /// 交点显示
         /// </summary>
         public bool dispCross = true;
-        /// <summary>
-        /// 找到的线段
+        /// <summary
+        /// 是否显示的线
         /// </summary>
-        public Point resultPoint = null;
-        /// <summary>
-        /// 显示的线
-        /// </summary>
-        public HObject LineDisp = null;
+        public bool LineDisp = true;
         /// <summary>
         /// 新的跟随姿态变化后的预期线信息
         /// </summary>
-        HTuple newExpectLineStartRow = new HTuple(200), newExpectLineStartCol = new HTuple(200), newExpectLineEndRow = new HTuple(200), newExpectLineEndCol = new HTuple(600);
+        HTuple newExpectRecStartRow = new HTuple(200), newExpectRecStartColumn = new HTuple(200), newExpectPhi = new HTuple(0);
         /// <summary>
         /// 查找到的线的起点行坐标
         /// </summary>
-        private HTuple _resultLineStartRow = 0;
-        internal HTuple ResultLineStartRow
+        private HTuple _resultRow = 0;
+        public HTuple ResulttRow
         {
             get
             {
-                _resultLineStartRow = Math.Round((double)_resultLineStartRow, 3);
-                return _resultLineStartRow;
+                _resultRow = Math.Round((double)_resultRow, 3);
+                return _resultRow;
             }
-            set { _resultLineStartRow = value; }
+            set { _resultRow = value; }
         }
         /// <summary>
         /// 查找到的线的起点列坐标
         /// </summary>
-        private HTuple _resultLineStartCol = 0;
-        internal HTuple ResultLineStartCol
+        private HTuple _resultCol = 0;
+        public HTuple ResultCol
         {
             get
             {
-                _resultLineStartCol = Math.Round((double)_resultLineStartCol, 3);
-                return _resultLineStartCol;
+                _resultCol = Math.Round((double)_resultCol, 3);
+                return _resultCol;
             }
-            set { _resultLineStartCol = value; }
-        }
-        /// <summary>
-        /// 查找到的线的终点行坐标
-        /// </summary>
-        private HTuple _resultLineEndRow = 0;
-        internal HTuple ResultLineEndRow
-        {
-            get
-            {
-                _resultLineEndRow = Math.Round((double)_resultLineEndRow, 3);
-                return _resultLineEndRow;
-            }
-            set { _resultLineEndRow = value; }
-        }
-        /// <summary>
-        /// 查找到的线的终点列坐标
-        /// </summary>
-        private HTuple _resultLineEndCol = 0;
-        internal HTuple ResultLineEndCol
-        {
-            get
-            {
-                _resultLineEndCol = Math.Round((double)_resultLineEndCol, 3);
-                return _resultLineEndCol;
-            }
-            set { _resultLineEndCol = value; }
-        }
-        /// <summary>
-        /// 查找到线的方向
-        /// </summary>
-        private HTuple _angle = 0;
-        internal HTuple Angle
-        {
-            get
-            {
-                _angle = Math.Round((double)_angle, 3);
-                return _angle;
-            }
-            set { _angle = value; }
+            set { _resultCol = value; }
         }
 
         public HObject inputImage { get; set; } = null;
 
         public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
+
+        public void DispImage()
+        {
+            if (inputImage != null)
+            {
+                FormCaliper.Instance.myHwindow.HobjectToHimage(inputImage);
+            }
+        }
+
+        internal void DrawExpectLine(HWindow_Final myHwindow)
+        {
+            if (inputImage != null)
+            {
+                try
+                {
+                    myHwindow.DrawModel = true;
+                    myHwindow.Focus();
+                    HOperatorSet.SetColor(myHwindow.hWindowControl.HalconWindow, new HTuple("green"));
+                    HOperatorSet.DrawRectangle2Mod(myHwindow.hWindowControl.HalconWindow, expectRecStartRow, expectRecStartColumn, expectAngle, length1, length2,
+                        out expectRecStartRow, out expectRecStartColumn, out expectAngle, out length1, out length2);
+
+                    if (inputPose != null)
+                    {
+                        templatePose.X = inputPose.X;
+                        templatePose.Y = inputPose.Y;
+                        templatePose.U = inputPose.U;
+                    }
+                    // 输入
+                    FormCaliper.Instance.tbx_expectCenterRow.Text = expectRecStartRow.TupleString("10.3f");
+                    FormCaliper.Instance.tbx_expectCenterCol.Text = expectRecStartColumn.TupleString("10.3f");
+                    FormCaliper.Instance.tbx_expectPhi.Text = expectAngle.TupleString("10.3f");
+                    // 参数
+                    FormCaliper.Instance.tbx_caliperLength1.Text = length1.TupleString("10.3f");
+                    FormCaliper.Instance.tbx_caliperLength2.Text = length2.TupleString("10.3f");
+
+                    myHwindow.DrawModel = false;
+
+                   // Run();
+                }
+                catch (Exception ex)
+                {
+                    FormCaliper.Instance.TextBoxMessageDisp(ex.Message, System.Drawing.Color.Red);
+                }
+            }
+            else
+            {
+                FormCaliper.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+            }
+
+        }
+
+        public void UpdateImage()
+        {
+            FormCaliper.Instance.myHwindow.ClearWindow();
+            DispImage();
+        }
+
+        public void Run()
+        {
+            HTuple HMeasureHandle = new HTuple();
+            HTuple resultRow, resultCol;
+            if (inputImage == null)
+            {
+                FormCaliper.Instance.TextBoxMessageDisp("图像为空", System.Drawing.Color.Red);
+                toolRunStatu = ToolRunStatu.Not_Input_Image;
+                return;
+            }
+            try
+            {
+                UpdateImage();
+                if (inputPose != null)
+                {
+                    HTuple Row = inputPose.X - templatePose.X;
+                    HTuple Col = inputPose.Y - templatePose.Y;
+                    HTuple angle = inputPose.U - templatePose.U;
+
+                    HTuple _homMat2D;
+                    HOperatorSet.HomMat2dIdentity(out _homMat2D);
+                    HOperatorSet.HomMat2dRotate(_homMat2D, (HTuple)(angle), (HTuple)templatePose.X, (HTuple)templatePose.Y, out _homMat2D);
+                    HOperatorSet.HomMat2dTranslate(_homMat2D, (HTuple)(Row), (HTuple)(Col), out _homMat2D);
+
+                    //对预期线的起始点做放射变换
+                    HOperatorSet.AffineTransPixel(_homMat2D, (HTuple)expectRecStartRow, (HTuple)expectRecStartColumn, out newExpectRecStartRow, out newExpectRecStartColumn);
+                }
+                else
+                {
+                    newExpectRecStartRow = expectRecStartRow;
+                    newExpectRecStartColumn = expectRecStartColumn;
+                }
+                HTuple width, height, AmplitudeThreshold, distance;
+                HOperatorSet.GetImageSize(inputImage, out width, out height);
+                HOperatorSet.GenMeasureRectangle2(expectRecStartRow, expectRecStartColumn, expectAngle, length1, length2, width, height, "nearest_neighbor", out HMeasureHandle);
+                HOperatorSet.MeasurePos(inputImage, HMeasureHandle, sigma, threshold, polarity, edgeSelect, out resultRow, out resultCol, out AmplitudeThreshold, out distance);
+                if(resultRow.Length != 0)
+                {
+                    ResulttRow = resultRow;
+                    ResultCol = resultCol;
+                }
+                
+                //把点显示出来
+                HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(12), new HTuple(0));
+                DispMainWindow(FormCaliper.Instance.myHwindow);
+                // 参数传递
+                ParamsTrans();
+                FormCaliper.Instance.tbx_resultStartRow.Text = ResulttRow.ToString();
+                FormCaliper.Instance.tbx_resultStartCol.Text = ResultCol.ToString();
+                FormCaliper.Instance.TextBoxMessageDisp("运行成功", System.Drawing.Color.Green);
+                toolRunStatu = ToolRunStatu.Succeed;
+            }
+            catch (Exception ex)
+            {
+                FormCaliper.Instance.TextBoxMessageDisp("工具运行异常" + ex.Message, System.Drawing.Color.Red);
+            }
+            finally
+            {
+                //homMat2DArrow.Dispose();
+                //arrow.Dispose();
+                //arrowTrans.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 将数据传递给FindlineToolInterface
+        /// </summary>
+        private void ParamsTrans()
+        {
+            FormCaliper.Instance.myToolInfo.toolOutput.Clear();
+            FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterRow", ResulttRow, DataType.IntValue));
+            FormCaliper.Instance.myToolInfo.toolOutput.Add(new ToolIO("outputCenterColumn", ResultCol, DataType.IntValue));
+        }
+
+        public void DispMainWindow(HWindow_Final window)
+        {
+            // 显示矩形
+            if (dispRec)
+            {
+                window.DispObj(contoursDisp, "blue");
+            }
+            // 显示交点
+            if (dispCross)
+            {
+                window.DispObj(crossDisp, "orange");
+            }
+            //显示找到的线
+          //  window.DispObj(LineDisp, "green");
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CaliperTool;
 using CommonMethods;
 using FindLineTool;
 using HalconDotNet;
@@ -33,9 +34,6 @@ namespace VisionEdit
             this.myFormImageWindow = inputFormImageWindow;
             createLineDelegateFun = new CreateLineDelegate(CreateLine);
         }
-
-       
-
 
         /// <summary>
         /// 拖动工具节点
@@ -700,7 +698,7 @@ namespace VisionEdit
                         }
                         break;
                     #endregion
-                    #region
+                    #region FindLine
                     case ToolType.FindLine:
                         FindLine myFindLine = (FindLine)L_toolList[i].tool;
                         for (int j = 0; j < inputItemNum; j++)
@@ -735,7 +733,47 @@ namespace VisionEdit
                             
                         }
                         break;
-                        #endregion
+                    #endregion
+
+                    case ToolType.Caliper:
+                        Caliper myCaliper = (Caliper)L_toolList[i].tool;
+                        if(L_toolList[i].FormTool == null)
+                        {
+                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                            continue;
+                        }
+                        for (int j = 0; j < inputItemNum; j++)
+                        {
+                            if (L_toolList[i].toolInput[j].IOName == "inputImage" && L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
+                            {
+                                treeNode.ForeColor = Color.Red;
+                                myFormLog.ShowLog(L_toolList[i].toolName + "  无输入图像");
+                            }
+                            else
+                            {
+                                string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
+                                if (L_toolList[i].toolInput[j].IOName == "InputImage")
+                                {
+                                    string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
+                                    sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
+                                    string toolItem = Regex.Split(sourceFrom, " . ")[1];
+                                    myCaliper.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
+                                    myCaliper.Run();
+                                }
+                                if (myCaliper.ResulttRow != null)
+                                {
+                                    myCaliper.DispMainWindow(myFormImageWindow.myHWindow);
+                                    FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
+                                }
+                                else
+                                {
+                                    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
+                                }
+                            }
+
+
+                        }
+                        break;
                 }
             }
         }

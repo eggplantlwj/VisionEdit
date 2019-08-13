@@ -16,6 +16,7 @@ namespace CommonMethods
         BlobAnalyse,
         FindLine,
         FindCircle,
+        Caliper,
         ShapeMatch,
         EyeHandCalibration,
         CircleCalibration,

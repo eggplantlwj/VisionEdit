@@ -35,6 +35,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaliperTool.cs" />
+    <Compile Include="FormCaliper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCaliper.Designer.cs">
+      <DependentUpon>FormCaliper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +63,19 @@
       <Project>{DF3D4D4C-02DF-4F92-9FD4-0A861F64B0EF}</Project>
       <Name>DataStruct</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HalconWindowTest\HalconWindow.csproj">
+      <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
+      <Name>HalconWindow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolBase\ToolBase.csproj">
+      <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
+      <Name>ToolBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormCaliper.resx">
+      <DependentUpon>FormCaliper.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

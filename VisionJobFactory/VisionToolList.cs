@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CaliperTool;
 using CommonMethods;
 using FindLineTool;
 using HalconTool;
@@ -64,6 +65,35 @@ namespace VisionJobFactory
         public FindLineToolInterface()
         {
             toolDescription = "找线工具";
+        }
+    }
+
+    [VisionToolAttribute(ToolType.Caliper)]
+    public class CaliperInterface : IToolInfo
+    {
+        ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
+        ToolIO inputCenterRow = new ToolIO("inputCenterRow", null, DataType.IntValue);
+        ToolIO inputCenterColumn = new ToolIO("inputCenterColumn", null, DataType.IntValue);
+        ToolIO inputPhi = new ToolIO("inputPhi", null, DataType.IntValue);
+        ToolIO outputCenterRow = new ToolIO("outputCenterRow", null, DataType.IntValue);
+        ToolIO outputCenterColumn = new ToolIO("outputCenterColumn", null, DataType.IntValue);
+        public CaliperInterface(string toolName)
+        {
+            enable = true;
+            toolType = ToolType.Caliper;
+            this.toolName = toolName;
+            tool = new Caliper();
+            FormToolName = "CaliperTool.FormCaliper";
+            FormTool = null;
+            toolInput = new List<ToolIO>() { inputImage, inputCenterRow, inputCenterColumn, inputPhi };
+            toolOutput = new List<ToolIO>() {  outputCenterRow, outputCenterColumn };
+        }
+        /// <summary>
+        /// 只获取选择工具的描述信息
+        /// </summary>
+        public CaliperInterface()
+        {
+            toolDescription = "卡尺工具";
         }
     }
 

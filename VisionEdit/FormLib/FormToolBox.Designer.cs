@@ -53,9 +53,11 @@
             treeNode12});
             System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("找线");
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("找圆");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("几何", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("卡尺");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("几何", new System.Windows.Forms.TreeNode[] {
             treeNode14,
-            treeNode15});
+            treeNode15,
+            treeNode16});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormToolBox));
             this.tvw_ToolBox = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -122,14 +124,19 @@
             treeNode15.Name = "FindCircle";
             treeNode15.SelectedImageKey = "Circle.png";
             treeNode15.Text = "找圆";
-            treeNode16.Name = "节点0";
-            treeNode16.Text = "几何";
+            treeNode16.ImageKey = "卡尺.png";
+            treeNode16.Name = "Caliper";
+            treeNode16.SelectedImageKey = "卡尺.png";
+            treeNode16.Tag = "Caliper";
+            treeNode16.Text = "卡尺";
+            treeNode17.Name = "节点0";
+            treeNode17.Text = "几何";
             this.tvw_ToolBox.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode5,
             treeNode9,
             treeNode13,
-            treeNode16});
+            treeNode17});
             this.tvw_ToolBox.SelectedImageIndex = 4;
             this.tvw_ToolBox.Size = new System.Drawing.Size(417, 543);
             this.tvw_ToolBox.TabIndex = 1;
@@ -148,6 +155,7 @@
             this.imageList1.Images.SetKeyName(4, "文件夹.png");
             this.imageList1.Images.SetKeyName(5, "Line.png");
             this.imageList1.Images.SetKeyName(6, "Circle.png");
+            this.imageList1.Images.SetKeyName(7, "卡尺.png");
             // 
             // richTextBoxEx1
             // 
@@ -175,9 +183,9 @@
             this.imageListTool.Images.SetKeyName(3, "图像.png");
             this.imageListTool.Images.SetKeyName(4, "图像.png");
             this.imageListTool.Images.SetKeyName(5, "图像.png");
-            this.imageListTool.Images.SetKeyName(6, "分析 数据.png");
-            this.imageListTool.Images.SetKeyName(7, "Line 1.png");
-            this.imageListTool.Images.SetKeyName(8, "Circle.png");
+            this.imageListTool.Images.SetKeyName(6, "line.png");
+            this.imageListTool.Images.SetKeyName(7, "Circle.png");
+            this.imageListTool.Images.SetKeyName(8, "卡尺.png");
             // 
             // splitContainer1
             // 

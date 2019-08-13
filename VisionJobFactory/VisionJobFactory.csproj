@@ -46,6 +46,10 @@
     <Compile Include="VisionToolList.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CaliperTool\CaliperTool.csproj">
+      <Project>{AABF8D49-FA00-4E25-9410-4A573D48DAB1}</Project>
+      <Name>CaliperTool</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonMethods\CommonHelper.csproj">
       <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
       <Name>CommonHelper</Name>
