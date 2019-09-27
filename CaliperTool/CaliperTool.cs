@@ -223,7 +223,7 @@ namespace CaliperTool
                 }
                 
                 //把点显示出来
-                HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(60), new HTuple(0));
+                HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(80), new HTuple(0));
                 if(softwareRunState == SoftwareRunState.Debug)
                 {
                     DispMainWindow(FormCaliper.Instance.myHwindow);
@@ -275,7 +275,7 @@ namespace CaliperTool
             // 显示交点
             if (dispCross)
             {
-                window.DispObj(crossDisp, "yellow");
+                window.DispObj(crossDisp, "green");
             }
             //显示找到的线
           //  window.DispObj(LineDisp, "green");

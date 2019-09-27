@@ -20,7 +20,6 @@ namespace HalconWindow.HalconWindow
         private HImage  /**/                 hv_image;                                        //缩放时操作的图片  此处千万不要使用hv_image = new HImage(),不然在生成控件dll的时候,会导致无法序列化,去你妈隔壁,还好老子有版本控制,不然都找不到这种恶心问题
         private int /**/                     hv_imageWidth, hv_imageHeight;                   //图片宽,高
         private string /**/                  str_imgSize;                                     //图片尺寸大小 5120X3840
-        private HTuple str_channel;                                                             //通道数
         private bool    /**/                 drawModel = false;                                //绘制模式下,不允许缩放和鼠标右键菜单
 
         public ViewWindow.ViewWindow viewWindow;    /**/                                      //ViewWindow
@@ -44,7 +43,7 @@ namespace HalconWindow.HalconWindow
             //              'arrow'  'default' 'crosshair' 'text I-beam' 'Slashed circle' 'Size All'
             //              'Size NESW' 'Size S' 'Size NWSE' 'Size WE' 'Vertical Arrow' 'Hourglass'
             //
-           // hv_window.SetMshape("Hourglass");
+            // hv_window.SetMshape("Hourglass");
 
             fit_strip = new ToolStripMenuItem("适应窗口");
             fit_strip.Click += new EventHandler((s, e) => DispImageFit(mCtrl_HWindow));
@@ -108,19 +107,6 @@ namespace HalconWindow.HalconWindow
                 drawModel = value;
             }
         }
-        private bool _EditModel = true;//绘制的图形是否可以编辑
-        public bool EditModel
-        {
-            get
-            {
-                return _EditModel;
-            }
-            set
-            {
-                viewWindow.setEditModel(value);
-                _EditModel = value;
-            }
-        }
 
         /// <summary>
         /// 设置image,初始化控件参数
@@ -142,9 +128,7 @@ namespace HalconWindow.HalconWindow
 
                     this.hv_image = value;
                     hv_image.GetImageSize(out hv_imageWidth, out hv_imageHeight);
-                    HOperatorSet.CountChannels(hv_image, out str_channel);
                     str_imgSize = String.Format("{0}X{1}", hv_imageWidth, hv_imageHeight);
-                 //   str_channel = string.Format("C{0}", str_channel);
 
                     //DispImageFit(mCtrl_HWindow);
                     try
@@ -289,7 +273,7 @@ namespace HalconWindow.HalconWindow
                     HOperatorSet.CountChannels(hv_image, out channel_count);
 
                     hv_window.GetMpositionSubPix(out positionY, out positionX, out button_state);
-                    str_position = String.Format("R: {0:0000.0}, C: {1:0000.0}", positionY, positionX);
+                    str_position = String.Format("ROW: {0:0000.0}, COLUMN: {1:0000.0}", positionY, positionX);
 
                     _isXOut = (positionX < 0 || positionX >= hv_imageWidth);
                     _isYOut = (positionY < 0 || positionY >= hv_imageHeight);
@@ -298,9 +282,9 @@ namespace HalconWindow.HalconWindow
                     {
                         if ((int)channel_count == 1)
                         {
-                            int grayVal;
+                            double grayVal;
                             grayVal = hv_image.GetGrayval((int)positionY, (int)positionX);
-                            str_value = String.Format("V: {0:000}", grayVal);
+                            str_value = String.Format("Val: {0:000.0}", grayVal);
                         }
                         else if ((int)channel_count == 3)
                         {
@@ -320,13 +304,13 @@ namespace HalconWindow.HalconWindow
                             _GreenChannel.Dispose();
                             _BlueChannel.Dispose();
 
-                            str_value = String.Format("V: ({0:000.0}, {1:000.0}, {2:000.0})", grayValRed, grayValGreen, grayValBlue);
+                            str_value = String.Format("Val: ({0:000.0}, {1:000.0}, {2:000.0})", grayValRed, grayValGreen, grayValBlue);
                         }
                         else
                         {
                             str_value = "";
                         }
-                        m_CtrlHStatusLabelCtrl.Text = str_channel + "    " + str_imgSize + "    " + str_position + "    " + str_value;
+                        m_CtrlHStatusLabelCtrl.Text = str_imgSize + "    " + str_position + "    " + str_value;
                     }
                 }
                 catch (Exception ex)
@@ -415,6 +399,7 @@ namespace HalconWindow.HalconWindow
 
 
         }
+
 
         #endregion
 

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="ToolRunLib\CaliperRun.cs" />
     <Compile Include="FormLib\FormImageWindow.cs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +90,9 @@
     <Compile Include="OperateJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolRunLib\FindLineRun.cs" />
+    <Compile Include="ToolRunLib\HalconToolRun.cs" />
+    <Compile Include="ToolRunLib\IToolRun.cs" />
     <Compile Include="VisionJob.cs" />
     <EmbeddedResource Include="FormLib\FormImageWindow.cs.resx">
       <DependentUpon>FormImageWindow.cs.cs</DependentUpon>

@@ -14,7 +14,7 @@ namespace HalconWindow
 {
     public partial class MainForm : Form
     {
-        HWindow_Final myWindow = new HWindow_Final();
+        HWindowSmart myWindow = new HWindowSmart();
         public MainForm()
         {
             InitializeComponent();
@@ -23,13 +23,18 @@ namespace HalconWindow
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.panel1.Controls.Add(myWindow);
+            myWindow.Dock = DockStyle.Fill;
+            HObject image = new HObject();
+            HOperatorSet.ReadImage(out image, @"G:\Outer_HB.bmp");
+            myWindow.hSmartWindowControl.HalconWindow.DispObj(image);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             HObject image = new HObject();
             HOperatorSet.ReadImage(out image, @"G:\Outer_HB.bmp");
-            myWindow.HobjectToHimage(image);
+            myWindow.hSmartWindowControl.HalconWindow.DispObj(image);
+           // myWindow.HobjectToHimage(image);
         }
     }
 }

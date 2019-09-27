@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HalconDotNet;
+using ViewWindow.Model;
 
 namespace ViewWindow
 {
     public class ViewWindow : Model.IViewWindow
     {
-        public    Model.HWndCtrl _hWndControl;
+        private Model.HWndCtrl _hWndControl;
 
         private Model.ROIController _roiController;
 
@@ -36,11 +37,11 @@ namespace ViewWindow
             //清空roi容器,不让roi显示
             this._roiController.reset();
             //显示图片
-           this._roiController.resetWindowImage();
+            this._roiController.resetWindowImage();
 
 
             //this._hWndControl.resetWindow();
-           // this._hWndControl.resetAll();
+            // this._hWndControl.resetAll();
             //this._hWndControl.repaint();
         }
         public void notDisplayRoi()
@@ -60,12 +61,6 @@ namespace ViewWindow
         public void setDrawModel(bool flag)
         {
             _hWndControl.drawModel = flag;
-        }
-        //是否开启编辑事件
-        public void setEditModel(bool flag)
-        {
-            _roiController.EditModel = flag;
-          //  _hWndControl.drawModel = flag;
         }
         public void resetWindowImage()
         {
@@ -107,10 +102,7 @@ namespace ViewWindow
         {
             this._roiController.genCircle(row, col, radius, ref rois);
         }
-        public void genCircularArc(double row, double col, double radius, double startPhi, double extentPhi, string direct,ref List<Model.ROI> rois)
-        {
-            this._roiController.genCircularArc(row, col, radius,  startPhi, extentPhi,direct,ref rois);
-        }
+
         public void genLine(double beginRow, double beginCol, double endRow, double endCol, ref List<Model.ROI> rois)
         {
             this._roiController.genLine(beginRow, beginCol, endRow, endCol, ref rois);
@@ -118,10 +110,10 @@ namespace ViewWindow
 
         public List<double> smallestActiveROI(out string name, out int index)
         {
-            List<double> resual = this._roiController.smallestActiveROI(out name,out index);
+            List<double> resual = this._roiController.smallestActiveROI(out name, out index);
             return resual;
         }
-        
+
         public Model.ROI smallestActiveROI(out List<double> data, out int index)
         {
             Model.ROI roi = this._roiController.smallestActiveROI(out data, out index);
@@ -133,10 +125,10 @@ namespace ViewWindow
             this._roiController.selectROI(index);
         }
 
-        public void selectROI( List<Model.ROI> rois, int index)
+        public void selectROI(List<Model.ROI> rois, int index)
         {
             //this._roiController.selectROI(index);
-            if ((rois.Count > index)&&(index>=0))
+            if ((rois.Count > index) && (index >= 0))
             {
                 this._hWndControl.resetAll();
                 this._hWndControl.repaint();
@@ -165,13 +157,6 @@ namespace ViewWindow
                         if (m_roiData != null)
                         {
                             this._roiController.displayCircle(rois[index].Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D);
-                        }
-                        break;
-                    case "ROICircularArc":
-
-                        if (m_roiData != null)
-                        {
-                            this._roiController.displayCircularArc(rois[index].Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D, m_roiData[3].D, m_roiData[4].D);
                         }
                         break;
                     case "ROILine":
@@ -215,7 +200,7 @@ namespace ViewWindow
                         if (m_roiData != null)
                         {
                             this._roiController.displayRect2(roi.Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D, m_roiData[3].D, m_roiData[4].D);
-                     
+
                         }
                         break;
                     case "ROICircle":
@@ -296,14 +281,19 @@ namespace ViewWindow
         }
 
         #region 专门用于 显示region 和xld的方法
-        public void displayHobject(HObject obj,string color)
+        public void displayHobject(HObject obj, string color)
         {
             _hWndControl.DispObj(obj, color);
-        
+
         }
         public void displayHobject(HObject obj)
         {
             _hWndControl.DispObj(obj, null);
+        }
+
+        public void genCircularArc(double row, double col, double radius, double startPhi, double extentPhi, string direct, ref List<ROI> rois)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

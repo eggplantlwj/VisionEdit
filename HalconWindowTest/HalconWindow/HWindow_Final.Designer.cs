@@ -55,8 +55,7 @@
             // 
             // HWindow_Final
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.m_CtrlHStatusLabelCtrl);
             this.Controls.Add(this.mCtrl_HWindow);
             this.Name = "HWindow_Final";

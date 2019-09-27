@@ -13,9 +13,9 @@ namespace VisionEdit
         /// <summary>
         /// 流程树
         /// </summary>
-        public static TreeView myJobTreeView { get; set; }
-        public static VisionJob myVisionJob { get; set; }
+          public static TreeView myJobTreeView { get; set; }
+          public static VisionJob myVisionJob { get; set; }
 
-        public static VisionToolFactory myVisionToolFactory = new VisionToolFactory();
+        // public static VisionToolFactory myVisionToolFactory = new VisionToolFactory();
     }
 }

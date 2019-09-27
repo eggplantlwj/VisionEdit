@@ -5,13 +5,20 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommonMethods;
 using FindLineTool;
 
 
 namespace VisionEdit
 {
-    public class OperateJob
+    public class OperateJob:IVisionJob
     {
+        FormLib.FormLog inputFormLog = new FormLib.FormLog();
+
+        public OperateJob(FormLib.FormLog formLog)
+        {
+            inputFormLog = formLog;
+        }
         public static void CreateNewJob()
         {
             try

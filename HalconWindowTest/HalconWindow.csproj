@@ -100,6 +100,12 @@
       <DependentUpon>HWindow_Final.cs</DependentUpon>
     </Compile>
     <Compile Include="HalconWindow\ViewWindow.cs" />
+    <Compile Include="HWindowSmart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HWindowSmart.Designer.cs">
+      <DependentUpon>HWindowSmart.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HalconWindow\HWindow_Final.resx">
       <DependentUpon>HWindow_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HWindowSmart.resx">
+      <DependentUpon>HWindowSmart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

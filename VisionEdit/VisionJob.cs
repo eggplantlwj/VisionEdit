@@ -14,6 +14,7 @@ using FindLineTool;
 using HalconDotNet;
 using ToolBase;
 using VisionEdit.FormLib;
+using VisionEdit.ToolRunLib;
 using VisionJobFactory;
 
 namespace VisionEdit
@@ -23,8 +24,8 @@ namespace VisionEdit
         public delegate void CreateLineDelegate(TreeView inputTreeView, TreeNode startNode, TreeNode endNode);
         CreateLineDelegate createLineDelegateFun;
         public TreeView tvwOnWorkJob = new TreeView();
-        FormLog myFormLog = null;
-        FormImageWindow myFormImageWindow = null;
+        public FormLog myFormLog = null;
+        public FormImageWindow myFormImageWindow = null;
 
         public VisionJob(TreeView inputTreeView, FormLog inputFormLog, FormImageWindow inputFormImageWindow, string jobName)
         {
@@ -40,7 +41,7 @@ namespace VisionEdit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        internal void TvwJob_ItemDrag(object sender, ItemDragEventArgs e)//左键拖动  
+        public void TvwJob_ItemDrag(object sender, ItemDragEventArgs e)//左键拖动  
         {
             try
             {
@@ -68,7 +69,7 @@ namespace VisionEdit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        internal void TvwJob_DragEnter(object sender, DragEventArgs e)
+        public void TvwJob_DragEnter(object sender, DragEventArgs e)
         {
             try
             {
@@ -92,7 +93,7 @@ namespace VisionEdit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        internal void TvwJob_DragDrop(object sender, DragEventArgs e)//拖动  
+        public void TvwJob_DragDrop(object sender, DragEventArgs e)//拖动  
         {
             try
             {
@@ -248,7 +249,7 @@ namespace VisionEdit
             }
         }
 
-        private void CancelUpDowm_MouseWheel(object sender, MouseEventArgs e)
+        public void CancelUpDowm_MouseWheel(object sender, MouseEventArgs e)
         {
             HandledMouseEventArgs h = e as HandledMouseEventArgs;
             if (h != null)
@@ -258,16 +259,16 @@ namespace VisionEdit
         }
 
         #region 绘制输入输出指向线
-        internal void tvw_job_AfterSelect(object sender, TreeViewEventArgs e)
+        public void tvw_job_AfterSelect(object sender, TreeViewEventArgs e)
         {
             nodeTextBeforeEdit = tvwOnWorkJob.SelectedNode.Text;
         }
-        internal void Draw_Line(object sender, TreeViewEventArgs e)
+        public void Draw_Line(object sender, TreeViewEventArgs e)
         {
             tvwOnWorkJob.Refresh();
             DrawLine();
         }
-        internal void tbc_jobs_SelectedIndexChanged(object sender, EventArgs e)
+        public void tbc_jobs_SelectedIndexChanged(object sender, EventArgs e)
         {
             tvwOnWorkJob.Refresh();
             DrawLine();
@@ -277,14 +278,14 @@ namespace VisionEdit
             tvwOnWorkJob.Update();
             DrawLine();
         }
-        internal void MyJobTreeView_ChangeUICues(object sender, UICuesEventArgs e)
+        public void MyJobTreeView_ChangeUICues(object sender, UICuesEventArgs e)
         {
             tvwOnWorkJob.Update();
             DrawLine();
         }
         #endregion
 
-        internal void tvw_job_MouseClick(object sender, MouseEventArgs e)
+        public void tvw_job_MouseClick(object sender, MouseEventArgs e)
         {
             //判断是否在节点单击
             TreeViewHitTestInfo test = GlobalParams.myJobTreeView.HitTest(e.X, e.Y);
@@ -467,7 +468,7 @@ namespace VisionEdit
         /// </summary>
         /// <param name="nodeText">节点文本</param>
         /// <returns>节点对象</returns>
-        internal TreeNode GetToolNodeByNodeText(string nodeText)
+        public TreeNode GetToolNodeByNodeText(string nodeText)
         {
             try
             {
@@ -676,118 +677,15 @@ namespace VisionEdit
 
         public void Run()
         {
-            for(int i = 0; i < L_toolList.Count; i++)
+            for (int i = 0; i < L_toolList.Count; i++)
             {
                 TreeNode treeNode = GetToolNodeByNodeText(L_toolList[i].toolName);
                 inputItemNum = (L_toolList[i]).toolInput.Count;
                 outputItemNum = (L_toolList[i]).toolOutput.Count;
-                switch(L_toolList[i].toolType)
-                {
-                    #region halconTool
-                    case ToolType.HalconTool:
-                        HalconTool.HalconTool myHalconTool = (HalconTool.HalconTool)L_toolList[i].tool;
-                        myHalconTool.Run(SoftwareRunState.Release);
-                        if(myHalconTool.outputImage == null)
-                        {
-                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
-                        }
-                        else
-                        {
-                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
-                            myFormImageWindow.myHWindow.HobjectToHimage(myHalconTool.outputImage);
-                        }
-                        break;
-                    #endregion
-                    #region FindLine
-                    case ToolType.FindLine:
-                        FindLine myFindLine = (FindLine)L_toolList[i].tool;
-                        for (int j = 0; j < inputItemNum; j++)
-                        {
-                            if(L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
-                            {
-                                treeNode.ForeColor = Color.Red;
-                                myFormLog.ShowLog(L_toolList[i].toolName + "  无输入图像");
-                            }
-                            else
-                            {
-                                string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
-                                if (L_toolList[i].toolInput[j].IOName == "InputImage")
-                                {
-                                    string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
-                                    sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
-                                    string toolItem = Regex.Split(sourceFrom, " . ")[1];
-                                    myFindLine.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
-                                }
-                            }
-                        }
-                        myFindLine.Run(SoftwareRunState.Release);
-                        if (myFindLine.toolRunStatu == ToolRunStatu.Succeed)
-                        {
-                            myFindLine.DispMainWindow(myFormImageWindow.myHWindow);
-                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
-                        }
-                        else
-                        {
-                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
-                        }
-                        break;
-                    #endregion
-
-                    case ToolType.Caliper:
-                        Caliper myCaliper = (Caliper)L_toolList[i].tool;
-                        //if(L_toolList[i].FormTool == null)
-                        //{
-                        //    FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
-                        //    continue;
-                        //}
-                        for (int j = 0; j < inputItemNum; j++)
-                        {
-                            if (L_toolList[i].toolInput[j].IOName == "InputImage" && L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value == null)
-                            {
-                                treeNode.ForeColor = Color.Red;
-                                myFormLog.ShowLog(L_toolList[i].toolName + "  无输入图像");
-                                break;
-                            }
-                            else
-                            {
-                                if(L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value != null)
-                                {
-                                    string sourceFrom = L_toolList[i].GetInput(L_toolList[i].toolInput[j].IOName).value.ToString();
-                                    string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
-                                    sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
-                                    string toolItem = Regex.Split(sourceFrom, " . ")[1];
-                                    if (L_toolList[i].toolInput[j].IOName == "InputImage")
-                                    {
-                                        myCaliper.inputImage = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HObject;
-                                    }
-                                    if(L_toolList[i].toolInput[j].IOName == "inputCenterRow")
-                                    {
-                                        myCaliper.expectRecStartRow = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
-                                    }
-                                    if (L_toolList[i].toolInput[j].IOName == "inputCenterCol")
-                                    {
-                                        myCaliper.expectRecStartColumn = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
-                                    }
-                                    if (L_toolList[i].toolInput[j].IOName == "inputPhi")
-                                    {
-                                        myCaliper.expectAngle = GetToolInfoByToolName(GlobalParams.myVisionJob.JobName, sourceToolName).GetOutput(toolItem).value as HTuple;
-                                    }
-                                    
-                                }
-                            }
-                        }
-                        myCaliper.Run(SoftwareRunState.Release);
-                        if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
-                        {
-                            myCaliper.DispMainWindow(myFormImageWindow.myHWindow);
-                            FormLogDisp(L_toolList[i].toolName + "  运行成功", Color.Green, treeNode);
-                        }
-                        else
-                        {
-                            FormLogDisp(L_toolList[i].toolName + "  运行失败", Color.Red, treeNode);
-                        }
-                        break;
-                }
+                string assemblyName = "VisionEdit.ToolRunLib." + L_toolList[i].toolType.ToString() + "Run" + ",VisionEdit";
+                Type classType = Type.GetType(assemblyName);
+                IToolRun myCaliperRun = (IToolRun)Activator.CreateInstance(classType);
+                myCaliperRun.ToolRun(i, inputItemNum, treeNode, myFormLog, myFormImageWindow, L_toolList);
             }
         }
 
