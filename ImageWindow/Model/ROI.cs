@@ -1,5 +1,6 @@
 using System;
 using HalconDotNet;
+using System.Collections.Generic;
 
 namespace ViewWindow.Model
 {
@@ -67,9 +68,12 @@ namespace ViewWindow.Model
 
 		/// <summary>Constructor of abstract ROI class.</summary>
 		public ROI() { }
-
+        public virtual void createROINurbs(HTuple  rows, HTuple  cols) { }
+        public virtual void createROINurbs(double imageHeight) { }
         public virtual void createRectangle1(double row1, double col1, double row2, double col2) { }
+        public virtual void createInitRectangle1(double imageHeight) { }
         public virtual void createRectangle2(double row, double col, double phi, double length1, double length2) { }
+        public virtual void createInitRectangle2(double imageHeight) { }
         public virtual void createCircle(double row,double col,double radius) { }
         public virtual void createCircularArc(double row, double col, double radius, double startPhi, double extentPhi, string direct) { }
         public virtual void createLine(double beginRow, double beginCol, double endRow, double endCol) { }
@@ -85,7 +89,7 @@ namespace ViewWindow.Model
 
 		/// <summary>Paints the ROI into the supplied window.</summary>
 		/// <param name="window">HALCON window</param>
-		public virtual void draw(HalconDotNet.HWindow window) { }
+		public virtual void draw(HalconDotNet.HWindow window,int imageWidth,int imageHeight) { }
 
 		/// <summary> 
 		/// Returns the distance of the ROI handle being
@@ -105,7 +109,7 @@ namespace ViewWindow.Model
 		/// Paints the active handle of the ROI object into the supplied window. 
 		/// </summary>
 		/// <param name="window">HALCON window</param>
-		public virtual void displayActive(HalconDotNet.HWindow window) { }
+        public virtual void displayActive(HalconDotNet.HWindow window, int imageWidth, int imageHeight) { }
 
 		/// <summary> 
 		/// Recalculates the shape of the ROI. Translation is 
@@ -114,7 +118,7 @@ namespace ViewWindow.Model
 		/// </summary>
 		/// <param name="x">x (=column) coordinate</param>
 		/// <param name="y">y (=row) coordinate</param>
-		public virtual void moveByHandle(double x, double y) { }
+        public virtual void moveByHandle(double x, double y, HWindowControl window) { }
 
 		/// <summary>Gets the HALCON region described by the ROI.</summary>
 		public virtual HRegion getRegion()
@@ -134,7 +138,19 @@ namespace ViewWindow.Model
 		{
 			return null;
 		}
-
+        public virtual HTuple getRowsData()
+        {
+            return null;
+        }
+        public virtual HTuple getColsData()
+        {
+            return null;
+        }
+        public virtual void  getModelData(out HTuple  t1,out HTuple  t2)
+        {
+            t1 = new HTuple();
+            t2 = new HTuple();
+        }
 		/// <summary>Number of handles defined for the ROI.</summary>
 		/// <returns>Number of handles</returns>
 		public int getNumHandles()

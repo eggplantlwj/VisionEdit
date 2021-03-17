@@ -70,7 +70,10 @@
             this.btn_runFindLineTool = new System.Windows.Forms.Button();
             this.btn_moveCliperRegion = new System.Windows.Forms.Button();
             this.cbx_edgeSelect = new System.Windows.Forms.ComboBox();
-            this.txbLog = new System.Windows.Forms.TextBox();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,6 +81,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -538,22 +542,41 @@
             this.cbx_edgeSelect.TabIndex = 317;
             this.cbx_edgeSelect.Text = "all";
             // 
-            // txbLog
+            // statusStrip
             // 
-            this.txbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbLog.Location = new System.Drawing.Point(0, 487);
-            this.txbLog.Name = "txbLog";
-            this.txbLog.ReadOnly = true;
-            this.txbLog.Size = new System.Drawing.Size(1129, 21);
-            this.txbLog.TabIndex = 274;
+            this.statusStrip.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lb_RunStatus,
+            this.toolStripStatusLabel2,
+            this.lb_RunTime});
+            this.statusStrip.Location = new System.Drawing.Point(0, 484);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1127, 24);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // lb_RunStatus
+            // 
+            this.lb_RunStatus.Name = "lb_RunStatus";
+            this.lb_RunStatus.Size = new System.Drawing.Size(0, 19);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(137, 19);
+            this.toolStripStatusLabel2.Text = "                                ";
+            // 
+            // lb_RunTime
+            // 
+            this.lb_RunTime.Name = "lb_RunTime";
+            this.lb_RunTime.Size = new System.Drawing.Size(0, 19);
             // 
             // FormFindLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1127, 508);
-            this.Controls.Add(this.txbLog);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormFindLine";
@@ -571,6 +594,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -611,7 +636,6 @@
         public System.Windows.Forms.Button btn_runFindLineTool;
         private System.Windows.Forms.Button btn_moveCliperRegion;
         public System.Windows.Forms.ComboBox cbx_edgeSelect;
-        public System.Windows.Forms.TextBox txbLog;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label15;
         public System.Windows.Forms.TextBox tbx_Sigma;
@@ -620,5 +644,9 @@
         private System.Windows.Forms.CheckBox chBDispRec;
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.TextBox tbx_caliperLength2;
+        public System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
     }
 }

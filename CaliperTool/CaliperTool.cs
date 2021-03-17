@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommonMethods;
 using HalconDotNet;
-using HalconWindow.HalconWindow;
 using ToolBase;
 using static DataStruct.DataStruct;
+using ChoiceTech.Halcon.Control;
+
 
 namespace CaliperTool
 {
@@ -16,7 +13,7 @@ namespace CaliperTool
     {
         public bool toolEnable = true;
         /// <summary>
-        /// 输入姿态
+        /// 输入姿态..
         /// </summary>
         public PosXYU inputPose = new PosXYU();
         /// <summary>
@@ -119,7 +116,32 @@ namespace CaliperTool
         public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
 
         public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
-       
+
+        public string runMessage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string runTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public void DispImage()
         {

@@ -54,15 +54,7 @@ namespace VisionJobFactory
         }
     }
 
-    //自定义Attribute
-    public sealed class VisionToolAttribute : Attribute
-    {
-        public ToolType ToolType { get; private set; }
-        public VisionToolAttribute(ToolType toolType)
-        {
-            ToolType = toolType;
-        }
-    }
+   
 
     //根据Attribute提取类
     public class ClassEnumerator

@@ -48,7 +48,7 @@ namespace ViewWindow.Config
             get { return this._lenth2; }
             set { this._lenth2 = value; }
         }
-        private string color = "yellow";
+        private string color = "blue";
 
         [XmlElement(ElementName = "Color")]
         public string Color

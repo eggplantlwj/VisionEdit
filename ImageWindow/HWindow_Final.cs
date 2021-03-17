@@ -14,10 +14,12 @@ using System.Text;
 using System.Windows.Forms;
 
 using HalconDotNet;
+using System.Threading;
 
 
 namespace ChoiceTech.Halcon.Control
 {
+    public delegate void DoubleClick();
     /// <summary>
     /// halcon鼠标缩放控件
     /// 
@@ -31,9 +33,7 @@ namespace ChoiceTech.Halcon.Control
         #region 私有变量定义.
 
         private HWindow /**/                 hv_window;                                       //halcon窗体控件的句柄 this.mCtrl_HWindow.HalconWindow;
-        private ContextMenuStrip /**/        hv_MenuStrip;                                    //右键菜单控件
         // 窗体控件右键菜单内容
-        ToolStripMenuItem fit_strip;
         ToolStripMenuItem saveImg_strip;
         ToolStripMenuItem saveWindow_strip;
         ToolStripMenuItem barVisible_strip;
@@ -42,7 +42,6 @@ namespace ChoiceTech.Halcon.Control
         private HImage  /**/                 hv_image;                                        //缩放时操作的图片  此处千万不要使用hv_image = new HImage(),不然在生成控件dll的时候,会导致无法序列化,去你妈隔壁,还好老子有版本控制,不然都找不到这种恶心问题
         private int /**/                     hv_imageWidth, hv_imageHeight;                   //图片宽,高
         private string /**/                  str_imgSize;                                     //图片尺寸大小 5120X3840
-        private HTuple   str_channel;                                                             //通道数
         private bool    /**/                 drawModel = false;                                //绘制模式下,不允许缩放和鼠标右键菜单
 
         public ViewWindow.ViewWindow viewWindow;    /**/                                      //ViewWindow
@@ -68,9 +67,6 @@ namespace ChoiceTech.Halcon.Control
             //
             // hv_window.SetMshape("Hourglass");
 
-            fit_strip = new ToolStripMenuItem("适应窗口");
-            fit_strip.Click += new EventHandler((s, e) => DispImageFit(mCtrl_HWindow));
-
             barVisible_strip = new ToolStripMenuItem("显示StatusBar");
             barVisible_strip.CheckOnClick = true;
             barVisible_strip.CheckedChanged += new EventHandler(barVisible_strip_CheckedChanged);
@@ -87,21 +83,14 @@ namespace ChoiceTech.Halcon.Control
             histogram_strip.CheckOnClick = true;
             histogram_strip.Checked = false;
 
-            hv_MenuStrip = new ContextMenuStrip();
-            hv_MenuStrip.Items.Add(fit_strip);
-            hv_MenuStrip.Items.Add(barVisible_strip);
-            hv_MenuStrip.Items.Add(new ToolStripSeparator());
-            hv_MenuStrip.Items.Add(saveImg_strip);
-            hv_MenuStrip.Items.Add(saveWindow_strip);
+
 
             barVisible_strip.Enabled = true;
-            fit_strip.Enabled = false;
             histogram_strip.Enabled = false;
             saveImg_strip.Enabled = false;
             saveWindow_strip.Enabled = false;
 
-            mCtrl_HWindow.ContextMenuStrip = hv_MenuStrip;
-            mCtrl_HWindow.SizeChanged += new EventHandler((s, e) => DispImageFit(mCtrl_HWindow));
+            mCtrl_HWindow.SizeChanged += new EventHandler((s, e) => DispImageFit());
 
         }
 
@@ -116,17 +105,6 @@ namespace ChoiceTech.Halcon.Control
             {
                 //缩放控制
                 viewWindow.setDrawModel(value);
-                //绘制模式 不现实右键
-                if (value == true)
-                {
-
-                    mCtrl_HWindow.ContextMenuStrip = null;
-                }
-                else
-                {
-                    //恢复
-                    mCtrl_HWindow.ContextMenuStrip = hv_MenuStrip;
-                }
                 drawModel = value;
             }
         }
@@ -149,7 +127,8 @@ namespace ChoiceTech.Halcon.Control
         /// </summary>
         public HImage Image
         {
-            get {
+            get
+            {
                 return this.hv_image;
             }
             set
@@ -158,20 +137,17 @@ namespace ChoiceTech.Halcon.Control
                 {
                     if (this.hv_image != null)
                     {
-                      this.hv_image.Dispose();
+                        this.hv_image.Dispose();
                     }
 
                     this.hv_image = value;
                     hv_image.GetImageSize(out hv_imageWidth, out hv_imageHeight);
-                    HOperatorSet.CountChannels(hv_image ,out str_channel );
                     str_imgSize = String.Format("{0}X{1}", hv_imageWidth, hv_imageHeight);
-                    str_channel = string.Format("C{0}",str_channel );
 
                     //DispImageFit(mCtrl_HWindow);
                     try
                     {
                         barVisible_strip.Enabled = true;
-                        fit_strip.Enabled = true;
                         histogram_strip.Enabled = true;
                         saveImg_strip.Enabled = true;
                         saveWindow_strip.Enabled = true;
@@ -179,6 +155,34 @@ namespace ChoiceTech.Halcon.Control
                     catch (Exception)
                     {
                     }
+
+
+
+                    int W, H, w, h;
+                    W = this.Width;
+                    H = this.Height;
+                    w = hv_imageWidth;
+                    h = hv_imageHeight;
+
+
+
+                    //if (w * 1.0 / W < h * 1.0 / H)
+                    //{
+                    //    HOperatorSet.SetPart(this.HWindowHalconID, 0, -(h * W / H - w) / 2, h, w + (h * W / H - w) / 2);
+                    //}
+                    //else if (w * 1.0 / W > h * 1.0 / H)
+                    //{
+                    //    HOperatorSet.SetPart(this.HWindowHalconID, (h - w * H / H) / 2, 0, h - (h - w * H / H) / 2, w);
+                    //}
+                    //else
+                    //{
+                    //    HOperatorSet.SetPart(this.HWindowHalconID, 0, 0, H, W);
+                    //}
+
+
+
+                    // HOperatorSet.SetPart(this.HWindowHalconID, 0, 0, 3844, 4000);                       
+
 
                     viewWindow.displayImage(hv_image);
                 }
@@ -203,7 +207,7 @@ namespace ChoiceTech.Halcon.Control
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void barVisible_strip_CheckedChanged(object sender, EventArgs e)
+        public void barVisible_strip_CheckedChanged(object sender, EventArgs e)
         {
             ToolStripMenuItem strip = sender as ToolStripMenuItem;
 
@@ -218,7 +222,7 @@ namespace ChoiceTech.Halcon.Control
             else
             {
                 m_CtrlHStatusLabelCtrl.Visible = false;
-                //mCtrl_HWindow.Height = this.Height;
+                // mCtrl_HWindow.Height = this.Height;
                 mCtrl_HWindow.HMouseMove -= HWindowControl_HMouseMove;
             }
 
@@ -274,7 +278,7 @@ namespace ChoiceTech.Halcon.Control
         /// 图片适应大小显示在窗体
         /// </summary>
         /// <param name="hw_Ctrl">halcon窗体控件</param>
-        private void DispImageFit(HWindowControl hw_Ctrl)
+        public void DispImageFit()
         {
 
             try
@@ -310,7 +314,7 @@ namespace ChoiceTech.Halcon.Control
                     HOperatorSet.CountChannels(hv_image, out channel_count);
 
                     hv_window.GetMpositionSubPix(out positionY, out positionX, out button_state);
-                    str_position = String.Format("R: {0:0000.0}, C: {1:0000.0}", positionY, positionX);
+                    str_position = String.Format("RC: {0:0000},{1:0000}", positionY, positionX);
 
                     _isXOut = (positionX < 0 || positionX >= hv_imageWidth);
                     _isYOut = (positionY < 0 || positionY >= hv_imageHeight);
@@ -319,9 +323,9 @@ namespace ChoiceTech.Halcon.Control
                     {
                         if ((int)channel_count == 1)
                         {
-                            int  grayVal;
+                            double grayVal;
                             grayVal = hv_image.GetGrayval((int)positionY, (int)positionX);
-                            str_value = String.Format("V: {0:000}", grayVal);
+                            str_value = String.Format("Val: {0:000}", grayVal);
                         }
                         else if ((int)channel_count == 3)
                         {
@@ -341,13 +345,13 @@ namespace ChoiceTech.Halcon.Control
                             _GreenChannel.Dispose();
                             _BlueChannel.Dispose();
 
-                            str_value = String.Format("V: ({0:000.0}, {1:000.0}, {2:000.0})", grayValRed, grayValGreen, grayValBlue);
+                            str_value = String.Format("Gray: ({0:000}, {1:000}, {2:000})", grayValRed, grayValGreen, grayValBlue);
                         }
                         else
                         {
                             str_value = "";
                         }
-                        m_CtrlHStatusLabelCtrl.Text =  str_channel +"    "+str_imgSize + "    " + str_position + "    " + str_value;
+                        m_CtrlHStatusLabelCtrl.Text = string.Format("Ch:{0}   ", channel_count.ToDArr()) + str_imgSize + "    " + str_position + "    " + str_value;
                     }
                 }
                 catch (Exception ex)
@@ -367,7 +371,6 @@ namespace ChoiceTech.Halcon.Control
                             //this.hv_image = null;
                             m_CtrlHStatusLabelCtrl.Visible = false;
                             barVisible_strip.Enabled = false;
-                            fit_strip.Enabled = false;
                             histogram_strip.Enabled = false;
                             saveImg_strip.Enabled = false;
                             saveWindow_strip.Enabled = false;
@@ -413,10 +416,10 @@ namespace ChoiceTech.Halcon.Control
         public void DispObj(HObject hObj)
         {
 
-                lock (this)
-                {
-                    viewWindow.displayHobject(hObj, null);
-                }
+            lock (this)
+            {
+                viewWindow.displayHobject(hObj, null);
+            }
 
 
         }
@@ -449,6 +452,45 @@ namespace ChoiceTech.Halcon.Control
         {
             //避免鼠标离开窗口,再返回的时候,图表随着鼠标移动
             viewWindow.mouseleave();
+        }
+
+
+
+        public event DoubleClick doubleClick;
+
+        private void mCtrl_HWindow_Click(object sender, EventArgs e)
+        {
+
+        }
+        int i = 0;
+        private void mCtrl_HWindow_HMouseDown(object sender, HMouseEventArgs e)
+        {
+            i += 1;
+
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
+            timer.Interval = 300;
+
+            timer.Tick += (s, e1) => { timer.Enabled = false; i = 0; };
+
+            timer.Enabled = true;
+
+            if (i % 2 == 0)
+            {
+
+                timer.Enabled = false;
+
+                i = 0;
+
+                if (doubleClick != null)
+                    doubleClick();
+
+                Application.DoEvents();
+                Thread.Sleep(5);
+                DispImageFit();
+                //this.WindowState = (this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized);
+
+            }
         }
 
 

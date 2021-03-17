@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMethods;
 using HalconDotNet;
-using HalconWindow.HalconWindow;
+using ChoiceTech.Halcon.Control;
 
 namespace FindLineTool
 {
@@ -54,11 +54,13 @@ namespace FindLineTool
         {
             InitializeComponent();
             _instance = this;
-            myToolInfo = (IToolInfo)findLine;
-            myFindLine = (FindLine)myToolInfo.tool;
-            //myFindLine.inputImage = ComGlobalParams.inputImageGlobal; // 暂时直接将图像传递给该工具
-            myFindLine.DispImage();
-
+            if(findLine.GetType().FullName != "System.Object")
+            {
+                myToolInfo = (IToolInfo)findLine;
+                myFindLine = (FindLine)myToolInfo.tool;
+                //myFindLine.inputImage = ComGlobalParams.inputImageGlobal; // 暂时直接将图像传递给该工具
+                myFindLine.DispImage();
+            }
         }
 
         private void FormFindLine_Load(object sender, EventArgs e)
@@ -72,16 +74,6 @@ namespace FindLineTool
         {
             myFindLine.UpdateImage();
             myFindLine.DrawExpectLine(myHwindow);
-        }
-
-
-        public void TextBoxMessageDisp(string mes, Color setColor)
-        {
-            txbLog.BackColor = setColor;
-            txbLog.Text = mes;
-            txbLog.Font = new Font("微软雅黑", 10, FontStyle.Bold);
-          //  CommonMethods.CommonMethods.Delay(2000);
-            txbLog.BackColor = Color.White;
         }
 
         private void btn_runFindLineTool_Click(object sender, EventArgs e)
@@ -127,6 +119,29 @@ namespace FindLineTool
             chBDispRec.Checked = myFindLine.dispRec;
             chBDispCross.Checked = myFindLine.dispCross;
         }
+        /// <summary>
+        /// 设定工具运行状态
+        /// </summary>
+        /// <param name="msg">运行中的信息</param>
+        /// <param name="status">运行状态</param>
+        public void SetToolStatus(string msg, ToolRunStatu status)
+        {
+            if(myFindLine!=null)
+            {
+                myFindLine.runMessage = msg;
+                myFindLine.toolRunStatu = status;
+                lb_RunStatus.Text = myFindLine.toolRunStatu == ToolRunStatu.Succeed ? "工具运行成功！" : $"工具运行异常, 异常原因：{myFindLine.runMessage}";
+                lb_RunTime.Text = myFindLine.runTime;
+                if (myFindLine.toolRunStatu == ToolRunStatu.Succeed)
+                {
+                    statusStrip.BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    statusStrip.BackColor = Color.Red;
+                }
+            }
+        }
 
         #region 输入检查
         private void tbx_expectLineStartRow_TextChanged(object sender, EventArgs e)
@@ -137,7 +152,7 @@ namespace FindLineTool
             }
             catch
             {
-                TextBoxMessageDisp("输入了非法字符，已自动替换为默认值：200", Color.Red);
+                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
                 tbx_expectLineStartRow.Text = "200";
             }
         }
@@ -150,7 +165,7 @@ namespace FindLineTool
             }
             catch
             {
-                TextBoxMessageDisp("输入了非法字符，已自动替换为默认值：200", Color.Red);
+                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
                 tbx_expectLineStartCol.Text = "200";
             }
         }
@@ -163,7 +178,7 @@ namespace FindLineTool
             }
             catch
             {
-                TextBoxMessageDisp("输入了非法字符，已自动替换为默认值：200", Color.Red);
+                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
                 tbx_expectLineEndRow.Text = "200";
             }
         }
@@ -176,7 +191,7 @@ namespace FindLineTool
             }
             catch
             {
-                TextBoxMessageDisp("输入了非法字符，已自动替换为默认值：600", Color.Red);
+                SetToolStatus("输入了非法字符，已自动替换为默认值：600", ToolRunStatu.Input_Value_Type_Error);
                 tbx_expectLineEndCol.Text = "600";
             }
         }

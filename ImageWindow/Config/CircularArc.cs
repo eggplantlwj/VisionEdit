@@ -47,7 +47,7 @@ namespace ViewROI.Config
             set { this._extentPhi = value; }
         }
 
-        private string color = "yellow";
+        private string color = "blue";
         [XmlElement(ElementName = "Color")]
         public string Color
         {

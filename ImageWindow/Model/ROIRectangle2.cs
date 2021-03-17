@@ -1,6 +1,7 @@
 using System;
 using HalconDotNet;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace ViewWindow.Model
 {
@@ -71,15 +72,15 @@ namespace ViewWindow.Model
 		//auxiliary variables
 		HTuple rowsInit;
 		HTuple colsInit;
-		HTuple rows;
-		HTuple cols;
+	public 	HTuple rows;
+    public HTuple cols;
 
 		HHomMat2D hom2D, tmp;
 
 		/// <summary>Constructor</summary>
 		public ROIRectangle2()
 		{
-			NumHandles = 6; // 4 corners +  1 midpoint + 1 rotationpoint			
+			NumHandles = 10; // 4 corners +  1 midpoint + 1 rotationpoint			
 			activeHandleIdx = 4;
 		}
 
@@ -98,9 +99,50 @@ namespace ViewWindow.Model
             this.phi = phi;
 
             rowsInit = new HTuple(new double[] {-1.0, -1.0, 1.0, 
-												   1.0,  0.0, 0.0 });
+												   1.0,  0.0, 0.0 ,0,-1,0,1});
             colsInit = new HTuple(new double[] {-1.0, 1.0,  1.0, 
-												  -1.0, 0.0, 0.6 });
+												  -1.0, 0.0, 1.8 ,-1,0,1,0});
+            //order        ul ,  ur,   lr,  ll,   mp, arrowMidpoint
+            hom2D = new HHomMat2D();
+            tmp = new HHomMat2D();
+
+            updateHandlePos();
+        }
+        public override void createInitRectangle2(double imageHeight)
+        {
+            double size = 0;
+            if (imageHeight < 300) size = 10;
+            else if (imageHeight < 600) size = 20;
+            else if (imageHeight < 900) size = 30;
+            else if (imageHeight < 1200) size = 40;
+            else if (imageHeight < 1500) size = 50;
+            else if (imageHeight < 1800) size = 60;
+            else if (imageHeight < 2100) size = 70;
+            else if (imageHeight < 2400) size = 80;
+            else if (imageHeight < 2700) size = 90;
+            else if (imageHeight < 3000) size = 100;
+            else if (imageHeight < 3300) size = 110;
+            else if (imageHeight < 3600) size = 120;
+            else if (imageHeight < 3900) size = 130;
+            else if (imageHeight < 4200) size = 140;
+            else if (imageHeight < 4500) size = 150;
+            else if (imageHeight < 4800) size = 160;
+            else if (imageHeight < 5100) size = 170;
+            else size = 180;
+            double length1 = size * 3;
+            double length2 = size * 4;
+
+            base.createRectangle2(midR , midC , phi, length1, length2);
+            this.midR = midR ;
+            this.midC = midC ;
+            this.length1 = length1;
+            this.length2 = length2;
+            this.phi = phi;
+
+            rowsInit = new HTuple(new double[] {-1.0, -1.0, 1.0, 
+												   1.0,  0.0, 0.0 ,0,-1,0,1});
+            colsInit = new HTuple(new double[] {-1.0, 1.0,  1.0, 
+												  -1.0, 0.0, 1.8 ,-1,0,1,0});
             //order        ul ,  ur,   lr,  ll,   mp, arrowMidpoint
             hom2D = new HHomMat2D();
             tmp = new HHomMat2D();
@@ -128,7 +170,7 @@ namespace ViewWindow.Model
 			rowsInit = new HTuple(new double[] {-1.0, -1.0, 1.0, 
 												   1.0,  0.0, 0.0 });
 			colsInit = new HTuple(new double[] {-1.0, 1.0,  1.0, 
-												  -1.0, 0.0, 0.6 });
+												  -1.0, 0.0, 1.8 });
 			//order        ul ,  ur,   lr,  ll,   mp, arrowMidpoint
 			hom2D = new HHomMat2D();
 			tmp = new HHomMat2D();
@@ -138,14 +180,44 @@ namespace ViewWindow.Model
 
 		/// <summary>Paints the ROI into the supplied window</summary>
 		/// <param name="window">HALCON window</param>
-		public override void draw(HalconDotNet.HWindow window)
+        public override void draw(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
-			window.DispRectangle2(midR, midC, -phi, length1, length2);
-			for (int i =0; i < NumHandles; i++)
-				window.DispRectangle2(rows[i].D, cols[i].D, -phi, 8,8);
+            double littleRecSize = 0;
+            if (imageHeight < 300) littleRecSize = 1;
+            else if (imageHeight < 600) littleRecSize = 2;
+            else if (imageHeight < 900) littleRecSize = 3;
+            else if (imageHeight < 1200) littleRecSize = 4;
+            else if (imageHeight < 1500) littleRecSize = 5;
+            else if (imageHeight < 1800) littleRecSize = 6;
+            else if (imageHeight < 2100) littleRecSize = 7;
+            else if (imageHeight < 2400) littleRecSize = 8;
+            else if (imageHeight < 2700) littleRecSize = 9;
+            else if (imageHeight < 3000) littleRecSize = 10;
+            else if (imageHeight < 3300) littleRecSize = 11;
+            else if (imageHeight < 3600) littleRecSize = 12;
+            else if (imageHeight < 3900) littleRecSize = 13;
+            else if (imageHeight < 4200) littleRecSize = 14;
+            else if (imageHeight < 4500) littleRecSize = 15;
+            else if (imageHeight < 4800) littleRecSize = 16;
+            else if (imageHeight < 5100) littleRecSize = 17;
+            else littleRecSize = 18;
 
-			window.DispArrow(midR, midC, midR + (Math.Sin(phi) * length1 * 1.2),
-				midC + (Math.Cos(phi) * length1 * 1.2), 5.0);
+            if (littleRecSize % 2 != 0)
+                littleRecSize++;
+
+            HOperatorSet.SetDraw(window, "margin");
+         
+			window.DispRectangle2(midR, midC, -phi, length1, length2);
+            HOperatorSet.SetDraw(window, "fill");
+
+            for (int i = 0; i < NumHandles; i++)
+            {
+                window.DispRectangle2(rows[i].D, cols[i].D, -phi, littleRecSize, littleRecSize);
+                Application.DoEvents();
+            }
+
+			window.DispArrow(midR, midC, midR + (Math.Sin(phi) * length1 * 1.8),
+                midC + (Math.Cos(phi) * length1 * 1.8), littleRecSize);
 
 		}
 
@@ -182,17 +254,41 @@ namespace ViewWindow.Model
 		/// Paints the active handle of the ROI object into the supplied window
 		/// </summary>
 		/// <param name="window">HALCON window</param>
-		public override void displayActive(HalconDotNet.HWindow window)
+        public override void displayActive(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
+            double littleRecSize = 0;
+            if (imageHeight < 300) littleRecSize = 1;
+            else if (imageHeight < 600) littleRecSize = 2;
+            else if (imageHeight < 900) littleRecSize = 3;
+            else if (imageHeight < 1200) littleRecSize = 4;
+            else if (imageHeight < 1500) littleRecSize = 5;
+            else if (imageHeight < 1800) littleRecSize = 6;
+            else if (imageHeight < 2100) littleRecSize = 7;
+            else if (imageHeight < 2400) littleRecSize = 8;
+            else if (imageHeight < 2700) littleRecSize = 9;
+            else if (imageHeight < 3000) littleRecSize = 10;
+            else if (imageHeight < 3300) littleRecSize = 11;
+            else if (imageHeight < 3600) littleRecSize = 12;
+            else if (imageHeight < 3900) littleRecSize = 13;
+            else if (imageHeight < 4200) littleRecSize = 14;
+            else if (imageHeight < 4500) littleRecSize = 15;
+            else if (imageHeight < 4800) littleRecSize = 16;
+            else if (imageHeight < 5100) littleRecSize = 17;
+            else littleRecSize = 18;
+
+            if (littleRecSize % 2 != 0)
+                littleRecSize++;
+
+
 			window.DispRectangle2(rows[activeHandleIdx].D,
 								  cols[activeHandleIdx].D,
-								  -phi, 8,8);
+                                  -phi, littleRecSize, littleRecSize);
 
 			if (activeHandleIdx == 5)
 				window.DispArrow(midR, midC,
-								 midR + (Math.Sin(phi) * length1 * 1.2),
-								 midC + (Math.Cos(phi) * length1 * 1.2),
-								 5.0);
+								 midR + (Math.Sin(phi) * length1 * 1.8),
+								 midC + (Math.Cos(phi) * length1 * 1.8),
+                                 littleRecSize);
 		}
 
 
@@ -212,6 +308,14 @@ namespace ViewWindow.Model
 		{
 			return new HTuple(new double[] { midR, midC, phi, length1, length2 });
 		}
+        public override HTuple getRowsData()
+        {
+            return new HTuple(rows);
+        }
+        public override HTuple getColsData()
+        {
+            return new HTuple(cols );
+        }
 
 		/// <summary> 
 		/// Recalculates the shape of the ROI instance. Translation is 
@@ -220,7 +324,7 @@ namespace ViewWindow.Model
 		/// </summary>
 		/// <param name="newX">x mouse coordinate</param>
 		/// <param name="newY">y mouse coordinate</param>
-		public override void moveByHandle(double newX, double newY)
+        public override void moveByHandle(double newX, double newY, HWindowControl window)
 		{
 			double vX, vY, x=0, y=0;
 
@@ -230,6 +334,7 @@ namespace ViewWindow.Model
 				case 1:
 				case 2:
 				case 3:
+             
 					tmp = hom2D.HomMat2dInvert();
 					x = tmp.AffineTransPoint2d(newX, newY, out y);
 
@@ -237,15 +342,40 @@ namespace ViewWindow.Model
 					length1 = Math.Abs(x);
 
 					checkForRange(x, y);
+                    window.Cursor = System.Windows.Forms.Cursors.Hand  ;
 					break;
 				case 4:
 					midC = newX;
 					midR = newY;
+                    window.Cursor = System.Windows.Forms.Cursors.SizeAll ;
 					break;
 				case 5:
 					vY = newY - rows[4].D;
 					vX = newX - cols[4].D;
 					phi = Math.Atan2(vY, vX);
+                    window.Cursor = System.Windows.Forms.Cursors.Hand;
+					break;
+                case 7:
+                case 9:
+                          		tmp = hom2D.HomMat2dInvert();
+					x = tmp.AffineTransPoint2d(newX, newY, out y);
+
+				
+				
+                    length2 = Math.Abs(y);
+
+					checkForRange(x, y);
+                    window.Cursor = System.Windows.Forms.Cursors.Hand;
+					break;
+                case 6:
+                case 8:
+                    		tmp = hom2D.HomMat2dInvert();
+					x = tmp.AffineTransPoint2d(newX, newY, out y);
+
+
+                    length1 = Math.Abs(x);
+					checkForRange(x, y);
+                    window.Cursor = System.Windows.Forms.Cursors.Hand;
 					break;
 			}
 			updateHandlePos();

@@ -89,7 +89,7 @@ namespace ViewWindow.Model
 			updateArrowHandle();
 		}
 		/// <summary>Paints the ROI into the supplied window.</summary>
-		public override void draw(HalconDotNet.HWindow window)
+        public override void draw(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
 
 			window.DispLine(row1, col1, row2, col2);
@@ -128,7 +128,7 @@ namespace ViewWindow.Model
 		/// <summary> 
 		/// Paints the active handle of the ROI object into the supplied window. 
 		/// </summary>
-		public override void displayActive(HalconDotNet.HWindow window)
+        public override void displayActive(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
 
 			switch (activeHandleIdx)
@@ -172,7 +172,7 @@ namespace ViewWindow.Model
 		/// performed at the active handle of the ROI object 
 		/// for the image coordinate (x,y).
 		/// </summary>
-		public override void moveByHandle(double newX, double newY)
+        public override void moveByHandle(double newX, double newY, HWindowControl window)
 		{
 			double lenR, lenC;
 

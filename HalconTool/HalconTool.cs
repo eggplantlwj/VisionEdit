@@ -8,9 +8,11 @@ using System.Windows.Forms;
 using CommonMethods;
 using HalconDotNet;
 using ToolBase;
+using System.Diagnostics;
 
 namespace HalconTool
 {
+    [Serializable]
     public class HalconTool: IToolBase
     {
         /// <summary>
@@ -82,6 +84,14 @@ namespace HalconTool
         /// </summary>
         internal WorkMode workMode = WorkMode.ReadMultImage;
         public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
+        /// <summary>
+        /// 运行过程信息
+        /// </summary>
+        public string runMessage { get; set; }
+        /// <summary>
+        /// 工具运行时间
+        /// </summary>
+        public string runTime { get; set; } = string.Empty;
        
 
         public HObject inputImage { get; set; } = null;
@@ -110,8 +120,14 @@ namespace HalconTool
 
         public void Run(SoftwareRunState softwareState)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Restart();
             softwareRunState = softwareState;
             DispImage();
+            SetToolStatusDisp();
+            sw.Stop();
+            runTime = $"工具运行时间：{sw.ElapsedMilliseconds.ToString()} ms";
+            
         }
 
         public void DispImage()
@@ -119,7 +135,7 @@ namespace HalconTool
             HObject image = new HObject();
             try
             {
-                if(outputImageFilePath != null)
+                if(outputImageFilePath != null && outputImageFilePath != "") 
                 {
                     HOperatorSet.ReadImage(out image, outputImageFilePath);
                     if (RGBToGray)
@@ -131,12 +147,19 @@ namespace HalconTool
                     }
                     outputImage = image;
                 }
+                else
+                {
+                    runMessage = $"图像文件路径为空！";
+                    toolRunStatu = ToolRunStatu.File_Error_Or_Path_Invalid;
+                    return;
+                }
             }
-            catch
+            catch(Exception ex)
             {
                 if(softwareRunState == SoftwareRunState.Debug)
                 {
-                    FormHalconTool.Instance.txbLog.Text = "图像文件异常或路径不合法";
+                    runMessage = $"图像文件异常或路径不合法{ex}";
+                    toolRunStatu = ToolRunStatu.File_Error_Or_Path_Invalid;
                 }
                 return;
             }
@@ -144,10 +167,31 @@ namespace HalconTool
             {
                 if (softwareRunState == SoftwareRunState.Debug)
                 {
-                    FormHalconTool.Instance.myHwindow.HobjectToHimage(outputImage);
+                    FormHalconTool.Instance.myHwindow.DispImage(outputImage);
                 }   
             }
-            
+            else
+            {
+                runMessage = $"图像为空！";
+                toolRunStatu = ToolRunStatu.Lack_Of_Input_Image;
+                return;
+            }
+            toolRunStatu = ToolRunStatu.Succeed;
+        }
+        public void SetToolStatusDisp()
+        {
+            FormHalconTool.Instance.lb_RunStatus.Text = toolRunStatu == ToolRunStatu.Succeed ? "工具运行成功！" : $"工具运行异常, 异常原因：{runMessage}";
+            FormHalconTool.Instance.lb_RunTime.Text = runTime;
+            if (toolRunStatu == ToolRunStatu.Succeed)
+            {
+                FormHalconTool.Instance.statusStrip.BackColor = System.Drawing.Color.LimeGreen;
+            }
+            else
+            {
+                FormHalconTool.Instance.statusStrip.BackColor = System.Drawing.Color.Red;
+            }
         }
     }
+
+    
 }

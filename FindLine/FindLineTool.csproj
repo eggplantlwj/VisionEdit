@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FindLine.cs" />
+    <Compile Include="FindLineToolRun.cs" />
     <Compile Include="FormFindLine.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,13 +69,29 @@
       <Project>{DF3D4D4C-02DF-4F92-9FD4-0A861F64B0EF}</Project>
       <Name>DataStruct</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HalconWindowTest\HalconWindow.csproj">
-      <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
-      <Name>HalconWindow</Name>
+    <ProjectReference Include="..\FormLib\FormLib.csproj">
+      <Project>{8c6fc8c6-8874-494b-8260-071f291aa33d}</Project>
+      <Name>FormLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9BAA53FD-89B5-43E2-AC59-A27B006DEBB6}</Project>
+      <Name>HWindow_Tool</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolBase\ToolBase.csproj">
       <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
       <Name>ToolBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.Log\LogForm\LogForm.csproj">
+      <Project>{6b38d68f-e77b-4761-bde5-a261ea8925dd}</Project>
+      <Name>LogForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
+      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">
+      <Project>{16e8ff17-98a8-4452-ab9e-c433dc9c21f7}</Project>
+      <Name>ToolLib.VisionJob</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

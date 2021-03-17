@@ -33,6 +33,9 @@
     <Reference Include="halcondotnet">
       <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\halcondotnet.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>G:\2D程序最新版本\G3\UMP_BandOnly_2D_V2.5.4\UMP_BandOnly_S3\bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -46,10 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonMethods.cs" />
+    <Compile Include="FileOperate.cs" />
     <Compile Include="Interface\CommonStruct.cs" />
     <Compile Include="Interface\IToolInfo.cs" />
     <Compile Include="Interface\IVisionJobInterface.cs" />
+    <Compile Include="Interface\ToolRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialize.cs" />
+    <Compile Include="VisionToolAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

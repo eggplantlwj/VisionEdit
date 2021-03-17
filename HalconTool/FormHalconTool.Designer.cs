@@ -32,7 +32,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.txbLog = new System.Windows.Forms.TextBox();
             this.panelMultImage = new System.Windows.Forms.Panel();
             this.gpb_multImage = new System.Windows.Forms.GroupBox();
             this.btn_selectImageDirectory = new System.Windows.Forms.Button();
@@ -68,6 +67,10 @@
             this.superTabControl2 = new DevComponents.DotNetBar.SuperTabControl();
             this.imageDispPanel = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_Split = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,11 +85,14 @@
             this.superTabControlPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl2)).BeginInit();
             this.superTabControl2.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -97,8 +103,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.superTabControl2);
-            this.splitContainer1.Size = new System.Drawing.Size(1111, 477);
-            this.splitContainer1.SplitterDistance = 590;
+            this.splitContainer1.Size = new System.Drawing.Size(1111, 517);
+            this.splitContainer1.SplitterDistance = 605;
             this.splitContainer1.TabIndex = 1;
             // 
             // superTabControl1
@@ -128,7 +134,7 @@
             this.superTabControl1.ReorderTabsEnabled = true;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.superTabControl1.SelectedTabIndex = 0;
-            this.superTabControl1.Size = new System.Drawing.Size(590, 477);
+            this.superTabControl1.Size = new System.Drawing.Size(605, 517);
             this.superTabControl1.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.superTabControl1.TabIndex = 1;
             this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -139,7 +145,6 @@
             // 
             // superTabControlPanel1
             // 
-            this.superTabControlPanel1.Controls.Add(this.txbLog);
             this.superTabControlPanel1.Controls.Add(this.panelMultImage);
             this.superTabControlPanel1.Controls.Add(this.panelOneImage);
             this.superTabControlPanel1.Controls.Add(this.btn_browseImage);
@@ -152,18 +157,9 @@
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 36);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(590, 441);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(605, 481);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.tabReadFormLocal;
-            // 
-            // txbLog
-            // 
-            this.txbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbLog.Location = new System.Drawing.Point(3, 420);
-            this.txbLog.Name = "txbLog";
-            this.txbLog.Size = new System.Drawing.Size(585, 21);
-            this.txbLog.TabIndex = 93;
             // 
             // panelMultImage
             // 
@@ -593,7 +589,7 @@
             this.superTabControl2.ReorderTabsEnabled = true;
             this.superTabControl2.SelectedTabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.superTabControl2.SelectedTabIndex = 0;
-            this.superTabControl2.Size = new System.Drawing.Size(517, 477);
+            this.superTabControl2.Size = new System.Drawing.Size(502, 517);
             this.superTabControl2.TabFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.superTabControl2.TabIndex = 0;
             this.superTabControl2.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -606,7 +602,7 @@
             this.imageDispPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageDispPanel.Location = new System.Drawing.Point(0, 36);
             this.imageDispPanel.Name = "imageDispPanel";
-            this.imageDispPanel.Size = new System.Drawing.Size(517, 441);
+            this.imageDispPanel.Size = new System.Drawing.Size(502, 481);
             this.imageDispPanel.TabIndex = 1;
             this.imageDispPanel.TabItem = this.superTabItem1;
             // 
@@ -617,11 +613,42 @@
             this.superTabItem1.Name = "superTabItem1";
             this.superTabItem1.Text = "显示图像";
             // 
+            // statusStrip
+            // 
+            this.statusStrip.BackColor = System.Drawing.Color.White;
+            this.statusStrip.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lb_RunStatus,
+            this.lb_Split,
+            this.lb_RunTime});
+            this.statusStrip.Location = new System.Drawing.Point(0, 518);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1111, 24);
+            this.statusStrip.TabIndex = 95;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // lb_RunStatus
+            // 
+            this.lb_RunStatus.Name = "lb_RunStatus";
+            this.lb_RunStatus.Size = new System.Drawing.Size(0, 19);
+            // 
+            // lb_Split
+            // 
+            this.lb_Split.Name = "lb_Split";
+            this.lb_Split.Size = new System.Drawing.Size(189, 19);
+            this.lb_Split.Text = "                                             ";
+            // 
+            // lb_RunTime
+            // 
+            this.lb_RunTime.Name = "lb_RunTime";
+            this.lb_RunTime.Size = new System.Drawing.Size(0, 19);
+            // 
             // FormHalconTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1111, 477);
+            this.ClientSize = new System.Drawing.Size(1111, 542);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormHalconTool";
@@ -645,7 +672,10 @@
             this.superTabControlPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl2)).EndInit();
             this.superTabControl2.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -689,6 +719,9 @@
         private DevComponents.DotNetBar.SuperTabControl superTabControl2;
         private DevComponents.DotNetBar.SuperTabControlPanel imageDispPanel;
         private DevComponents.DotNetBar.SuperTabItem superTabItem1;
-        public System.Windows.Forms.TextBox txbLog;
+        public System.Windows.Forms.StatusStrip statusStrip;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
+        private System.Windows.Forms.ToolStripStatusLabel lb_Split;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
     }
 }

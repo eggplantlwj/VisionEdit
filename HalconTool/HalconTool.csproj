@@ -54,6 +54,7 @@
       <DependentUpon>FormHalconTool.cs</DependentUpon>
     </Compile>
     <Compile Include="HalconTool.cs" />
+    <Compile Include="HalconToolRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,13 +67,25 @@
       <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
       <Name>CommonHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HalconWindowTest\HalconWindow.csproj">
-      <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
-      <Name>HalconWindow</Name>
+    <ProjectReference Include="..\FormLib\FormLib.csproj">
+      <Project>{8c6fc8c6-8874-494b-8260-071f291aa33d}</Project>
+      <Name>FormLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9BAA53FD-89B5-43E2-AC59-A27B006DEBB6}</Project>
+      <Name>HWindow_Tool</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolBase\ToolBase.csproj">
       <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
       <Name>ToolBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
+      <Project>{D4E052B9-E541-4B67-A1F9-273073EF1D4B}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">
+      <Project>{16E8FF17-98A8-4452-AB9E-C433DC9C21F7}</Project>
+      <Name>ToolLib.VisionJob</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -33,7 +33,7 @@ namespace ViewWindow.Config
             set { this._radius = value; }
         }
 
-        private string color = "yellow";
+        private string color = "blue";
         [XmlElement(ElementName = "Color")]
         public string Color
         {

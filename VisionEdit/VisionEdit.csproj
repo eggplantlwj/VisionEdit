@@ -55,58 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
-    <Compile Include="ToolRunLib\CaliperRun.cs" />
-    <Compile Include="FormLib\FormImageWindow.cs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLib\FormImageWindow.cs.Designer.cs">
-      <DependentUpon>FormImageWindow.cs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormLib\FormJobManage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLib\FormJobManage.Designer.cs">
-      <DependentUpon>FormJobManage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormLib\FormLog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLib\FormLog.Designer.cs">
-      <DependentUpon>FormLog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormLib\FormToolBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormLib\FormToolBox.Designer.cs">
-      <DependentUpon>FormToolBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalParams.cs" />
-    <Compile Include="OperateJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolRunLib\FindLineRun.cs" />
-    <Compile Include="ToolRunLib\HalconToolRun.cs" />
-    <Compile Include="ToolRunLib\IToolRun.cs" />
-    <Compile Include="VisionJob.cs" />
-    <EmbeddedResource Include="FormLib\FormImageWindow.cs.resx">
-      <DependentUpon>FormImageWindow.cs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLib\FormJobManage.resx">
-      <DependentUpon>FormJobManage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLib\FormLog.resx">
-      <DependentUpon>FormLog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormLib\FormToolBox.resx">
-      <DependentUpon>FormToolBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,10 +114,6 @@
     <None Include="Resources\保存21.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CaliperTool\CaliperTool.csproj">
-      <Project>{AABF8D49-FA00-4E25-9410-4A573D48DAB1}</Project>
-      <Name>CaliperTool</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CommonMethods\CommonHelper.csproj">
       <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
       <Name>CommonHelper</Name>
@@ -170,29 +122,33 @@
       <Project>{df3d4d4c-02df-4f92-9fd4-0a861f64b0ef}</Project>
       <Name>DataStruct</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FindCircle\FindCircleTool.csproj">
-      <Project>{3d2739db-5618-49bf-bf5c-5cccd6a55c64}</Project>
-      <Name>FindCircleTool</Name>
+    <ProjectReference Include="..\FormLib\FormLib.csproj">
+      <Project>{8C6FC8C6-8874-494B-8260-071F291AA33D}</Project>
+      <Name>FormLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FindLine\FindLineTool.csproj">
-      <Project>{c3bb2b1c-ed0c-4879-a6d3-d86342c5086e}</Project>
-      <Name>FindLineTool</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HalconTool\HalconTool.csproj">
-      <Project>{F5669FB7-77EC-44B9-898B-6D575B7D26EA}</Project>
-      <Name>HalconTool</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HalconWindowTest\HalconWindow.csproj">
-      <Project>{4ADC75AE-59C7-4D36-B675-A6CE51B6F5BA}</Project>
-      <Name>HalconWindow</Name>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9BAA53FD-89B5-43E2-AC59-A27B006DEBB6}</Project>
+      <Name>HWindow_Tool</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolBase\ToolBase.csproj">
       <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
       <Name>ToolBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VisionJobFactory\VisionJobFactory.csproj">
-      <Project>{4D539EB2-E847-4D42-B6FA-03B2546DAFD7}</Project>
-      <Name>VisionJobFactory</Name>
+    <ProjectReference Include="..\ToolLib.Log\LogForm\LogForm.csproj">
+      <Project>{6b38d68f-e77b-4761-bde5-a261ea8925dd}</Project>
+      <Name>LogForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
+      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">
+      <Project>{16E8FF17-98A8-4452-AB9E-C433DC9C21F7}</Project>
+      <Name>ToolLib.VisionJob</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolLib.VisionToolList\ToolLib.VisionToolList.csproj">
+      <Project>{3f66a390-7c85-4d9b-b66d-69a051b1cbc4}</Project>
+      <Name>ToolLib.VisionToolList</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

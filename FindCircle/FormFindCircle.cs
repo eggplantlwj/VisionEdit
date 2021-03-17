@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ChoiceTech.Halcon.Control;
+using System;
 using System.Windows.Forms;
-using HalconWindow.HalconWindow;
 
 namespace FindCircle
 {

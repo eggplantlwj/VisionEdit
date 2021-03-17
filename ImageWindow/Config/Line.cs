@@ -40,7 +40,7 @@ namespace ViewWindow.Config
             get { return this._columnEnd; }
             set { this._columnEnd = value; }
         }
-        private string color = "yellow";
+        private string color = "blue";
         [XmlElement(ElementName = "Color")]
         public string Color
         {

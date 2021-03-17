@@ -1,0 +1,156 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using CommonMethods;
+using VisionJobFactory;
+using WeifenLuo.WinFormsUI.Docking;
+using ToolLib.VisionJob;
+
+namespace CreateTool
+{
+    public partial class FormToolBox : DockContent
+    {
+        FormJobManage myFormJobManage = null;
+
+        public FormToolBox(FormJobManage inputFormJob)
+        {
+            InitializeComponent();
+            myFormJobManage = inputFormJob;
+            VisionToolFactory.InitVisionToolTypeDic();
+        }
+
+        private void tvw_ToolBox_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if(e.Node.Level == 0)
+            {
+                this.richTextBoxEx1.Text = e.Node.Text;
+            }
+            else if(e.Node.Level == 1)
+            {
+                object selectTag = tvw_ToolBox.SelectedNode.Tag;
+                if (selectTag != null)
+                {
+                    IToolInfo insertTool = VisionToolFactory.CreateToolVision((ToolType)Enum.Parse(typeof(ToolType), selectTag.ToString()));
+                    this.richTextBoxEx1.Text = insertTool.toolDescription;
+                }
+                else
+                {
+                    this.richTextBoxEx1.Text = "此工具尚未开发";
+                }
+            } 
+        }
+
+        private void tvw_ToolBox_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tvw_ToolBox.SelectedNode.SelectedImageIndex == 0)         //如果双击的是文件夹节点，返回
+                    return;
+                if (myFormJobManage.tabControl1.TabPages.Count > 0)        //如果已存在流程
+                {
+                    object selectTag = tvw_ToolBox.SelectedNode.Tag;
+                    Add_Tool((ToolType)Enum.Parse(typeof(ToolType), selectTag.ToString())); 
+                }
+                else
+                {
+                    //如果当前不存在可用流程，先创建流程，在添加工具
+                    OperateJob.CreateNewJob();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LoggerClass.WriteLog("添加流程失败！", ex);  
+            }
+        }
+
+        /// <summary>
+        /// 向流程中添加工具，需要根据选择的工具名对工具类型等进行判断
+        /// </summary>
+        /// <param name="tool">工具类型</param>
+        /// <param name="isInsert">插入位置，当为-1时，表示在末尾插入，当不为-1时，表示被插入的工具索引</param>
+        public void Add_Tool(ToolType tool, int insertPos = -1, int imageKey = 0)
+        {
+            string toolName = GetNewToolName(tool.ToString());
+            IToolInfo insertTool = VisionToolFactory.CreateToolVision(tool, toolName);
+            TreeNode insertNode = new TreeNode();
+            insertNode = VisionJobParams.myJobTreeView.Nodes.Add("", insertTool.toolName, (int)tool, (int)tool); // 该工具对应的节点
+            
+            // 判断节点是否添加默认输入输出图
+            // 输入
+            for (int i = 0; i < insertTool.toolInput.Count; i++)
+            {
+                TreeNode childrenInputNode = insertNode.Nodes.Add("<--" + insertTool.toolInput[i].IOName);
+                childrenInputNode.Tag = insertTool.toolInput[i].ioType;
+                childrenInputNode.ForeColor = Color.DarkMagenta;
+            }
+            // 输出
+            for (int i = 0; i < insertTool.toolOutput.Count; i++)
+            {
+                TreeNode childrenOutputNode = insertNode.Nodes.Add("-->" + insertTool.toolOutput[i].IOName);
+                childrenOutputNode.Tag = insertTool.toolOutput[i].ioType;
+                childrenOutputNode.ForeColor = Color.Blue;
+            }
+            insertNode.Expand();
+            VisionJobParams.myVisionJob.L_toolList.Add(insertTool);
+        }
+
+        internal string GetNewToolName(string toolType)
+        {
+            try
+            {
+                if (!TreeView_Contains_Key(toolType))
+                {
+                    return toolType;
+                }
+                for (int i = 1; i < 101; i++)
+                {
+                    if (!TreeView_Contains_Key(toolType + "_" + i))
+                    {
+                        return toolType + "_" + i;
+                    }
+                }
+                Logger.LoggerClass.WriteLog("此工具已添加个数已达到数量上限，无法继续添加", true);
+                return "Error";
+            }
+            catch (Exception ex)
+            {
+                Logger.LoggerClass.WriteLog("添加出错！",ex);
+                return "Error";
+            }
+        }
+
+        /// <summary>
+        /// 判断TreeView是否已经包含某节点
+        /// </summary>
+        /// <param name="key">节点文本</param>
+        /// <returns>是否包含</returns>
+        private bool TreeView_Contains_Key(string key)
+        {
+            try
+            {
+                foreach (TreeNode node in VisionJobParams.myJobTreeView.Nodes)
+                {
+                    if (node.Text == key)
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Logger.LoggerClass.WriteLog("TreeView_Contains_Key 函数出错",ex);
+                return false;
+            }
+        }
+
+        private void tvw_ToolBox_Click(object sender, EventArgs e)
+        {
+           
+        }
+    }
+}

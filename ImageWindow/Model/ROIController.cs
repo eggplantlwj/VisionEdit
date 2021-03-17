@@ -2,6 +2,7 @@ using System;
 using HalconDotNet;
 using ViewWindow;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace ViewWindow.Model
 {
@@ -79,8 +80,8 @@ namespace ViewWindow.Model
 		/// </summary>
 		public HRegion ModelROI;
 
-		private string activeCol    = "green";
-		private string activeHdlCol = "red";
+		private string activeCol    = "blue";
+        private string activeHdlCol = "green";
 		private string inactiveCol  = "blue";
 
 		/// <summary>
@@ -301,58 +302,36 @@ namespace ViewWindow.Model
 		/// Paints all objects from the ROIList into the HALCON window
 		/// </summary>
 		/// <param name="window">HALCON window</param>
-        internal void paintData(HalconDotNet.HWindow window)
-        {
-            window.SetDraw("margin");
-            window.SetLineWidth(1);
-            if (ROIList.Count > 0)
-            {
-                window.SetColor(inactiveCol);
-                window.SetDraw("margin");
-                for (int i = 0; i < ROIList.Count; i++)
-                {
-                    window.SetLineStyle(((ROI)ROIList[i]).flagLineStyle);
-                    ((ROI)ROIList[i]).draw(window);
-                }
-                if (activeROIidx != -1)
-                {
-                    window.SetColor(activeCol);
-                    window.SetLineStyle(((ROI)ROIList[activeROIidx]).flagLineStyle);
-                    ((ROI)ROIList[activeROIidx]).draw(window);
+		public void paintData(HalconDotNet.HWindow window,HWindowControl windowCtrl)
+		{
+			window.SetDraw("margin");
+			window.SetLineWidth(1);
 
-                    window.SetColor(activeHdlCol);
-                    ((ROI)ROIList[activeROIidx]).displayActive(window);
-                }
-            }
-        }
-        /// <summary>
-        /// 以指定颜色显示ROI
-        /// </summary>
-        /// <param name="window"></param>
-        internal void paintData(HalconDotNet.HWindow window,string color)
-        {
-            window.SetDraw("margin");
-            window.SetLineWidth(1);
-            if (ROIList.Count > 0)
-            {
-                window.SetColor(color);
-                window.SetDraw("margin");
-                for (int i = 0; i < ROIList.Count; i++)
-                {
-                    window.SetLineStyle(((ROI)ROIList[i]).flagLineStyle);
-                    ((ROI)ROIList[i]).draw(window);
-                }
-                if (activeROIidx != -1)
-                {
-                    window.SetColor(color);
-                    window.SetLineStyle(((ROI)ROIList[activeROIidx]).flagLineStyle);
-                    ((ROI)ROIList[activeROIidx]).draw(window);
+			if (ROIList.Count > 0)
+			{
+                //
+                //window.SetColor(inactiveCol);
+                
+				window.SetDraw("margin");
 
-                    window.SetColor(color);
-                    ((ROI)ROIList[activeROIidx]).displayActive(window);
-                }
-            }
-        }
+				for (int i=0; i < ROIList.Count; i++)
+				{
+                    window.SetColor(((ROI)ROIList[i]).Color);
+					window.SetLineStyle(((ROI)ROIList[i]).flagLineStyle);
+					((ROI)ROIList[i]).draw(window,Convert .ToInt32 ( viewController .ImgCol2 -viewController .ImgCol1)  ,Convert .ToInt32 (viewController .ImgRow2 -viewController .ImgRow1 ) );
+				}
+
+				if (activeROIidx != -1)
+				{
+					window.SetColor(activeCol);
+					window.SetLineStyle(((ROI)ROIList[activeROIidx]).flagLineStyle);
+                    ((ROI)ROIList[activeROIidx]).draw(window, Convert.ToInt32(viewController.ImgCol2 - viewController.ImgCol1), Convert.ToInt32(viewController.ImgRow2 - viewController.ImgRow1));
+
+					window.SetColor(activeHdlCol);
+                    ((ROI)ROIList[activeROIidx]).displayActive(window, Convert.ToInt32(viewController.ImgCol2 - viewController.ImgCol1), Convert.ToInt32(viewController.ImgRow2 - viewController.ImgRow1));
+				}
+			}
+		}
 
 		/// <summary>
 		/// Reaction of ROI objects to the 'mouse button down' event: changing
@@ -410,7 +389,7 @@ namespace ViewWindow.Model
 		/// </summary>
 		/// <param name="newX">x coordinate of mouse event</param>
 		/// <param name="newY">y coordinate of mouse event</param>
-		public void mouseMoveAction(double newX, double newY)
+        public void mouseMoveAction(double newX, double newY, HWindowControl window)
 		{
             try
             {
@@ -418,7 +397,7 @@ namespace ViewWindow.Model
                 if ((newX == currX) && (newY == currY))
                     return;
 
-                ((ROI)ROIList[activeROIidx]).moveByHandle(newX, newY);
+                ((ROI)ROIList[activeROIidx]).moveByHandle(newX, newY,window );
                 viewController.repaint();
                 currX = newX;
                 currY = newY;
@@ -458,7 +437,24 @@ namespace ViewWindow.Model
                 ROIList.Add(roiMode);
                 roiMode = null;
                 activeROIidx = ROIList.Count - 1;
-                viewController.repaint("blue");
+                viewController.repaint();
+
+                NotifyRCObserver(ROIController.EVENT_CREATED_ROI);
+            }
+        }
+        public void displayNurbs(string color,HTuple rows,HTuple cols)
+        {
+            setROIShape(new ROINurbs ());
+
+            if (roiMode != null)			 //either a new ROI object is created
+            {
+                roiMode.createROINurbs (rows, cols);
+                roiMode.Type = roiMode.GetType().Name;
+                roiMode.Color = color;
+                ROIList.Add(roiMode);
+                roiMode = null;
+                activeROIidx = ROIList.Count - 1;
+                viewController.repaint();
 
                 NotifyRCObserver(ROIController.EVENT_CREATED_ROI);
             }
@@ -565,7 +561,37 @@ namespace ViewWindow.Model
         /// <param name="row2"></param>
         /// <param name="col2"></param>
         /// <param name="rois"></param>
-        public void genRect1(double row1, double col1, double row2, double col2, ref System.Collections.Generic.List<ROI> rois)
+        protected internal void genNurbs(HTuple rows, HTuple cols, ref System.Collections.Generic.List<ROI> rois)
+        {
+            setROIShape(new ROINurbs() );
+
+            if (rois == null)
+            {
+                rois = new System.Collections.Generic.List<ROI>();
+            }
+
+            if (roiMode != null)			 //either a new ROI object is created
+            {
+                roiMode.createROINurbs (rows ,cols );
+                roiMode.Type = roiMode.GetType().Name;
+                rois.Add(roiMode);
+                ROIList.Add(roiMode);
+                roiMode = null;
+                activeROIidx = ROIList.Count - 1;
+                viewController.repaint();
+
+                NotifyRCObserver(ROIController.EVENT_CREATED_ROI);
+            }
+        }
+        /// <summary>
+        /// 在指定位置生成ROI--Rectangle1
+        /// </summary>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="row2"></param>
+        /// <param name="col2"></param>
+        /// <param name="rois"></param>
+        protected internal void genRect1(double row1, double col1, double row2, double col2, ref System.Collections.Generic.List<ROI> rois)
         {
             setROIShape(new ROIRectangle1());
 
@@ -588,6 +614,36 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
+        /// 在指定位置生成ROI--Rectangle1
+        /// </summary>
+        /// <param name="row1"></param>
+        /// <param name="col1"></param>
+        /// <param name="row2"></param>
+        /// <param name="col2"></param>
+        /// <param name="rois"></param>
+        protected internal void genInitRect1(int  imageHeight, ref System.Collections.Generic.List<ROI> rois)
+        {
+            setROIShape(new ROIRectangle1());
+
+            if (rois == null)
+            {
+                rois = new System.Collections.Generic.List<ROI>();
+            }
+
+            if (roiMode != null)			 //either a new ROI object is created
+            {
+                roiMode.createInitRectangle1(imageHeight );
+                roiMode.Type = roiMode.GetType().Name;
+                rois.Add(roiMode);
+                ROIList.Add(roiMode);
+                roiMode = null;
+                activeROIidx = ROIList.Count - 1;
+                viewController.repaint();
+
+                NotifyRCObserver(ROIController.EVENT_CREATED_ROI);
+            }
+        }
+        /// <summary>
         /// 在指定位置生成ROI--Rectangle2
         /// </summary>
         /// <param name="row"></param>
@@ -596,7 +652,7 @@ namespace ViewWindow.Model
         /// <param name="length1"></param>
         /// <param name="length2"></param>
         /// <param name="rois"></param>
-        public void genRect2(double row, double col, double phi, double length1, double length2, ref System.Collections.Generic.List<ROI> rois)
+        protected internal void genRect2(double row, double col, double phi, double length1, double length2, ref System.Collections.Generic.List<ROI> rois)
         {
             setROIShape(new ROIRectangle2());
 
@@ -619,13 +675,44 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
+        /// 在指定位置生成ROI--Rectangle2
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="phi"></param>
+        /// <param name="length1"></param>
+        /// <param name="length2"></param>
+        /// <param name="rois"></param>
+        protected internal void genInitRect2(double imageHeight, ref System.Collections.Generic.List<ROI> rois)
+        {
+            setROIShape(new ROIRectangle2());
+
+            if (rois == null)
+            {
+                rois = new System.Collections.Generic.List<ROI>();
+            }
+
+            if (roiMode != null)			 //either a new ROI object is created
+            {
+                roiMode.createInitRectangle2(imageHeight );
+                roiMode.Type = roiMode.GetType().Name;
+                rois.Add(roiMode);
+                ROIList.Add(roiMode);
+                roiMode = null;
+                activeROIidx = ROIList.Count - 1;
+                viewController.repaint();
+
+                NotifyRCObserver(ROIController.EVENT_CREATED_ROI);
+            }
+        }
+        /// <summary>
         /// 在指定位置生成ROI--Circle
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
         /// <param name="radius"></param>
         /// <param name="rois"></param>
-        public void genCircle(double row, double col, double radius, ref System.Collections.Generic.List<ROI> rois)
+        protected internal void genCircle(double row, double col, double radius, ref System.Collections.Generic.List<ROI> rois)
         {
             setROIShape(new ROICircle());
 
@@ -648,7 +735,7 @@ namespace ViewWindow.Model
             }
         }
 
-        public void genCircularArc(double row, double col, double radius, double startPhi, double extentPhi, string direct, ref System.Collections.Generic.List<ROI> rois)
+        protected internal void genCircularArc(double row, double col, double radius,double startPhi, double extentPhi,string direct, ref System.Collections.Generic.List<ROI> rois)
         {
             setROIShape(new ROICircularArc());
 
@@ -742,13 +829,12 @@ namespace ViewWindow.Model
                 {
                     ROI region = this.getActiveROI();
                     Type type = region.GetType();
-
                     HTuple smallest = region.getModelData();
 
-                    for (int i = 0; i < smallest.Length; i++)
-                    {
-                        data.Add(smallest[i].D);
-                    }
+                    //////for (int i = 0; i < smallest.Length; i++)
+                    //////{
+                    //////    data.Add(smallest[i].D);
+                    //////}
 
                     return region;
                 }

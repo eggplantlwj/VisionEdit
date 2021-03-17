@@ -16,7 +16,6 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
-                hv_MenuStrip.Dispose();
 
                 mCtrl_HWindow.HMouseMove -= HWindowControl_HMouseMove;
             }
@@ -48,11 +47,11 @@
             // 
             // m_CtrlHStatusLabelCtrl
             // 
-            this.m_CtrlHStatusLabelCtrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_CtrlHStatusLabelCtrl.AutoSize = true;
+            this.m_CtrlHStatusLabelCtrl.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.m_CtrlHStatusLabelCtrl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_CtrlHStatusLabelCtrl.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.m_CtrlHStatusLabelCtrl.Location = new System.Drawing.Point(3, 498);
+            this.m_CtrlHStatusLabelCtrl.Location = new System.Drawing.Point(0, 385);
             this.m_CtrlHStatusLabelCtrl.Margin = new System.Windows.Forms.Padding(3);
             this.m_CtrlHStatusLabelCtrl.Name = "m_CtrlHStatusLabelCtrl";
             this.m_CtrlHStatusLabelCtrl.Size = new System.Drawing.Size(0, 17);
@@ -75,10 +74,12 @@
             this.mCtrl_HWindow.Location = new System.Drawing.Point(0, 0);
             this.mCtrl_HWindow.Margin = new System.Windows.Forms.Padding(0);
             this.mCtrl_HWindow.Name = "mCtrl_HWindow";
-            this.mCtrl_HWindow.Size = new System.Drawing.Size(562, 518);
+            this.mCtrl_HWindow.Size = new System.Drawing.Size(536, 402);
             this.mCtrl_HWindow.TabIndex = 0;
-            this.mCtrl_HWindow.WindowSize = new System.Drawing.Size(562, 518);
+            this.mCtrl_HWindow.WindowSize = new System.Drawing.Size(536, 402);
             this.mCtrl_HWindow.HMouseMove += new HalconDotNet.HMouseEventHandler(this.HWindowControl_HMouseMove);
+            this.mCtrl_HWindow.HMouseDown += new HalconDotNet.HMouseEventHandler(this.mCtrl_HWindow_HMouseDown);
+            this.mCtrl_HWindow.Click += new System.EventHandler(this.mCtrl_HWindow_Click);
             this.mCtrl_HWindow.MouseLeave += new System.EventHandler(this.mCtrl_HWindow_MouseLeave);
             // 
             // HWindow_Final
@@ -90,7 +91,7 @@
             this.Controls.Add(this.m_CtrlHStatusLabelCtrl);
             this.Controls.Add(this.mCtrl_HWindow);
             this.Name = "HWindow_Final";
-            this.Size = new System.Drawing.Size(562, 518);
+            this.Size = new System.Drawing.Size(536, 402);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,8 +99,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label m_CtrlHStatusLabelCtrl;
         private System.Windows.Forms.ImageList m_CtrlImageList;
         private HalconDotNet.HWindowControl mCtrl_HWindow;
+        public System.Windows.Forms.Label m_CtrlHStatusLabelCtrl;
     }
 }

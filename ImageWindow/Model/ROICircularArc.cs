@@ -126,16 +126,38 @@ namespace ViewWindow.Model
       
 		/// <summary>Paints the ROI into the supplied window</summary>
 		/// <param name="window">HALCON window</param>
-		public override void draw(HalconDotNet.HWindow window)
+        public override void draw(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
 			contour.Dispose();
 			contour.GenCircleContourXld(midR, midC, radius, startPhi,
 										(startPhi + extentPhi), circDir, 1.0);
+            double littleRecSize = 0;
+            if (imageHeight < 300) littleRecSize = 1;
+            else if (imageHeight < 600) littleRecSize = 2;
+            else if (imageHeight < 900) littleRecSize = 3;
+            else if (imageHeight < 1200) littleRecSize = 4;
+            else if (imageHeight < 1500) littleRecSize = 5;
+            else if (imageHeight < 1800) littleRecSize = 6;
+            else if (imageHeight < 2100) littleRecSize = 7;
+            else if (imageHeight < 2400) littleRecSize = 8;
+            else if (imageHeight < 2700) littleRecSize = 9;
+            else if (imageHeight < 3000) littleRecSize = 10;
+            else if (imageHeight < 3300) littleRecSize = 11;
+            else if (imageHeight < 3600) littleRecSize = 12;
+            else if (imageHeight < 3900) littleRecSize = 13;
+            else if (imageHeight < 4200) littleRecSize = 14;
+            else if (imageHeight < 4500) littleRecSize = 15;
+            else if (imageHeight < 4800) littleRecSize = 16;
+            else if (imageHeight < 5100) littleRecSize = 17;
+            else littleRecSize = 18;
+
 			window.DispObj(contour);
-			window.DispRectangle2(sizeR, sizeC, 0, 5, 5);
-			window.DispRectangle2(midR, midC, 0, 5, 5);
-			window.DispRectangle2(startR, startC, startPhi, 10, 2);
-			window.DispObj(arrowHandleXLD);
+            window.DispRectangle2(sizeR, sizeC, 0, littleRecSize, littleRecSize);
+            window.DispRectangle2(midR, midC, 0, littleRecSize, littleRecSize);
+            window.DispRectangle2(startR, startC, startPhi, littleRecSize, littleRecSize);
+            window.DispRectangle2(extentR , extentC , 0, littleRecSize, littleRecSize);
+            window.DispLine(startR, startC, midR, midC);
+            window.DispLine(extentR  , extentC , midR, midC);
 		}
 
 		/// <summary> 
@@ -166,21 +188,41 @@ namespace ViewWindow.Model
 		/// <summary> 
 		/// Paints the active handle of the ROI object into the supplied window 
 		/// </summary>
-		public override void displayActive(HalconDotNet.HWindow window)
+        public override void displayActive(HalconDotNet.HWindow window, int imageWidth, int imageHeight)
 		{
+            double littleRecSize = 0;
+            if (imageHeight < 300) littleRecSize = 1;
+            else if (imageHeight < 600) littleRecSize = 2;
+            else if (imageHeight < 900) littleRecSize = 3;
+            else if (imageHeight < 1200) littleRecSize = 4;
+            else if (imageHeight < 1500) littleRecSize = 5;
+            else if (imageHeight < 1800) littleRecSize = 6;
+            else if (imageHeight < 2100) littleRecSize = 7;
+            else if (imageHeight < 2400) littleRecSize = 8;
+            else if (imageHeight < 2700) littleRecSize = 9;
+            else if (imageHeight < 3000) littleRecSize = 10;
+            else if (imageHeight < 3300) littleRecSize = 11;
+            else if (imageHeight < 3600) littleRecSize = 12;
+            else if (imageHeight < 3900) littleRecSize = 13;
+            else if (imageHeight < 4200) littleRecSize = 14;
+            else if (imageHeight < 4500) littleRecSize = 15;
+            else if (imageHeight < 4800) littleRecSize = 16;
+            else if (imageHeight < 5100) littleRecSize = 17;
+            else littleRecSize = 18;
+
 			switch (activeHandleIdx)
 			{
 				case 0:
-					window.DispRectangle2(midR, midC, 0, 5, 5);
+                    window.DispRectangle2(midR, midC, 0, littleRecSize, littleRecSize);
 					break;
 				case 1:
-					window.DispRectangle2(sizeR, sizeC, 0, 5, 5);
+                    window.DispRectangle2(sizeR, sizeC, 0, littleRecSize, littleRecSize);
 					break;
 				case 2:
-					window.DispRectangle2(startR, startC, startPhi, 10, 2);
+                    window.DispRectangle2(startR, startC, startPhi, littleRecSize, littleRecSize);
 					break;
 				case 3:
-					window.DispObj(arrowHandleXLD);
+                    window.DispRectangle2(extentR , extentC , 0, littleRecSize, littleRecSize);
 					break;
 			}
 		}
@@ -190,7 +232,7 @@ namespace ViewWindow.Model
 		/// performed at the active handle of the ROI object 
 		/// for the image coordinate (x,y)
 		/// </summary>
-		public override void moveByHandle(double newX, double newY)
+        public override void moveByHandle(double newX, double newY, HWindowControl window)
 		{
 			HTuple distance;
 			double dirX, dirY, prior, next, valMax, valMin;

@@ -8,7 +8,7 @@ namespace ViewWindow
 {
     public class ViewWindow : Model.IViewWindow
     {
-        public    Model.HWndCtrl _hWndControl;
+        public   Model.HWndCtrl _hWndControl;
 
         private Model.ROIController _roiController;
 
@@ -97,12 +97,23 @@ namespace ViewWindow
         {
             this._roiController.genRect1(row1, col1, row2, col2, ref rois);
         }
+        public void genNurbs(HTuple rows, HTuple cols, ref List<Model.ROI> rois)
+        {
+            this._roiController.genNurbs( rows,cols,ref rois);
+        }
+        public void genInitRect1( ref List<Model.ROI> rois)
+        {
+            this._roiController.genInitRect1(_roiController.viewController .imageHeight  , ref rois);
+        }
 
         public void genRect2(double row, double col, double phi, double length1, double length2, ref List<Model.ROI> rois)
         {
             this._roiController.genRect2(row, col, phi, length1, length2, ref rois);
         }
-
+        public void genInitRect2(ref List<Model.ROI> rois)
+        {
+            this._roiController.genInitRect2(_roiController.viewController.imageHeight, ref rois);
+        }
         public void genCircle(double row, double col, double radius, ref List<Model.ROI> rois)
         {
             this._roiController.genCircle(row, col, radius, ref rois);
@@ -198,20 +209,21 @@ namespace ViewWindow
 
             foreach (var roi in rois)
             {
-                HTuple m_roiData = null;
-                m_roiData = roi.getModelData();
+                
 
                 switch (roi.Type)
                 {
                     case "ROIRectangle1":
-
+                               HTuple m_roiData = null;
+                m_roiData = roi.getModelData();
                         if (m_roiData != null)
                         {
                             this._roiController.displayRect1(roi.Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D, m_roiData[3].D);
                         }
                         break;
                     case "ROIRectangle2":
-
+                        m_roiData = null;  
+                m_roiData = roi.getModelData();
                         if (m_roiData != null)
                         {
                             this._roiController.displayRect2(roi.Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D, m_roiData[3].D, m_roiData[4].D);
@@ -219,17 +231,25 @@ namespace ViewWindow
                         }
                         break;
                     case "ROICircle":
-
+                        m_roiData = roi.getModelData();
                         if (m_roiData != null)
                         {
                             this._roiController.displayCircle(roi.Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D);
                         }
                         break;
                     case "ROILine":
-
+                        m_roiData = roi.getModelData();
                         if (m_roiData != null)
                         {
                             this._roiController.displayLine(roi.Color, m_roiData[0].D, m_roiData[1].D, m_roiData[2].D, m_roiData[3].D);
+                        }
+                        break;
+                    case "ROINurbs":
+                        HTuple rows, cols;
+                        roi.getModelData(out rows ,out cols );
+                        if (rows  != null)
+                        {
+                            this._roiController.displayNurbs(roi.Color, rows, cols);
                         }
                         break;
                     default:

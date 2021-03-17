@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMethods;
-using HalconWindow.HalconWindow;
+using ChoiceTech.Halcon.Control;
 
 namespace CaliperTool
 {

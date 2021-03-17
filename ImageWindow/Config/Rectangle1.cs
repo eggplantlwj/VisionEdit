@@ -41,7 +41,7 @@ namespace ViewWindow.Config
             get { return this._column2; }
             set { this._column2 = value; }
         }
-        private string color = "yellow";
+        private string color = "blue";
         [XmlElement(ElementName = "Color")]
         public string Color
         {

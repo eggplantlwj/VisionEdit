@@ -26,6 +26,10 @@ namespace CommonMethods
         /// </summary>
         public Dictionary<TreeNode, TreeNode> D_itemAndSource { get; set; } = new Dictionary<TreeNode, TreeNode>();
         /// <summary>
+        /// JOB上的树结构,取消该参数，TreeView无法二进制序列化
+        /// </summary>
+        //public TreeView tvwOnWorkJob { get; set; } = new TreeView();
+        /// <summary>
         /// 工具输入项个数
         /// </summary>
         public int inputItemNum = 0;
@@ -34,9 +38,9 @@ namespace CommonMethods
         /// </summary>
         public int outputItemNum = 0;
         /// <summary>
-        /// 流程运行结果图像
+        /// 流程运行结果图像，取消，无法序列化
         /// </summary>
-        public HObject jobResultImage { get; set; } = new HObject();
+        public static HObject jobResultImage { get; set; } = new HObject();
         /// <summary>
         /// 流程树中节点的最大长度
         /// </summary>
@@ -83,11 +87,11 @@ namespace CommonMethods
         /// <summary>
         /// 流程编辑时的右击菜单
         /// </summary>
-        public ContextMenuStrip rightClickMenu { get; set; } = new ContextMenuStrip();
+        public static ContextMenuStrip rightClickMenu { get; set; } = new ContextMenuStrip();
         /// <summary>
         /// 在空白除右击菜单
         /// </summary>
-        public ContextMenuStrip rightClickMenuAtBlank { get; set; }
+        public static ContextMenuStrip rightClickMenuAtBlank { get; set; }
 
     }
 }

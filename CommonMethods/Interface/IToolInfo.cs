@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace CommonMethods
 {
+    [Serializable]
     public class IToolInfo
     {
         /// <summary>
@@ -26,9 +27,9 @@ namespace CommonMethods
         /// </summary>
         public object tool { get; set; }
         /// <summary>
-        /// 工具窗体
+        /// 工具窗体,由于无法对Form进行序列化，所以作为静态变量
         /// </summary>
-        public Form FormTool { get; set; }
+        public static Form FormTool { get; set; }
         /// <summary>
         /// 工具窗体名
         /// </summary>
@@ -115,6 +116,16 @@ namespace CommonMethods
                 if (toolOutput[i].IOName == toolName)
                     toolOutput.RemoveAt(i);
             }
+        }
+
+        public Form GetFormTool()
+        {
+            return FormTool;
+        }
+
+        public void SetFormTool(Form myForm)
+        {
+            FormTool = myForm;
         }
     }
 

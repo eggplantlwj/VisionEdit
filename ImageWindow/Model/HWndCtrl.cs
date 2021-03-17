@@ -4,6 +4,7 @@ using System.Collections;
 using HalconDotNet;
 using ViewROI.Config;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace ViewWindow.Model
 {
@@ -91,8 +92,8 @@ namespace ViewWindow.Model
 		/* Basic parameters, like dimension of window and displayed image part */
 		private int   windowWidth;
 		private int   windowHeight;
-		private int   imageWidth;
-		private int   imageHeight;
+		internal  int   imageWidth;
+        internal int imageHeight;
 
 		private int[] CompRangeX;
 		private int[] CompRangeY;
@@ -104,7 +105,7 @@ namespace ViewWindow.Model
 
 		/* Image coordinates, which describe the image part that is displayed  
 		   in the HALCON window */
-		private double ImgRow1, ImgCol1, ImgRow2, ImgCol2;
+		public   double ImgRow1, ImgCol1, ImgRow2, ImgCol2;
 
 		/// <summary>Error message when an exception is thrown</summary>
 		public string  exceptionText = "";
@@ -567,6 +568,7 @@ namespace ViewWindow.Model
 		/*******************************************************************/
 		private void mouseMoved(object sender, HalconDotNet.HMouseEventArgs e)
 		{
+
             //关闭缩放事件
             if (drawModel)
             {
@@ -583,10 +585,11 @@ namespace ViewWindow.Model
 
 			if (roiManager != null && (roiManager.activeROIidx != -1) && (dispROI == MODE_INCLUDE_ROI))
 			{
-				roiManager.mouseMoveAction(e.X, e.Y);
+				roiManager.mouseMoveAction(e.X, e.Y,viewPort  );
 			}
 			else if (stateView == MODE_VIEW_MOVE)
 			{
+                viewPort.Cursor = System.Windows.Forms.Cursors.Hand;
 				motionX = ((e.X - startX));
 				motionY = ((e.Y - startY));
 
@@ -725,10 +728,6 @@ namespace ViewWindow.Model
 		{
 			repaint(viewPort.HalconWindow);
 		}
-        public void repaint(string color)
-        {
-            repaint(viewPort.HalconWindow ,color );
-        }
 
 		/// <summary>
 		/// Repaints the HALCON window 'window'
@@ -762,7 +761,7 @@ namespace ViewWindow.Model
 			    addInfoDelegate();
 
 			    if (roiManager != null && (dispROI == MODE_INCLUDE_ROI))
-				    roiManager.paintData(window);
+				    roiManager.paintData(window,viewPort );
 
 
 			    HSystem.SetSystem("flush_graphic", "true");
@@ -777,50 +776,6 @@ namespace ViewWindow.Model
 
             }
 		}
-        public void repaint(HalconDotNet.HWindow window,string color)
-        {
-            try
-            {
-
-
-                int count = HObjImageList.Count;
-                HObjectEntry entry;
-
-                HSystem.SetSystem("flush_graphic", "false");
-                window.ClearWindow();
-                mGC.stateOfSettings.Clear();
-
-                //显示图片
-                for (int i = 0; i < count; i++)
-                {
-                    entry = ((HObjectEntry)HObjImageList[i]);
-                    mGC.applyContext(window, entry.gContext);
-                    window.DispObj(entry.HObj);
-
-                }
-
-                //显示region
-                showHObjectList();
-
-
-                addInfoDelegate();
-
-                if (roiManager != null && (dispROI == MODE_INCLUDE_ROI))
-                    roiManager.paintData(window,color );
-
-
-                HSystem.SetSystem("flush_graphic", "true");
-
-                //注释了下面语句,会导致窗口无法实现缩放和拖动
-                window.SetColor("black");
-                window.DispLine(-100.0, -100.0, -101.0, -101.0);
-
-            }
-            catch (Exception)
-            {
-
-            }
-        }
 
 
 

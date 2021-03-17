@@ -1,11 +1,13 @@
 ﻿using System;
 using HalconDotNet;
 using static DataStruct.DataStruct;
+using ToolBase;
+using CommonMethods;
 
 namespace FindCircle
 {
     [Serializable]
-    public class FindClrcle
+    public class FindClrcle: IToolBase
     {
         /// <summary>
         /// 输入位姿
@@ -58,6 +60,72 @@ namespace FindCircle
                 return Math.Round(resultCircleRadius, 3);
             }
         }
+
+        public SoftwareRunState softwareRunState
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public ToolRunStatu toolRunStatu
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string runMessage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string runTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        HObject IToolBase.inputImage
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// 起始角度
         /// </summary>
@@ -102,5 +170,15 @@ namespace FindCircle
         /// 制作模板时的输入位姿
         /// </summary>
         internal PosXYU templatePose = new PosXYU();
+
+        public void Run(SoftwareRunState softwareRunState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DispImage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
