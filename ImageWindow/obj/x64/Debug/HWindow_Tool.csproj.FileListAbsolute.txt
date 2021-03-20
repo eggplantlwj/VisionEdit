@@ -27,3 +27,15 @@ D:\halcon平移缩放(halcon1712)\C#源码\ihalcon开源窗体控件\halcon控�
 D:\halcon平移缩放(halcon1712)\C#源码\ihalcon开源窗体控件\halcon控件\obj\x64\Debug\HWindow_Tool.csproj.GenerateResource.Cache
 D:\halcon平移缩放(halcon1712)\C#源码\ihalcon开源窗体控件\halcon控件\obj\x64\Debug\HWindow_Tool.dll
 D:\halcon平移缩放(halcon1712)\C#源码\ihalcon开源窗体控件\halcon控件\obj\x64\Debug\HWindow_Tool.pdb
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.dll.config
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.dll
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.pdb
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.dll
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.xml
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.HWindowTool_Smart.resources
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.Properties.Resources.resources
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csproj.GenerateResource.Cache
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.dll
+F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.pdb

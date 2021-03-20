@@ -117,6 +117,7 @@ namespace CommonMethods
                     toolOutput.RemoveAt(i);
             }
         }
+        
 
         public Form GetFormTool()
         {

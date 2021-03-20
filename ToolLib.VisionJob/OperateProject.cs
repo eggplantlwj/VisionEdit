@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -88,6 +89,10 @@ namespace ToolLib.VisionJob
 
         public void InitJob(VisionJob myJob)
         {
+            if(myJob.L_toolList.Count > 0)
+            {
+                ReCoverJob(myJob);
+            }
             myJob.GetJobTree().Dock = DockStyle.Fill;
             myJob.GetJobTree().ImageList = FormToolBox.Instance.imageListTool;
             myJob.GetJobTree().Font = new Font("微软雅黑", 9, FontStyle.Bold);
@@ -189,6 +194,60 @@ namespace ToolLib.VisionJob
                     //VisionJobParams.myProject[jobName].L_toolList[i].FormTool.ShowDialog();
                 }
             }
+        }
+        /// <summary>
+        /// 恢复工具之间的关系和连线
+        /// </summary>
+        private void ReCoverJob(VisionJob myJob)
+        {
+            //反序列化各工具
+            myJob.D_itemAndSource.Clear();
+            for (int i = 0; i < myJob.L_toolList.Count; i++)
+            {
+                TreeNode node = myJob.GetJobTree().Nodes.Add(myJob.L_toolList[i].toolName);
+                for (int j = 0; j < myJob.L_toolList[i].toolInput.Count; j++)
+                {
+                    TreeNode treeNode;
+                    //因为OutputBox只有源，所以此处特殊处理
+                    if (myJob.L_toolList[i].toolType != ToolType.Output)
+                        treeNode = node.Nodes.Add("<--" + myJob.L_toolList[i].toolInput[j].IOName + myJob.L_toolList[i].toolInput[j].value);
+                    else
+                        treeNode = node.Nodes.Add("<--" + myJob.L_toolList[i].toolInput[j].IOName);
+
+                    treeNode.Tag = myJob.L_toolList[i].toolInput[j].ioType;
+                    treeNode.ForeColor = Color.DarkMagenta;
+
+                    //解析需要连线的节点对
+                    if (treeNode.ToString().Contains("《-"))
+                    {
+                        string toolNodeText = Regex.Split(myJob.L_toolList[i].toolInput[j].value.ToString(), "->")[0].Substring(3);
+                        string a = myJob.L_toolList[i].toolInput[j].value.ToString();
+                        string toolIONodeText = "-->" + Regex.Split(myJob.L_toolList[i].toolInput[j].value.ToString(), "->")[1];
+                        TreeNode bbb = myJob.GetToolIONodeByNodeText(toolNodeText, toolIONodeText);
+                        myJob.D_itemAndSource.Add(treeNode, myJob.GetToolIONodeByNodeText(toolNodeText, toolIONodeText));
+                    }
+                    if (myJob.L_toolList[i].toolType == ToolType.Output)
+                    {
+                        string toolNodeText = Regex.Split(treeNode.Text, "->")[0].Substring(3);
+                        string toolIONodeText = Regex.Split(treeNode.Text, "->")[1];
+                        TreeNode aaa = myJob.GetToolIONodeByNodeText(toolNodeText, "-->" + toolIONodeText);
+                        myJob.D_itemAndSource.Add(treeNode, myJob.GetToolIONodeByNodeText(toolNodeText, "-->" + toolIONodeText));
+                    }
+                }
+                for (int k = 0; k < myJob.L_toolList[i].toolOutput.Count; k++)
+                {
+                    TreeNode treeNode = node.Nodes.Add("-->" + myJob.L_toolList[i].toolOutput[k].IOName);
+
+                    treeNode.Tag = myJob.L_toolList[i].toolOutput[k].ioType;
+                    treeNode.ForeColor = Color.Blue;
+                }
+            }
+
+            // UpdateJobTreeIcon(job.jobName);
+
+            //默认选中第一个节点
+            //if (tvw_job.Nodes.Count > 0)
+            //    tvw_job.SelectedNode = tvw_job.Nodes[0];
         }
 
     }

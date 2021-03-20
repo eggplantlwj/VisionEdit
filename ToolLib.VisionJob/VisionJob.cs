@@ -222,8 +222,10 @@ namespace ToolLib.VisionJob
                         input = Regex.Split(input, "《")[0];
                     else            //第一次连接源就需要添加到输入输出集合
                         D_itemAndSource.Add(targeNode, moveNode);
-                    GetToolInfoByToolName(targeNode.Parent.Text).GetInput(input.Substring(3)).value = "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
-                    targeNode.Text = input + "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
+                //    GetToolInfoByToolName(targeNode.Parent.Text).GetInput(input.Substring(3)).value = "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
+                //    targeNode.Text = input + "《- " + moveNode.Parent.Text + " . " + moveNode.Text.Substring(3);
+                    GetToolInfoByToolName(targeNode.Parent.Text).GetInput(input.Substring(3)).value = "《- " + moveNode.Parent.Text + "->" + moveNode.Text.Substring(3);
+                    targeNode.Text = input + "《- " + moveNode.Parent.Text + "->" + moveNode.Text.Substring(3);
                     DrawLine();
 
                     //移除拖放的节点  
@@ -533,7 +535,36 @@ namespace ToolLib.VisionJob
                 return null;
             }
         }
-
+        /// <summary>
+        /// 通过TreeNode节点文本获取输入输出节点
+        /// </summary>
+        /// <param name="toolName">工具名称</param>
+        /// <returns>IO名称</returns>
+        internal TreeNode GetToolIONodeByNodeText(string toolName, string toolIOName)
+        {
+            try
+            {
+                foreach (TreeNode toolNode in GetJobTree().Nodes)
+                {
+                    if (toolNode.Text == toolName)
+                    {
+                        foreach (TreeNode itemNode in toolNode.Nodes)
+                        {
+                            if (itemNode.Text == toolIOName)
+                            {
+                                return itemNode;
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                LoggerClass.WriteLog("通过TreeNode节点文本获取输入输出节点时出错", ex);
+                return null;
+            }
+        }
         /// <summary>
         /// 删除连线及值传递
         /// </summary>

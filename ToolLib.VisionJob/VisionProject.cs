@@ -50,11 +50,11 @@ namespace ToolLib.VisionJob
                     foreach (var item in Project)
                     {
                         OperateProject.Instance.CreateNewJob(item.Key, false);
-                        foreach (var tool in item.Value.L_toolList)
-                        {
-                            OperateTreeView.Instance.Add_Tool((ToolType)Enum.Parse(typeof(ToolType), tool.toolType.ToString()), false);
-                        }
-                        OperateProject.Instance.InitJob(item.Value);
+                        //foreach (var tool in item.Value.L_toolList)
+                        //{
+                        //    OperateTreeView.Instance.Add_Tool((ToolType)Enum.Parse(typeof(ToolType), tool.toolType.ToString()), false);
+                        //}
+                       // OperateProject.Instance.InitJob(item.Value);
                     }
                     return true;
                 }
