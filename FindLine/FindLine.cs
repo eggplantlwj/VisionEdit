@@ -22,10 +22,6 @@ namespace FindLineTool
         /// </summary>
         public PosXYU templatePose = new PosXYU();
         /// <summary>
-        /// 期望线起点行坐标
-        /// </summary>
-        public HTuple expectLineStartRow = 200;
-        /// <summary>
         /// 卡尺
         /// </summary>
         public HObject contoursDisp = null;
@@ -38,6 +34,10 @@ namespace FindLineTool
         /// </summary>
         public HObject crossDisp = null;
         /// <summary>
+        /// 期望线起点行坐标
+        /// </summary>
+        public HTuple expectLineStartRow = 200;
+        /// <summary>
         /// 期望线起点列坐标
         /// </summary>
         public HTuple expectLineStartCol = 200;
@@ -49,6 +49,21 @@ namespace FindLineTool
         /// 期望线终点列坐标
         /// </summary>
         public HTuple expectLineEndCol = 600;
+        /// <summary>
+        /// 新的跟随姿态变化后的预期线信息
+        /// </summary>
+        HTuple newExpectLineStartRow = new HTuple(200), newExpectLineStartCol = new HTuple(200), newExpectLineEndRow = new HTuple(200), newExpectLineEndCol = new HTuple(600);
+        ///// <summary>
+        ///// 区域中心行坐标
+        ///// </summary>
+        //public HTuple recCenterRow = 200;
+        ///// <summary>
+        ///// 区域中心列坐标
+        ///// </summary>
+        //public HTuple recCenterCol = 200;
+        //public HTuple recAngle = 0;
+        //public HTuple recWidth = 100;
+        //public HTuple recLength = 200;
         /// <summary>
         /// 找边极性，从明到暗或从暗到明
         /// </summary>
@@ -89,14 +104,6 @@ namespace FindLineTool
         /// 交点显示
         /// </summary>
         public bool dispCross = true;
-        /// <summary>
-        /// 运行过程信息
-        /// </summary>
-        public string runMessage { get; set; }
-        /// <summary>
-        /// 工具运行时间
-        /// </summary>
-        public string runTime { get; set; } = string.Empty;
         public double minScore
         {
             get
@@ -130,7 +137,7 @@ namespace FindLineTool
         /// <summary>
         /// 新的跟随姿态变化后的预期线信息
         /// </summary>
-        HTuple newExpectLineStartRow = new HTuple(200), newExpectLineStartCol = new HTuple(200), newExpectLineEndRow = new HTuple(200), newExpectLineEndCol = new HTuple(600);
+        HTuple newExpectCenterRow = new HTuple(200), newExpectCenterCol = new HTuple(200), newExpectAngle = new HTuple(0);
         /// <summary>
         /// 查找到的线的起点行坐标
         /// </summary>
@@ -196,34 +203,22 @@ namespace FindLineTool
             }
             set { _angle = value; }
         }
-        /// <summary>
-        /// 输入图像
-        /// </summary>
-        public HObject inputImage { get; set; } = null;
-        /// <summary>
-        /// 工具运行结果
-        /// </summary>
-        public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
-        /// <summary>
-        ///  软件运行状态
-        /// </summary>
-        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
-        public void DispImage()
+        public override void DispImage()
         {
             if(inputImage != null)
             {
-                FormFindLine.Instance.myHwindow.HobjectToHimage(inputImage);
+                FormFindLine.Instance.myHwindow.DispHWindow.DispImage(new HImage(inputImage));
             }
         }
 
         public void UpdateImage()
         {
-            FormFindLine.Instance.myHwindow.ClearWindow();
+            FormFindLine.Instance.myHwindow.DispHWindow.ClearWindow();
             DispImage();
         }
         
 
-        public void Run(SoftwareRunState softwareRunState)
+        public override void Run(SoftwareRunState softwareRunState)
         {
             Stopwatch sw = new Stopwatch();
             sw.Restart();
@@ -238,7 +233,10 @@ namespace FindLineTool
             }
             try
             {
-                UpdateImage();
+                if(softwareRunState == SoftwareRunState.Debug)
+                {
+                    UpdateImage();
+                }
                 if (inputPose != null)
                 {
                     HTuple Row = inputPose.X - templatePose.X;
@@ -284,7 +282,7 @@ namespace FindLineTool
                 //显示所有卡尺
                 HTuple pointRow, pointCol;
                 HOperatorSet.GetMetrologyObjectMeasures(out contoursDisp, handleID, new HTuple("all"), new HTuple("all"), out pointRow, out pointCol);
-                
+
 
                 //显示指示找线方向的箭头
 
@@ -293,9 +291,9 @@ namespace FindLineTool
                 HOperatorSet.GenRegionLine(out drawLine, newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol);
                 HOperatorSet.ReduceDomain(inputImage, drawLine, out imageReducedLine);
                 HOperatorSet.GetRegionPoints(imageReducedLine, out arrowRow, out arrowColumn);
-                if(arrowRow.Length < 200)
+                if (arrowRow.Length < 200)
                 {
-                    CommonMethods.CommonMethods.gen_arrow_contour_xld(out arrow, arrowRow[0], arrowColumn[0], arrowRow[arrowRow.Length-1], arrowColumn[arrowRow.Length - 1], 20, 20);
+                    CommonMethods.CommonMethods.gen_arrow_contour_xld(out arrow, arrowRow[0], arrowColumn[0], arrowRow[arrowRow.Length - 1], arrowColumn[arrowRow.Length - 1], 20, 20);
                 }
                 else
                 {
@@ -326,7 +324,7 @@ namespace FindLineTool
                 HOperatorSet.AngleLx(ResultLineStartRow, ResultLineStartCol, ResultLineEndRow, ResultLineEndCol, out _angle);
                 if (softwareRunState == SoftwareRunState.Debug)
                 {
-                    DispMainWindow(FormFindLine.Instance.myHwindow);
+                    DispMainWindow(FormFindLine.Instance.myHwindow.DispHWindow);
                     FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
                     FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
                     FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
@@ -351,18 +349,18 @@ namespace FindLineTool
             }
         }
 
-        internal void DrawExpectLine(HWindow_Final myHwindow)
+        internal void DrawExpectLine(HWindow myHwindow)
         {
+
+            /*
             if(inputImage != null)
             {
                 try
                 {
-                    myHwindow.DrawModel = true;
-                    myHwindow.Focus();
-                    HOperatorSet.SetColor(myHwindow.hWindowControl.HalconWindow, new HTuple("green"));
+                    HOperatorSet.SetColor(myHwindow, new HTuple("green"));
                     Stopwatch sw = new Stopwatch();
                     sw.Restart();
-                    HOperatorSet.DrawLineMod(myHwindow.hWindowControl.HalconWindow, newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol, out expectLineStartRow, out expectLineStartCol, out expectLineEndRow, out expectLineEndCol);
+                    HOperatorSet.DrawLineMod(myHwindow, newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol, out expectLineStartRow, out expectLineStartCol, out expectLineEndRow, out expectLineEndCol);
 
                     if (inputPose != null)
                     {
@@ -375,7 +373,6 @@ namespace FindLineTool
                     FormFindLine.Instance.tbx_expectLineStartCol.Text = expectLineStartCol.TupleString("10.3f");
                     FormFindLine.Instance.tbx_expectLineEndRow.Text = expectLineEndRow.TupleString("10.3f");
                     FormFindLine.Instance.tbx_expectLineEndCol.Text = expectLineEndCol.TupleString("10.3f");
-                    myHwindow.DrawModel = false;
                     
                     Run(SoftwareRunState.Debug);
                 }
@@ -388,7 +385,7 @@ namespace FindLineTool
             {
                 FormFindLine.Instance.SetToolStatus("输入图像为空！", ToolRunStatu.Not_Input_Image);
             }
-            
+            */
         }
 
         /// <summary>
@@ -404,21 +401,23 @@ namespace FindLineTool
             FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("EndPoint.Column", ResultLineEndCol, DataType.IntValue));
         }
 
-        public void DispMainWindow(HWindow_Final window)
+        public override void DispMainWindow(HWindow window)
         {
             // 显示矩形
             if (dispRec)
             {
-                window.DispObj(contoursDisp, "blue");
+                window.SetColor("blue");
+                window.DispObj(contoursDisp);
             }
             // 显示交点
             if (dispCross)
             {
-                window.DispObj(arrowDisp, "red");
-                window.DispObj(crossDisp, "orange");
+                window.SetColor("orange");
+                window.DispObj(crossDisp);
             }
             //显示找到的线
-            window.DispObj(LineDisp, "green");
+            window.SetColor("green");
+            window.DispObj(LineDisp);
         }
         
     }

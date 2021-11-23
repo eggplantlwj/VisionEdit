@@ -1,4 +1,5 @@
 ﻿using ChoiceTech.Halcon.Control;
+using HalconDotNet;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,13 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ViewROI;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace FormLib
 {
     public partial class FormImageWindow : DockContent
     {
-        public HWindow_Final myHWindow = new HWindow_Final();
+        public HWindowTool_Smart myHWindow = new HWindowTool_Smart();
         public FormImageWindow()
         {
             InitializeComponent();

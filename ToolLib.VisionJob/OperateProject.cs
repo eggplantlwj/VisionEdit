@@ -89,19 +89,19 @@ namespace ToolLib.VisionJob
 
         public void InitJob(VisionJob myJob)
         {
-            if(myJob.L_toolList.Count > 0)
+            myJob.GetJobTree().ImageList = FormToolBox.Instance.imageListTool;
+            if (myJob.L_toolList.Count > 0)
             {
                 ReCoverJob(myJob);
             }
             myJob.GetJobTree().Dock = DockStyle.Fill;
-            myJob.GetJobTree().ImageList = FormToolBox.Instance.imageListTool;
+            
             myJob.GetJobTree().Font = new Font("微软雅黑", 9, FontStyle.Bold);
 
             myJob.GetJobTree().Scrollable = true;
             myJob.GetJobTree().ItemHeight = 20;
             myJob.GetJobTree().ShowLines = false;
             myJob.GetJobTree().AllowDrop = true;
-            //myTreeView.ImageList = Job.imageList;
 
             // 在窗体UI出现变化时，更新画线
             myJob.GetJobTree().AfterSelect += myJob.tvw_job_AfterSelect;
@@ -198,7 +198,7 @@ namespace ToolLib.VisionJob
         /// <summary>
         /// 恢复工具之间的关系和连线
         /// </summary>
-        private void ReCoverJob(VisionJob myJob)
+        private void ReCoverJob(VisionJob myJob, ImageList inputImageList = null)
         {
             //反序列化各工具
             myJob.D_itemAndSource.Clear();
@@ -223,14 +223,12 @@ namespace ToolLib.VisionJob
                         string toolNodeText = Regex.Split(myJob.L_toolList[i].toolInput[j].value.ToString(), "->")[0].Substring(3);
                         string a = myJob.L_toolList[i].toolInput[j].value.ToString();
                         string toolIONodeText = "-->" + Regex.Split(myJob.L_toolList[i].toolInput[j].value.ToString(), "->")[1];
-                        TreeNode bbb = myJob.GetToolIONodeByNodeText(toolNodeText, toolIONodeText);
                         myJob.D_itemAndSource.Add(treeNode, myJob.GetToolIONodeByNodeText(toolNodeText, toolIONodeText));
                     }
                     if (myJob.L_toolList[i].toolType == ToolType.Output)
                     {
                         string toolNodeText = Regex.Split(treeNode.Text, "->")[0].Substring(3);
                         string toolIONodeText = Regex.Split(treeNode.Text, "->")[1];
-                        TreeNode aaa = myJob.GetToolIONodeByNodeText(toolNodeText, "-->" + toolIONodeText);
                         myJob.D_itemAndSource.Add(treeNode, myJob.GetToolIONodeByNodeText(toolNodeText, "-->" + toolIONodeText));
                     }
                 }

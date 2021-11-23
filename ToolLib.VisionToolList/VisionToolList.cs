@@ -2,6 +2,7 @@
 using CommonMethods;
 using FindLineTool;
 using HalconTool;
+using PMAlignTool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,5 +104,31 @@ namespace VisionJobFactory
     public class BlobAnalyseToolInterface : IToolInfo
     {
 
+    }
+
+    [Serializable]
+    [VisionToolAttribute(ToolType.PMAlignTool)]
+    public class PMAlignToolToolInterface : IToolInfo
+    {
+        ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
+        ToolIO outPose = new ToolIO("GetPose", null, DataType.Pose);
+        public PMAlignToolToolInterface(string toolName)
+        {
+            enable = true;
+            toolType = ToolType.PMAlignTool;
+            this.toolName = toolName;
+            tool = new PMAlign();
+            FormToolName = "PMAlignTool.FormPMAlignTool";
+            FormTool = null;
+            toolInput = new List<ToolIO>() { inputImage };
+            toolOutput = new List<ToolIO>() { outPose };
+        }
+        /// <summary>
+        /// 只获取选择工具的描述信息
+        /// </summary>
+        public PMAlignToolToolInterface()
+        {
+            toolDescription = "模板匹配工具，可得到根据图像捕获特征的姿态";
+        }
     }
 }

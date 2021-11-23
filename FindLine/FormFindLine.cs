@@ -1,24 +1,36 @@
-﻿using System;
+﻿using CommonMethods;
+using HalconDotNet;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CommonMethods;
-using HalconDotNet;
-using ChoiceTech.Halcon.Control;
+using ViewROI;
 
 namespace FindLineTool
 {
     public partial class FormFindLine : Form
     {
         public FindLine myFindLine = null;
-        public IToolInfo myToolInfo = null;
-        public HWindow_Final myHwindow = new HWindow_Final();
+        public IToolInfo myToolInfo = new IToolInfo();
+        public HWindowTool_Smart myHwindow = new HWindowTool_Smart();
+        public HDrawingObject selected_drawing_object = new HDrawingObject();
+
+        public FormFindLine(ref object findLine)
+        {
+            InitializeComponent();
+            _instance = this;
+            if (findLine.GetType().FullName != "System.Object")
+            {
+                myToolInfo = (IToolInfo)findLine;
+                myFindLine = (FindLine)myToolInfo.tool;
+                myFindLine.DispImage();
+            }
+        }
         /// <summary>
         /// 窗体对象实例
         /// </summary>
@@ -27,7 +39,7 @@ namespace FindLineTool
         {
             get
             {
-                if(_instance != null)
+                if (_instance != null)
                 {
                     lock (_instance)
                     {
@@ -45,69 +57,23 @@ namespace FindLineTool
                     _instance = new FormFindLine(ref line);
                     return _instance;
                 }
-                
+
             }
         }
 
-
-        public FormFindLine(ref object findLine)
-        {
-            InitializeComponent();
-            _instance = this;
-            if(findLine.GetType().FullName != "System.Object")
-            {
-                myToolInfo = (IToolInfo)findLine;
-                myFindLine = (FindLine)myToolInfo.tool;
-                //myFindLine.inputImage = ComGlobalParams.inputImageGlobal; // 暂时直接将图像传递给该工具
-                myFindLine.DispImage();
-            }
-        }
-
-        private void FormFindLine_Load(object sender, EventArgs e)
+        private void FormFindLine2_Load(object sender, EventArgs e)
         {
             this.panel1.Controls.Add(myHwindow);
             myHwindow.Dock = DockStyle.Fill;
             InitTool();
         }
-
-        private void btn_moveCliperRegion_Click(object sender, EventArgs e)
-        {
-            myFindLine.UpdateImage();
-            myFindLine.DrawExpectLine(myHwindow);
-        }
-
-        private void btn_runFindLineTool_Click(object sender, EventArgs e)
-        {
-            // 更改界面中参数，实时更新类中参数
-            myFindLine.expectLineStartRow = Convert.ToDouble(tbx_expectLineStartRow.Text.Trim());
-            myFindLine.expectLineStartCol = Convert.ToDouble(tbx_expectLineStartCol.Text.Trim());
-            myFindLine.expectLineEndRow = Convert.ToDouble(tbx_expectLineEndRow.Text.Trim());
-            myFindLine.expectLineEndCol = Convert.ToDouble(tbx_expectLineEndCol.Text.Trim());
-            // 运行参数
-            myFindLine.minScore = Convert.ToDouble(tbx_minScore.Text.Trim());
-            myFindLine.cliperNum = Convert.ToInt16(tbx_caliperNum.Text.Trim());
-            myFindLine.threshold = Convert.ToInt16(tbx_threshold.Text.Trim());
-            myFindLine.length = Convert.ToInt16(tbx_caliperLength.Text.Trim());
-            myFindLine.weidth = Convert.ToInt16(tbx_caliperLength2.Text.Trim());
-            myFindLine.polarity = cbx_polarity.SelectedItem.ToString() == "从明到暗" ? "negative":"positive";
-            myFindLine.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
-            myFindLine.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
-            // Run
-            myFindLine.Run(SoftwareRunState.Debug);
-        }
-
-        public void InitTool()
+        private void InitTool()
         {
             this.Text = myToolInfo.toolName;
-            btn_runFindLineTool.Focus();
             Application.DoEvents();
 
-            //myFindLine.Run();         //运行一下，使卡尺显示出来
+           // myFindLine.Run();         //运行一下，使卡尺显示出来
 
-            tbx_expectLineStartRow.Text = myFindLine.expectLineStartRow.ToString();
-            tbx_expectLineStartCol.Text = myFindLine.expectLineStartCol.ToString();
-            tbx_expectLineEndRow.Text = myFindLine.expectLineEndRow.ToString();
-            tbx_expectLineEndCol.Text = myFindLine.expectLineEndCol.ToString();
             cbx_edgeSelect.Text = myFindLine.edgeSelect;
             tbx_minScore.Text = myFindLine.minScore.ToString();
             cbx_polarity.Text = myFindLine.polarity == "positive" ? "从暗到明" : "从明到暗";
@@ -118,6 +84,41 @@ namespace FindLineTool
             tbx_caliperLength2.Text = myFindLine.weidth.ToString();
             chBDispRec.Checked = myFindLine.dispRec;
             chBDispCross.Checked = myFindLine.dispCross;
+            // 将要编辑的线显示
+            selected_drawing_object = HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] { myFindLine.expectLineStartRow, myFindLine.expectLineStartCol, myFindLine.expectLineEndRow, myFindLine.expectLineEndCol });
+            GC.KeepAlive(selected_drawing_object);
+            selected_drawing_object.OnSelect(OnSelectDrawingObject);
+            selected_drawing_object.OnAttach(OnSelectDrawingObject);
+            selected_drawing_object.OnResize(OnSelectDrawingObject);
+            selected_drawing_object.OnDrag(OnSelectDrawingObject);
+            myHwindow.DispHWindow.AttachDrawingObjectToWindow(selected_drawing_object);
+        }
+        /// <summary>
+        /// 参数回调
+        /// </summary>
+        /// <param name="dobj"></param>
+        /// <param name="hwin"></param>
+        /// <param name="type"></param>
+        private void OnSelectDrawingObject(HDrawingObject dobj, HWindow hwin, string type)
+        {
+            myFindLine.expectLineStartRow = dobj.GetDrawingObjectParams("row1");
+            myFindLine.expectLineStartCol = dobj.GetDrawingObjectParams("column1");
+            myFindLine.expectLineEndRow = dobj.GetDrawingObjectParams("row2");
+            myFindLine.expectLineEndCol = dobj.GetDrawingObjectParams("column2");
+        }
+        private void tsbtRunTool_Click(object sender, EventArgs e)
+        {
+            // 运行参数
+            myFindLine.minScore = Convert.ToDouble(tbx_minScore.Text.Trim());
+            myFindLine.cliperNum = Convert.ToInt16(tbx_caliperNum.Text.Trim());
+            myFindLine.threshold = Convert.ToInt16(tbx_threshold.Text.Trim());
+            myFindLine.length = Convert.ToInt16(tbx_caliperLength.Text.Trim());
+            myFindLine.weidth = Convert.ToInt16(tbx_caliperLength2.Text.Trim());
+            myFindLine.polarity = cbx_polarity.SelectedItem.ToString() == "从明到暗" ? "negative" : "positive";
+            myFindLine.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
+            myFindLine.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
+            // Run
+            myFindLine.Run(SoftwareRunState.Debug);
         }
         /// <summary>
         /// 设定工具运行状态
@@ -126,7 +127,7 @@ namespace FindLineTool
         /// <param name="status">运行状态</param>
         public void SetToolStatus(string msg, ToolRunStatu status)
         {
-            if(myFindLine!=null)
+            if (myFindLine != null)
             {
                 myFindLine.runMessage = msg;
                 myFindLine.toolRunStatu = status;
@@ -143,92 +144,18 @@ namespace FindLineTool
             }
         }
 
-        #region 输入检查
-        private void tbx_expectLineStartRow_TextChanged(object sender, EventArgs e)
+        private void DispSetCheck(object sender, EventArgs e)
         {
-            try
-            {
-                myFindLine.expectLineStartRow = Convert.ToDouble(tbx_expectLineStartRow.Text.Trim());
-            }
-            catch
-            {
-                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
-                tbx_expectLineStartRow.Text = "200";
-            }
+            myFindLine.dispRec = chBDispRec.Checked ? true : false;
+            myFindLine.dispCross = chBDispCross.Checked ? true : false;
         }
 
-        private void tbx_expectLineStartCol_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                myFindLine.expectLineStartCol = Convert.ToDouble(tbx_expectLineStartCol.Text.Trim());
-            }
-            catch
-            {
-                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
-                tbx_expectLineStartCol.Text = "200";
-            }
-        }
-
-        private void tbx_expectLineEndRow_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                myFindLine.expectLineEndRow = Convert.ToDouble(tbx_expectLineEndRow.Text.Trim());
-            }
-            catch
-            {
-                SetToolStatus("输入了非法字符，已自动替换为默认值：200", ToolRunStatu.Input_Value_Type_Error);
-                tbx_expectLineEndRow.Text = "200";
-            }
-        }
-
-        private void tbx_expectLineEndCol_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                myFindLine.expectLineEndCol = Convert.ToDouble(tbx_expectLineEndCol.Text.Trim());
-            }
-            catch
-            {
-                SetToolStatus("输入了非法字符，已自动替换为默认值：600", ToolRunStatu.Input_Value_Type_Error);
-                tbx_expectLineEndCol.Text = "600";
-            }
-        }
-        
-        private void chBDispRec_CheckedChanged(object sender, EventArgs e)
-        {
-            if(chBDispRec.Checked)
-            {
-                myFindLine.dispRec = true;
-            }
-            else
-            {
-                myFindLine.dispRec = false;
-            }
-            
-        }
-
-        private void chBDispCross_CheckedChanged(object sender, EventArgs e)
-        {
-            if(chBDispCross.Checked)
-            {
-                myFindLine.dispCross = true;
-            }
-            else
-            {
-                myFindLine.dispCross = false;
-            }
-        }
-        #endregion
-
-        private void FormFindLine_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormFindLine2_FormClosing(object sender, FormClosingEventArgs e)
         {
             myHwindow.Dispose();
             this.Dispose();
             this.Dispose();
             GC.Collect();
-            
         }
     }
 }

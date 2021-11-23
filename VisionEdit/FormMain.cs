@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,33 +9,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CommonMethods;
-using WeifenLuo.WinFormsUI.Docking;
-using FormLib;
-using VisionJobFactory;
 using ToolLib.VisionJob;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace VisionEdit
 {
     public partial class FormMain : Form
     {
-        #region 变量定义
         private string m_DockPath { get; set; } = string.Empty;
         public static FormImageWindow myFormImageWindow = new FormImageWindow();
         public static FormJobManage myFormJobManage = new FormJobManage();
         public static FormLog myFormLog = new FormLog();
         public FormToolBox myFormToolBox = new FormToolBox();
-        #endregion
 
-        public FormMain()
-        {
-            InitializeComponent();
-            m_DockPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
-            InitDockPanel();
-            _instance = this;
-        }
         /// <summary>
         /// 窗体对象实例
         /// </summary>
@@ -43,7 +30,7 @@ namespace VisionEdit
         {
             get
             {
-                lock(_instance)
+                lock (_instance)
                 {
                     if (_instance == null)
                         _instance = new FormMain();
@@ -51,20 +38,14 @@ namespace VisionEdit
                 }
             }
         }
-
-
-        private void FormMain_Load(object sender, EventArgs e)
+        public FormMain()
         {
-            // 窗体加载到主窗体
-            myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
-            myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
-            myFormImageWindow.Show(this.dockPanel1, DockState.Document);
-            myFormLog.Show(this.dockPanel1, DockState.DockBottom);
-            // 初始化JOB
-            VisionJobParams.pVisionProject.LoadProject();
+            InitializeComponent();
+            m_DockPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
+            InitDockPanel();
+            _instance = this;
         }
 
-        #region 按照配置文件初始化Dockpanel
         private void InitDockPanel()
         {
             try
@@ -102,7 +83,22 @@ namespace VisionEdit
                 myFormImageWindow.Show(this.dockPanel1, DockState.Document);
             }
         }
-        #endregion
+
+        private void FormMain2_Load(object sender, EventArgs e)
+        {
+            // 窗体加载到主窗体
+            myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
+            myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
+            myFormImageWindow.Show(this.dockPanel1, DockState.Document);
+            myFormLog.Show(this.dockPanel1, DockState.DockBottom);
+            // 初始化JOB
+            VisionJobParams.pVisionProject.LoadProject();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.lbTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
 
         /// <summary>
         /// 关闭时保存当前panel配置
@@ -111,24 +107,19 @@ namespace VisionEdit
         /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(File.Exists(m_DockPath))
+            if (File.Exists(m_DockPath))
             {
                 dockPanel1.SaveAsXml(this.m_DockPath);
             }
             DialogResult dr = MessageBox.Show("是否要进行保存？", "提示", MessageBoxButtons.YesNoCancel);
-            if (dr ==  DialogResult.Yes)
+            if (dr == DialogResult.Yes)
             {
                 VisionJobParams.pVisionProject.SaveObject();
             }
-            else if(dr == DialogResult.Cancel)
+            else if (dr == DialogResult.Cancel)
             {
                 e.Cancel = true;
             }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.lbTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }

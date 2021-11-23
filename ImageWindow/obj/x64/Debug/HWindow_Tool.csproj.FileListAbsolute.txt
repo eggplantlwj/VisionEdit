@@ -32,7 +32,6 @@ F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.dl
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.dll
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.xml
-F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csprojResolveAssemblyReference.cache
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.HWindowTool_Smart.resources
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.Properties.Resources.resources

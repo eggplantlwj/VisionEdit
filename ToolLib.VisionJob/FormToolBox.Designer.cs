@@ -105,14 +105,20 @@
             treeNode7.Text = "平滑";
             treeNode8.Name = "节点7";
             treeNode8.Text = "去噪";
+            treeNode9.ImageKey = "图像预处理_32.png";
             treeNode9.Name = "节点4";
+            treeNode9.SelectedImageKey = "图像预处理_32.png";
             treeNode9.Text = "图像预处理";
-            treeNode10.Name = "节点9";
+            treeNode10.ImageIndex = 9;
+            treeNode10.Name = "PMAlign";
+            treeNode10.SelectedImageKey = "匹配.ico";
+            treeNode10.Tag = "PMAlignTool";
             treeNode10.Text = "形状匹配";
             treeNode11.Name = "节点10";
             treeNode11.Text = "可变形匹配";
             treeNode12.Name = "节点11";
             treeNode12.Text = "灰度匹配";
+            treeNode13.ImageKey = "文件夹.png";
             treeNode13.Name = "节点8";
             treeNode13.Text = "匹配";
             treeNode14.ImageKey = "Line.png";
@@ -129,7 +135,9 @@
             treeNode16.SelectedImageKey = "卡尺.png";
             treeNode16.Tag = "Caliper";
             treeNode16.Text = "卡尺";
+            treeNode17.ImageKey = "几何_32.png";
             treeNode17.Name = "节点0";
+            treeNode17.SelectedImageKey = "几何_32.png";
             treeNode17.Text = "几何";
             this.tvw_ToolBox.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
@@ -156,6 +164,15 @@
             this.imageList1.Images.SetKeyName(5, "Line.png");
             this.imageList1.Images.SetKeyName(6, "Circle.png");
             this.imageList1.Images.SetKeyName(7, "卡尺.png");
+            this.imageList1.Images.SetKeyName(8, "模板.ico");
+            this.imageList1.Images.SetKeyName(9, "匹配.ico");
+            this.imageList1.Images.SetKeyName(10, "start.ico");
+            this.imageList1.Images.SetKeyName(11, "复位.png");
+            this.imageList1.Images.SetKeyName(12, "开始.png");
+            this.imageList1.Images.SetKeyName(13, "删除.png");
+            this.imageList1.Images.SetKeyName(14, "停止.png");
+            this.imageList1.Images.SetKeyName(15, "几何_32.png");
+            this.imageList1.Images.SetKeyName(16, "图像预处理_32.png");
             // 
             // richTextBoxEx1
             // 
@@ -186,6 +203,8 @@
             this.imageListTool.Images.SetKeyName(6, "line.png");
             this.imageListTool.Images.SetKeyName(7, "Circle.png");
             this.imageListTool.Images.SetKeyName(8, "卡尺.png");
+            this.imageListTool.Images.SetKeyName(9, "匹配.ico");
+            this.imageListTool.Images.SetKeyName(10, "模板.ico");
             // 
             // splitContainer1
             // 

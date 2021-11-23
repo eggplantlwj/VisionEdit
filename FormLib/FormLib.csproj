@@ -91,12 +91,8 @@
       <Project>{7cd50b44-bf56-4e8e-8fa1-05f6968c1835}</Project>
       <Name>ToolBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToolLib.Log\LogForm\LogForm.csproj">
-      <Project>{6B38D68F-E77B-4761-BDE5-A261EA8925DD}</Project>
-      <Name>LogForm</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
-      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
+      <Project>{D4E052B9-E541-4B67-A1F9-273073EF1D4B}</Project>
       <Name>Logger</Name>
     </ProjectReference>
   </ItemGroup>

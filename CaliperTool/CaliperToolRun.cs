@@ -15,6 +15,7 @@ using CommonMethods;
 using CommonMethods.Interface;
 using FormLib;
 using HalconDotNet;
+using Logger;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,7 +39,7 @@ namespace CaliperTool
                 if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage" && L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
                 {
                     selectNode.ForeColor = Color.Red;
-                    Logger.LoggerClass.WriteLog($"{L_toolList[toolIndex].toolName} 无输入图像");
+                    LoggerClass.WriteLog($"{L_toolList[toolIndex].toolName} 无输入图像");
                     break;
                 }
                 else
@@ -46,9 +47,9 @@ namespace CaliperTool
                     if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value != null)
                     {
                         string sourceFrom = L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value.ToString();
-                        string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
-                        sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
-                        string toolItem = Regex.Split(sourceFrom, " . ")[1];
+                        string sourceToolName = Regex.Split(sourceFrom, "->")[0];
+                        sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, "->")[0].Length - 3);
+                        string toolItem = Regex.Split(sourceFrom, "->")[1];
                         if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage")
                         {
                             myCaliper.inputImage = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HObject;
@@ -72,7 +73,7 @@ namespace CaliperTool
             myCaliper.Run(SoftwareRunState.Release);
             if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
             {
-                myCaliper.DispMainWindow(FormImageWindow.Instance.myHWindow);
+                myCaliper.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
                 myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行成功", Color.Green, selectNode);
             }
             else

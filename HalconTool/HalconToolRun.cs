@@ -40,7 +40,7 @@ namespace HalconTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myHalconTool.runTime}", Color.Green, selectNode);
-                FormImageWindow.Instance.myHWindow.HobjectToHimage(myHalconTool.outputImage);
+                FormImageWindow.Instance.myHWindow.DispHWindow.DispObj(myHalconTool.outputImage);
             }
         }
     }

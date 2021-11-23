@@ -15,6 +15,7 @@ using CommonMethods;
 using CommonMethods.Interface;
 using FormLib;
 using HalconDotNet;
+using Logger;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,29 +39,29 @@ namespace FindLineTool
                 if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
                 {
                     selectNode.ForeColor = Color.Red;
-                    Logger.LoggerClass.WriteLog(L_toolList[toolIndex].toolName + "  无输入图像", Logger.MsgLevel.Exception);
+                    LoggerClass.WriteLog(L_toolList[toolIndex].toolName + "  无输入图像", MsgLevel.Exception);
                 }
                 else
                 {
                     string sourceFrom = L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value.ToString();
                     if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage")
                     {
-                        string sourceToolName = Regex.Split(sourceFrom, " . ")[0];
-                        sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, " . ")[0].Length - 3);
-                        string toolItem = Regex.Split(sourceFrom, " . ")[1];
+                        string sourceToolName = Regex.Split(sourceFrom, "->")[0];
+                        sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, "->")[0].Length - 3);
+                        string toolItem = Regex.Split(sourceFrom, "->")[1];
                         myFindLine.inputImage = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HObject;
                     }
                 }
             }
             myFindLine.Run(SoftwareRunState.Release);
-            if (myFindLine.toolRunStatu == ToolRunStatu.Succeed)
+            if (myFindLine.toolRunStatu != ToolRunStatu.Succeed)
             {
-                myFindLine.DispMainWindow(FormImageWindow.Instance.myHWindow);
-                myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行成功", Color.Green, selectNode);
+                myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行失败，失败原因：{myFindLine.runMessage}", Color.Red, selectNode, Logger.MsgLevel.Exception);
             }
             else
             {
-                myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行失败", Color.Red, selectNode, Logger.MsgLevel.Exception);
+                myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myFindLine.runTime}", Color.Green, selectNode);
+                myFindLine.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
             }
         }
     }

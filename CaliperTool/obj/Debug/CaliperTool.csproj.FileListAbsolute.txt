@@ -32,6 +32,9 @@ G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.dll
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.pdb
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\log4net.config
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\CaliperTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\CaliperTool.pdb
@@ -40,7 +43,6 @@ F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\DataStruct.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\FormLib.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\halcondotnet.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\HWindow_Tool.dll
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\LogForm.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\Logger.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\ToolBase.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\ToolLib.VisionJob.dll
@@ -52,15 +54,11 @@ F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\CommonMethods.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\DataStruct.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\FormLib.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\ToolBase.pdb
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\LogForm.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\Logger.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\ToolLib.VisionJob.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\HWindow_Tool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\halcondotnet.xml
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\WeifenLuo.WinFormsUI.Docking.pdb
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\Newtonsoft.Json.xml
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\DevComponents.DotNetBar2.xml
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csprojResolveAssemblyReference.cache
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.pdb

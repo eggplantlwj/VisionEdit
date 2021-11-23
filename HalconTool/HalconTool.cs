@@ -83,24 +83,6 @@ namespace HalconTool
         /// 读取单张图像或批量读取文件夹图像工作模式
         /// </summary>
         internal WorkMode workMode = WorkMode.ReadMultImage;
-        public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
-        /// <summary>
-        /// 运行过程信息
-        /// </summary>
-        public string runMessage { get; set; }
-        /// <summary>
-        /// 工具运行时间
-        /// </summary>
-        public string runTime { get; set; } = string.Empty;
-       
-
-        public HObject inputImage { get; set; } = null;
-
-        /// <summary>
-        /// 运行模式
-        /// </summary>
-        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
-        
 
         public bool ReadImage(out string filePath)
         {
@@ -118,7 +100,7 @@ namespace HalconTool
             return true;
         }
 
-        public void Run(SoftwareRunState softwareState)
+        public override void Run(SoftwareRunState softwareState)
         {
             Stopwatch sw = new Stopwatch();
             sw.Restart();
@@ -130,7 +112,7 @@ namespace HalconTool
             
         }
 
-        public void DispImage()
+        public override void DispImage()
         {
             HObject image = new HObject();
             try
@@ -190,6 +172,11 @@ namespace HalconTool
             {
                 FormHalconTool.Instance.statusStrip.BackColor = System.Drawing.Color.Red;
             }
+        }
+
+        public override void DispMainWindow(HWindow window)
+        {
+            throw new NotImplementedException();
         }
     }
 

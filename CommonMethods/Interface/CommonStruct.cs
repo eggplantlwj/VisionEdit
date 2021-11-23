@@ -40,7 +40,9 @@ namespace CommonMethods
         Logic,
         Output,
         CreateLine,
+        PMAlignTool,
         None
+        
     }
 
     public enum DataType
@@ -118,5 +120,14 @@ namespace CommonMethods
     {
         FormDevice,
         FormLocal
+    }
+
+    public enum ShapeMode
+    {
+        RECTANGLE1 = 0,
+        RECTANGLE2 = 1,
+        CIRCLE = 2,
+        ELLIPSE = 3,
+        Other = 4
     }
 }

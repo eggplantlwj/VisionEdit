@@ -8,14 +8,16 @@ using HalconDotNet;
 
 namespace ToolBase
 {
-    public interface IToolBase
+    [Serializable]
+    public abstract class IToolBase
     {
-        SoftwareRunState softwareRunState { get; set; }
-        ToolRunStatu toolRunStatu { get; set; }
-        string runMessage { get; set; }
-        string runTime { get; set; }
-        void Run(SoftwareRunState softwareRunState); 
-        HObject inputImage { get; set; }
-        void DispImage();
+        public ToolRunStatu toolRunStatu { get; set; } = ToolRunStatu.Not_Run;
+        public SoftwareRunState softwareRunState { get; set; } = SoftwareRunState.Debug;
+        public string runMessage { get; set; }
+        public string runTime { get; set; }
+        public abstract void Run(SoftwareRunState softwareRunState); 
+        public HObject inputImage { get; set; }
+        public abstract void  DispImage();
+        public abstract void DispMainWindow(HWindow window);
     }
 }

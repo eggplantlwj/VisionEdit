@@ -9,6 +9,7 @@ F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\bin\Debug\CommonMethods.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\bin\Debug\halcondotnet.dll
 F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\bin\Debug\Newtonsoft.Json.dll
 F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\bin\Debug\halcondotnet.xml
-F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\obj\Debug\CommonHelper.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\bin\Debug\Newtonsoft.Json.xml
 F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\obj\Debug\CommonMethods.dll
 F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\obj\Debug\CommonMethods.pdb
+F:\GitHubClone\最新克隆\VisionEdit\CommonMethods\obj\Debug\CommonHelper.csprojResolveAssemblyReference.cache

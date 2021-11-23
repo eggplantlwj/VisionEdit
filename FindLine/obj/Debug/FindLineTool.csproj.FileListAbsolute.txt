@@ -32,6 +32,9 @@ G:\VisionEdit\VisionEdit\FindLine\obj\Debug\FindLineTool.FormFindLine.resources
 G:\VisionEdit\VisionEdit\FindLine\obj\Debug\FindLineTool.csproj.GenerateResource.Cache
 G:\VisionEdit\VisionEdit\FindLine\obj\Debug\FindLineTool.dll
 G:\VisionEdit\VisionEdit\FindLine\obj\Debug\FindLineTool.pdb
+F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.FormFindLine.resources
+F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\log4net.config
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\FindLineTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\FindLineTool.pdb
@@ -40,7 +43,6 @@ F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\DataStruct.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\FormLib.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\halcondotnet.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\HWindow_Tool.dll
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\LogForm.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\Logger.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\ToolBase.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\ToolLib.VisionJob.dll
@@ -52,15 +54,11 @@ F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\CommonMethods.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\DataStruct.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\FormLib.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\ToolBase.pdb
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\LogForm.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\Logger.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\ToolLib.VisionJob.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\HWindow_Tool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\halcondotnet.xml
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\WeifenLuo.WinFormsUI.Docking.pdb
+F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\Newtonsoft.Json.xml
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\bin\Debug\DevComponents.DotNetBar2.xml
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.csprojResolveAssemblyReference.cache
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.FormFindLine.resources
-F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindLine\obj\Debug\FindLineTool.pdb

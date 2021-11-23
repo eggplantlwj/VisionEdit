@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaliperTool.cs" />
+    <Compile Include="Caliper.cs" />
     <Compile Include="CaliperToolRun.cs" />
     <Compile Include="FormCaliper.cs">
       <SubType>Form</SubType>
@@ -76,12 +76,8 @@
       <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
       <Name>ToolBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToolLib.Log\LogForm\LogForm.csproj">
-      <Project>{6b38d68f-e77b-4761-bde5-a261ea8925dd}</Project>
-      <Name>LogForm</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
-      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
+      <Project>{D4E052B9-E541-4B67-A1F9-273073EF1D4B}</Project>
       <Name>Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">

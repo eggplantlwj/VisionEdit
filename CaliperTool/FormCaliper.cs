@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMethods;
 using ChoiceTech.Halcon.Control;
+using HalconDotNet;
 
 namespace CaliperTool
 {
@@ -17,32 +18,43 @@ namespace CaliperTool
 
         public Caliper myCaliper = null;
         public IToolInfo myToolInfo = null;
-        public HWindow_Final myHwindow = new HWindow_Final();
+        public HSmartWindowControl myHwindow = new HSmartWindowControl();
 
-        private static FormCaliper _instance = null;
+        private static FormCaliper _instance;
         public FormCaliper(ref object caliper)
         {
             InitializeComponent();
-            myToolInfo = (IToolInfo)caliper;
-            myCaliper = (Caliper)myToolInfo.tool;
             _instance = this;
-            myCaliper.DispImage();
+            if (caliper.GetType().FullName != "System.Object")
+            {
+                myToolInfo = (IToolInfo)caliper;
+                myCaliper = (Caliper)myToolInfo.tool;
+                myCaliper.DispImage();
+            }
         }
         public static FormCaliper Instance
         {
             get
             {
-                if(_instance!= null)
+                if (_instance != null)
                 {
-                    return _instance;
+                    lock (_instance)
+                    {
+                        if (_instance == null)
+                        {
+                            object calib = new object();
+                            _instance = new FormCaliper(ref calib);
+                        }
+                        return _instance;
+                    }
                 }
                 else
                 {
-                    object caliper = new object();
-                    _instance = new FormCaliper(ref caliper);
+                    object line = new object();
+                    _instance = new FormCaliper(ref line);
                     return _instance;
                 }
-                
+
             }
         }
 
@@ -78,16 +90,7 @@ namespace CaliperTool
         private void btn_moveCliperRegion_Click(object sender, EventArgs e)
         {
             myCaliper.UpdateImage();
-            myCaliper.DrawExpectLine(myHwindow);
-        }
-
-        public void TextBoxMessageDisp(string mes, Color setColor)
-        {
-            txbLog.BackColor = setColor;
-            txbLog.Text = mes;
-            txbLog.Font = new Font("微软雅黑", 10, FontStyle.Bold);
-            //CommonMethods.CommonMethods.Delay(2000);
-            txbLog.BackColor = Color.White;
+            myCaliper.DrawExpectLine(myHwindow.HalconWindow);
         }
 
         private void btn_runCaliperool_Click(object sender, EventArgs e)
@@ -104,6 +107,30 @@ namespace CaliperTool
             myCaliper.edgeSelect = cbx_edgeSelect.SelectedItem.ToString();
             myCaliper.sigma = Convert.ToDouble(tbx_Sigma.Text.Trim());
             myCaliper.Run(SoftwareRunState.Debug);
+        }
+
+        /// <summary>
+        /// 设定工具运行状态
+        /// </summary>
+        /// <param name="msg">运行中的信息</param>
+        /// <param name="status">运行状态</param>
+        public void SetToolStatus(string msg, ToolRunStatu status)
+        {
+            if (myCaliper != null)
+            {
+                myCaliper.runMessage = msg;
+                myCaliper.toolRunStatu = status;
+                lb_RunStatus.Text = myCaliper.toolRunStatu == ToolRunStatu.Succeed ? "工具运行成功！" : $"工具运行异常, 异常原因：{myCaliper.runMessage}";
+                lb_RunTime.Text = myCaliper.runTime;
+                if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
+                {
+                    statusStrip.BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    statusStrip.BackColor = Color.Red;
+                }
+            }
         }
     }
 }

@@ -64,6 +64,7 @@
             this.statusStrip.Size = new System.Drawing.Size(576, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
+            this.statusStrip.Visible = false;
             // 
             // lb_Status
             // 

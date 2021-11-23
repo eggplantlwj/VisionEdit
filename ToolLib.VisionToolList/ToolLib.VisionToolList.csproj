@@ -65,6 +65,10 @@
       <Project>{F5669FB7-77EC-44B9-898B-6D575B7D26EA}</Project>
       <Name>HalconTool</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PMAlignTool\PMAlignTool.csproj">
+      <Project>{C1C08195-2EC8-42E9-93BB-D5331E6C6687}</Project>
+      <Name>PMAlignTool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,7 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevComponents.DotNetBar2, Version=14.0.0.15, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="halcondotnet, Version=17.12.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\halcondotnet.dll</HintPath>
@@ -133,14 +132,6 @@
     <ProjectReference Include="..\ToolBase\ToolBase.csproj">
       <Project>{7CD50B44-BF56-4E8E-8FA1-05F6968C1835}</Project>
       <Name>ToolBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToolLib.Log\LogForm\LogForm.csproj">
-      <Project>{6b38d68f-e77b-4761-bde5-a261ea8925dd}</Project>
-      <Name>LogForm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
-      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
-      <Name>Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">
       <Project>{16E8FF17-98A8-4452-AB9E-C433DC9C21F7}</Project>

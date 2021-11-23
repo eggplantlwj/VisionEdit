@@ -45,7 +45,6 @@
             this.btn_moveCliperRegion = new System.Windows.Forms.Button();
             this.cbx_edgeSelect = new System.Windows.Forms.ComboBox();
             this.tbx_resultStartCol = new System.Windows.Forms.TextBox();
-            this.txbLog = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -63,6 +62,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_Split = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -71,6 +75,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbx_resultStartRow
@@ -242,16 +247,6 @@
             this.tbx_resultStartCol.Size = new System.Drawing.Size(71, 21);
             this.tbx_resultStartCol.TabIndex = 104;
             // 
-            // txbLog
-            // 
-            this.txbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txbLog.Location = new System.Drawing.Point(1, 487);
-            this.txbLog.Name = "txbLog";
-            this.txbLog.ReadOnly = true;
-            this.txbLog.Size = new System.Drawing.Size(1127, 21);
-            this.txbLog.TabIndex = 276;
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -267,6 +262,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox3);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
@@ -452,12 +448,49 @@
             this.label9.TabIndex = 105;
             this.label9.Text = "中心列坐标：";
             // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(-566, 485);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1127, 25);
+            this.panel2.TabIndex = 276;
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.BackColor = System.Drawing.Color.White;
+            this.statusStrip.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lb_RunStatus,
+            this.lb_Split,
+            this.lb_RunTime});
+            this.statusStrip.Location = new System.Drawing.Point(0, 485);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1132, 24);
+            this.statusStrip.TabIndex = 276;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // lb_RunStatus
+            // 
+            this.lb_RunStatus.Name = "lb_RunStatus";
+            this.lb_RunStatus.Size = new System.Drawing.Size(0, 19);
+            // 
+            // lb_Split
+            // 
+            this.lb_Split.Name = "lb_Split";
+            this.lb_Split.Size = new System.Drawing.Size(189, 19);
+            this.lb_Split.Text = "                                             ";
+            // 
+            // lb_RunTime
+            // 
+            this.lb_RunTime.Name = "lb_RunTime";
+            this.lb_RunTime.Size = new System.Drawing.Size(0, 19);
+            // 
             // FormCaliper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 509);
-            this.Controls.Add(this.txbLog);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormCaliper";
@@ -475,6 +508,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -497,7 +532,6 @@
         private System.Windows.Forms.Button btn_moveCliperRegion;
         public System.Windows.Forms.ComboBox cbx_edgeSelect;
         public System.Windows.Forms.TextBox tbx_resultStartCol;
-        public System.Windows.Forms.TextBox txbLog;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -515,5 +549,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox chBDispCaliperROI;
+        private System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.StatusStrip statusStrip;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
+        private System.Windows.Forms.ToolStripStatusLabel lb_Split;
+        public System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
     }
 }

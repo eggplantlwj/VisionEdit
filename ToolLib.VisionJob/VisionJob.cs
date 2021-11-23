@@ -420,7 +420,8 @@ namespace ToolLib.VisionJob
                             {
                                 if ((item1.Value.Bounds.X < maxLength && item1.Key.Bounds.X < maxLength) || (item1.Value.Bounds.X < maxLength && item1.Key.Bounds.X < maxLength))
                                 {
-                                    max += (15 - Math.Abs(max - item.Key));
+                                    if (item1.Value.Bounds.Y > startNode.Bounds.Y || item1.Key.Bounds.Y > startNode.Bounds.Y)    //20200612加
+                                        max += (10 - Math.Abs(max - item.Key));
                                 }
                             }
                         }

@@ -14,6 +14,13 @@ namespace ViewROI
     {
         public bool DispStatus { get; set; }
         public HImage hv_Image { get; set; }
+        public HWindow DispHWindow
+        {
+            get
+            {
+                return this.SmartWindow.HalconWindow;
+            }
+        }
         public HWindowTool_Smart()
         {
             InitializeComponent();
@@ -32,6 +39,7 @@ namespace ViewROI
 
         private void SmartWindow_HMouseMove(object sender, HalconDotNet.HMouseEventArgs e)
         {
+            this.Cursor = e.Button == MouseButtons.Left ? Cursors.Hand : Cursors.Default;
             if(DispStatus)
             {
 

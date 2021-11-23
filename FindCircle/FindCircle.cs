@@ -61,71 +61,6 @@ namespace FindCircle
             }
         }
 
-        public SoftwareRunState softwareRunState
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public ToolRunStatu toolRunStatu
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string runMessage
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string runTime
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        HObject IToolBase.inputImage
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         /// <summary>
         /// 起始角度
         /// </summary>
@@ -159,10 +94,6 @@ namespace FindCircle
         /// </summary>
         internal int cliperNum = 20;
         /// <summary>
-        /// 输入图像
-        /// </summary>
-        internal HObject inputImage;
-        /// <summary>
         /// 新的跟随姿态变化后的预期圆信息
         /// </summary>
         HTuple newExpecCircleRow = new HTuple(200), newExpectCircleCol = new HTuple(200), newExpectCircleRadius = new HTuple(200);
@@ -171,12 +102,17 @@ namespace FindCircle
         /// </summary>
         internal PosXYU templatePose = new PosXYU();
 
-        public void Run(SoftwareRunState softwareRunState)
+        public override void Run(SoftwareRunState softwareRunState)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void DispImage()
+        public override void DispImage()
+        {
+            
+        }
+
+        public override void DispMainWindow(HWindow window)
         {
             throw new NotImplementedException();
         }
