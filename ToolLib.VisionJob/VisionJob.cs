@@ -267,7 +267,6 @@ namespace ToolLib.VisionJob
                         TreeView tree = GetJobTree();
                         graph = tree.CreateGraphics();
                         tree.CreateGraphics().Dispose();
-
                         foreach (KeyValuePair<TreeNode, TreeNode> item in D_itemAndSource)
                         {
                             // 将此划线线程委托到JOB管理界面

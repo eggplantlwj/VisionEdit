@@ -1,11 +1,9 @@
 ﻿using System;
 using HalconDotNet;
-using DataStruct;
 using static DataStruct.DataStruct;
 using ToolBase;
 using CommonMethods;
 using System.Diagnostics;
-using ChoiceTech.Halcon.Control;
 
 namespace FindLineTool
 {
@@ -207,7 +205,7 @@ namespace FindLineTool
         {
             if(inputImage != null)
             {
-                FormFindLine.Instance.myHwindow.DispHWindow.DispImage(new HImage(inputImage));
+                FormFindLine.Instance.myHwindow.DispImage(new HImage(inputImage));
             }
         }
 

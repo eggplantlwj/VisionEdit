@@ -24,9 +24,6 @@ G:\VisionEdit\VisionEdit\FindCircle\obj\Debug\FindCircle.FormFindCircle.resource
 G:\VisionEdit\VisionEdit\FindCircle\obj\Debug\FindCircleTool.csproj.GenerateResource.Cache
 G:\VisionEdit\VisionEdit\FindCircle\obj\Debug\FindCircleTool.dll
 G:\VisionEdit\VisionEdit\FindCircle\obj\Debug\FindCircleTool.pdb
-F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.csprojResolveAssemblyReference.cache
-F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircle.FormFindCircle.resources
-F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\FindCircleTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\FindCircleTool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\CommonMethods.dll
@@ -41,5 +38,8 @@ F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\ToolBase.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\HWindow_Tool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\halcondotnet.xml
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\bin\Debug\Newtonsoft.Json.xml
+F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircle.FormFindCircle.resources
+F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\FindCircle\obj\Debug\FindCircleTool.pdb

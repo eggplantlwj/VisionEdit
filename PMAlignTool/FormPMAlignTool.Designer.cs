@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPMAlignTool));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtRunTool = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -41,7 +44,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.hWindowTool_Smart1 = new ViewROI.HWindowTool_Smart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -61,9 +63,9 @@
             this.rdo_templateRegionSub = new System.Windows.Forms.RadioButton();
             this.rdo_templateRegionAdd = new System.Windows.Forms.RadioButton();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.cNumErosionValue2 = new Controls.CNumericUpDown();
-            this.cNumDilationValue2 = new Controls.CNumericUpDown();
-            this.cNumErosionValue1 = new Controls.CNumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cbCDilation1 = new System.Windows.Forms.CheckBox();
             this.cbCErosion1 = new System.Windows.Forms.CheckBox();
             this.cbCErosion2 = new System.Windows.Forms.CheckBox();
@@ -76,16 +78,6 @@
             this.panel11 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ckb_autoContrast = new Controls.CCheckBox();
-            this.numericUpDown2 = new Controls.CNumericUpDown();
-            this.nud_angleRange = new Controls.CNumericUpDown();
-            this.numericUpDown1 = new Controls.CNumericUpDown();
-            this.nud_angleStart = new Controls.CNumericUpDown();
-            this.cbx_polarity = new Controls.CComboBox();
-            this.nud_minScore = new Controls.CNumericUpDown();
-            this.numericUpDown3 = new Controls.CNumericUpDown();
-            this.nud_angleStep = new Controls.CNumericUpDown();
-            this.nud_matchNum = new Controls.CNumericUpDown();
             this.tkb_contrast = new System.Windows.Forms.TrackBar();
             this.lbl_contastValue = new System.Windows.Forms.Label();
             this.label87 = new System.Windows.Forms.Label();
@@ -100,7 +92,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.cbx_searchRegionType = new Controls.CComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -117,6 +108,25 @@
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hWindowTool_Smart1 = new ViewROI.HWindowTool_Smart();
+            this.cmbErsion2 = new Controls.CComboBox();
+            this.cmbDilation = new Controls.CComboBox();
+            this.cmbErsion1 = new Controls.CComboBox();
+            this.cNumErosionValue2 = new Controls.CNumericUpDown();
+            this.cNumDilationValue2 = new Controls.CNumericUpDown();
+            this.cNumErosionValue1 = new Controls.CNumericUpDown();
+            this.nud_angleRange = new Controls.CNumericUpDown();
+            this.ckb_autoContrast = new Controls.CCheckBox();
+            this.nud_ScaleRange = new Controls.CNumericUpDown();
+            this.nud_ScaleStart = new Controls.CNumericUpDown();
+            this.nud_angleStart = new Controls.CNumericUpDown();
+            this.cbx_polarity = new Controls.CComboBox();
+            this.nud_minScore = new Controls.CNumericUpDown();
+            this.numericUpDown3 = new Controls.CNumericUpDown();
+            this.nud_angleStep = new Controls.CNumericUpDown();
+            this.nud_matchNum = new Controls.CNumericUpDown();
+            this.cbx_searchRegionType = new Controls.CComboBox();
+            this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -147,14 +157,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_matchResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.statusStrip1.Location = new System.Drawing.Point(0, 633);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(999, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lb_RunStatus,
+            this.toolStripStatusLabel1,
+            this.lb_RunTime});
+            this.statusStrip.Location = new System.Drawing.Point(0, 633);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(999, 22);
+            this.statusStrip.TabIndex = 0;
+            // 
+            // lb_RunStatus
+            // 
+            this.lb_RunStatus.Name = "lb_RunStatus";
+            this.lb_RunStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel1.Text = "  ";
+            // 
+            // lb_RunTime
+            // 
+            this.lb_RunTime.Name = "lb_RunTime";
+            this.lb_RunTime.Size = new System.Drawing.Size(0, 17);
             // 
             // toolStrip1
             // 
@@ -174,6 +203,7 @@
             this.tsbtRunTool.Name = "tsbtRunTool";
             this.tsbtRunTool.Size = new System.Drawing.Size(85, 29);
             this.tsbtRunTool.Text = "运行工具";
+            this.tsbtRunTool.Click += new System.EventHandler(this.tsbtRunTool_Click);
             // 
             // splitContainer1
             // 
@@ -310,18 +340,6 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "模板ROI方式";
             // 
-            // hWindowTool_Smart1
-            // 
-            this.hWindowTool_Smart1.DispStatus = false;
-            this.hWindowTool_Smart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hWindowTool_Smart1.hv_Image = null;
-            this.hWindowTool_Smart1.Location = new System.Drawing.Point(4, 5);
-            this.hWindowTool_Smart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.hWindowTool_Smart1.Name = "hWindowTool_Smart1";
-            this.tableLayoutPanel1.SetRowSpan(this.hWindowTool_Smart1, 3);
-            this.hWindowTool_Smart1.Size = new System.Drawing.Size(226, 169);
-            this.hWindowTool_Smart1.TabIndex = 0;
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(106)))), ((int)(((byte)(175)))));
@@ -359,9 +377,10 @@
             // 
             this.panel18.Controls.Add(this.rabGray);
             this.panel18.Controls.Add(this.rabShape);
-            this.panel18.Location = new System.Drawing.Point(6, 2);
+            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(367, 35);
+            this.panel18.Size = new System.Drawing.Size(376, 38);
             this.panel18.TabIndex = 147;
             // 
             // rabGray
@@ -376,6 +395,7 @@
             this.rabGray.TabIndex = 143;
             this.rabGray.Text = "基于灰度";
             this.rabGray.UseVisualStyleBackColor = true;
+            this.rabGray.CheckedChanged += new System.EventHandler(this.rabShape_CheckedChanged);
             // 
             // rabShape
             // 
@@ -391,11 +411,13 @@
             this.rabShape.TabStop = true;
             this.rabShape.Text = "基于轮廓";
             this.rabShape.UseVisualStyleBackColor = true;
+            this.rabShape.CheckedChanged += new System.EventHandler(this.rabShape_CheckedChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rabFormLocal);
             this.groupBox1.Controls.Add(this.rabFormFlow);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(237, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(142, 79);
@@ -405,6 +427,9 @@
             // 
             // rabFormLocal
             // 
+            this.rabFormLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rabFormLocal.AutoSize = true;
             this.rabFormLocal.Location = new System.Drawing.Point(6, 51);
             this.rabFormLocal.Name = "rabFormLocal";
@@ -415,6 +440,8 @@
             // 
             // rabFormFlow
             // 
+            this.rabFormFlow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rabFormFlow.AutoSize = true;
             this.rabFormFlow.Checked = true;
             this.rabFormFlow.Location = new System.Drawing.Point(6, 25);
@@ -578,6 +605,12 @@
             // panel14
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel14, 2);
+            this.panel14.Controls.Add(this.label8);
+            this.panel14.Controls.Add(this.label7);
+            this.panel14.Controls.Add(this.label6);
+            this.panel14.Controls.Add(this.cmbErsion2);
+            this.panel14.Controls.Add(this.cmbDilation);
+            this.panel14.Controls.Add(this.cmbErsion1);
             this.panel14.Controls.Add(this.cNumErosionValue2);
             this.panel14.Controls.Add(this.cNumDilationValue2);
             this.panel14.Controls.Add(this.cNumErosionValue1);
@@ -591,95 +624,35 @@
             this.panel14.Size = new System.Drawing.Size(376, 142);
             this.panel14.TabIndex = 127;
             // 
-            // cNumErosionValue2
+            // label8
             // 
-            this.cNumErosionValue2.BackColor = System.Drawing.Color.White;
-            this.cNumErosionValue2.DecimalPlaces = 2;
-            this.cNumErosionValue2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cNumErosionValue2.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumErosionValue2.Location = new System.Drawing.Point(71, 85);
-            this.cNumErosionValue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cNumErosionValue2.MaximumSize = new System.Drawing.Size(300, 26);
-            this.cNumErosionValue2.MaxValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.cNumErosionValue2.MinimumSize = new System.Drawing.Size(50, 26);
-            this.cNumErosionValue2.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumErosionValue2.Name = "cNumErosionValue2";
-            this.cNumErosionValue2.Size = new System.Drawing.Size(227, 26);
-            this.cNumErosionValue2.TabIndex = 174;
-            this.cNumErosionValue2.Value = 0.1D;
-            this.cNumErosionValue2.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(218, 96);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 17);
+            this.label8.TabIndex = 176;
+            this.label8.Text = "方式：";
             // 
-            // cNumDilationValue2
+            // label7
             // 
-            this.cNumDilationValue2.BackColor = System.Drawing.Color.White;
-            this.cNumDilationValue2.DecimalPlaces = 2;
-            this.cNumDilationValue2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cNumDilationValue2.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumDilationValue2.Location = new System.Drawing.Point(71, 49);
-            this.cNumDilationValue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cNumDilationValue2.MaximumSize = new System.Drawing.Size(300, 26);
-            this.cNumDilationValue2.MaxValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.cNumDilationValue2.MinimumSize = new System.Drawing.Size(50, 26);
-            this.cNumDilationValue2.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumDilationValue2.Name = "cNumDilationValue2";
-            this.cNumDilationValue2.Size = new System.Drawing.Size(227, 26);
-            this.cNumDilationValue2.TabIndex = 174;
-            this.cNumDilationValue2.Value = 0.1D;
-            this.cNumDilationValue2.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(218, 54);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 17);
+            this.label7.TabIndex = 176;
+            this.label7.Text = "方式：";
             // 
-            // cNumErosionValue1
+            // label6
             // 
-            this.cNumErosionValue1.BackColor = System.Drawing.Color.White;
-            this.cNumErosionValue1.DecimalPlaces = 2;
-            this.cNumErosionValue1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cNumErosionValue1.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumErosionValue1.Location = new System.Drawing.Point(71, 13);
-            this.cNumErosionValue1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cNumErosionValue1.MaximumSize = new System.Drawing.Size(300, 26);
-            this.cNumErosionValue1.MaxValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.cNumErosionValue1.MinimumSize = new System.Drawing.Size(50, 26);
-            this.cNumErosionValue1.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.cNumErosionValue1.Name = "cNumErosionValue1";
-            this.cNumErosionValue1.Size = new System.Drawing.Size(227, 26);
-            this.cNumErosionValue1.TabIndex = 174;
-            this.cNumErosionValue1.Value = 0.1D;
-            this.cNumErosionValue1.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(218, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 17);
+            this.label6.TabIndex = 176;
+            this.label6.Text = "方式：";
             // 
             // cbCDilation1
             // 
@@ -706,7 +679,7 @@
             // cbCErosion2
             // 
             this.cbCErosion2.AutoSize = true;
-            this.cbCErosion2.Location = new System.Drawing.Point(6, 85);
+            this.cbCErosion2.Location = new System.Drawing.Point(6, 92);
             this.cbCErosion2.Name = "cbCErosion2";
             this.cbCErosion2.Size = new System.Drawing.Size(56, 24);
             this.cbCErosion2.TabIndex = 3;
@@ -716,18 +689,18 @@
             // 
             // btnCreateModel
             // 
-            this.btnCreateModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btnCreateModel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(150)))), ((int)(((byte)(219)))));
             this.btnCreateModel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCreateModel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCreateModel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCreateModel.FlatAppearance.BorderSize = 0;
             this.btnCreateModel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.btnCreateModel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
             this.btnCreateModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateModel.ForeColor = System.Drawing.Color.White;
-            this.btnCreateModel.Location = new System.Drawing.Point(259, 134);
+            this.btnCreateModel.Location = new System.Drawing.Point(237, 134);
             this.btnCreateModel.Name = "btnCreateModel";
-            this.btnCreateModel.Size = new System.Drawing.Size(97, 42);
+            this.btnCreateModel.Size = new System.Drawing.Size(142, 42);
             this.btnCreateModel.TabIndex = 129;
             this.btnCreateModel.TabStop = false;
             this.btnCreateModel.Text = "创建模板";
@@ -736,18 +709,18 @@
             // 
             // btnAcqNewModelImage
             // 
-            this.btnAcqNewModelImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btnAcqNewModelImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(150)))), ((int)(((byte)(219)))));
             this.btnAcqNewModelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAcqNewModelImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAcqNewModelImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAcqNewModelImage.FlatAppearance.BorderSize = 0;
             this.btnAcqNewModelImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
             this.btnAcqNewModelImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
             this.btnAcqNewModelImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAcqNewModelImage.ForeColor = System.Drawing.Color.White;
-            this.btnAcqNewModelImage.Location = new System.Drawing.Point(259, 88);
+            this.btnAcqNewModelImage.Location = new System.Drawing.Point(237, 88);
             this.btnAcqNewModelImage.Name = "btnAcqNewModelImage";
-            this.btnAcqNewModelImage.Size = new System.Drawing.Size(97, 40);
+            this.btnAcqNewModelImage.Size = new System.Drawing.Size(142, 40);
             this.btnAcqNewModelImage.TabIndex = 129;
             this.btnAcqNewModelImage.TabStop = false;
             this.btnAcqNewModelImage.Text = "获取图像";
@@ -844,10 +817,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.ckb_autoContrast);
-            this.panel2.Controls.Add(this.numericUpDown2);
             this.panel2.Controls.Add(this.nud_angleRange);
-            this.panel2.Controls.Add(this.numericUpDown1);
+            this.panel2.Controls.Add(this.ckb_autoContrast);
+            this.panel2.Controls.Add(this.nud_ScaleRange);
+            this.panel2.Controls.Add(this.nud_ScaleStart);
             this.panel2.Controls.Add(this.nud_angleStart);
             this.panel2.Controls.Add(this.cbx_polarity);
             this.panel2.Controls.Add(this.nud_minScore);
@@ -872,266 +845,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(376, 301);
             this.panel2.TabIndex = 149;
-            // 
-            // ckb_autoContrast
-            // 
-            this.ckb_autoContrast.BackColor = System.Drawing.Color.White;
-            this.ckb_autoContrast.Checked = true;
-            this.ckb_autoContrast.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ckb_autoContrast.Location = new System.Drawing.Point(85, 236);
-            this.ckb_autoContrast.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ckb_autoContrast.Name = "ckb_autoContrast";
-            this.ckb_autoContrast.Size = new System.Drawing.Size(96, 20);
-            this.ckb_autoContrast.TabIndex = 181;
-            this.ckb_autoContrast.TextStr = "自动";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.BackColor = System.Drawing.Color.White;
-            this.numericUpDown2.DecimalPlaces = 1;
-            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDown2.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown2.Location = new System.Drawing.Point(171, 183);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numericUpDown2.MaximumSize = new System.Drawing.Size(300, 28);
-            this.numericUpDown2.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown2.MinimumSize = new System.Drawing.Size(50, 28);
-            this.numericUpDown2.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(141, 28);
-            this.numericUpDown2.TabIndex = 180;
-            this.numericUpDown2.Value = 0.1D;
-            // 
-            // nud_angleRange
-            // 
-            this.nud_angleRange.BackColor = System.Drawing.Color.White;
-            this.nud_angleRange.DecimalPlaces = 0;
-            this.nud_angleRange.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_angleRange.Incremeent = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nud_angleRange.Location = new System.Drawing.Point(171, 154);
-            this.nud_angleRange.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.nud_angleRange.MaximumSize = new System.Drawing.Size(300, 28);
-            this.nud_angleRange.MaxValue = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nud_angleRange.MinimumSize = new System.Drawing.Size(50, 28);
-            this.nud_angleRange.MinValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nud_angleRange.Name = "nud_angleRange";
-            this.nud_angleRange.Size = new System.Drawing.Size(141, 28);
-            this.nud_angleRange.TabIndex = 178;
-            this.nud_angleRange.Value = 0D;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.BackColor = System.Drawing.Color.White;
-            this.numericUpDown1.DecimalPlaces = 1;
-            this.numericUpDown1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDown1.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown1.Location = new System.Drawing.Point(85, 183);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numericUpDown1.MaximumSize = new System.Drawing.Size(300, 28);
-            this.numericUpDown1.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown1.MinimumSize = new System.Drawing.Size(50, 28);
-            this.numericUpDown1.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(141, 28);
-            this.numericUpDown1.TabIndex = 179;
-            this.numericUpDown1.Value = 0.1D;
-            // 
-            // nud_angleStart
-            // 
-            this.nud_angleStart.BackColor = System.Drawing.Color.White;
-            this.nud_angleStart.DecimalPlaces = 0;
-            this.nud_angleStart.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_angleStart.Incremeent = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nud_angleStart.Location = new System.Drawing.Point(85, 154);
-            this.nud_angleStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.nud_angleStart.MaximumSize = new System.Drawing.Size(300, 28);
-            this.nud_angleStart.MaxValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nud_angleStart.MinimumSize = new System.Drawing.Size(50, 28);
-            this.nud_angleStart.MinValue = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
-            this.nud_angleStart.Name = "nud_angleStart";
-            this.nud_angleStart.Size = new System.Drawing.Size(141, 28);
-            this.nud_angleStart.TabIndex = 176;
-            this.nud_angleStart.Value = 0D;
-            // 
-            // cbx_polarity
-            // 
-            this.cbx_polarity.BackColor = System.Drawing.Color.White;
-            this.cbx_polarity.CanEdit = false;
-            this.cbx_polarity.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbx_polarity.Items = new string[] {
-        "使用极性",
-        "忽略极性"};
-            this.cbx_polarity.Location = new System.Drawing.Point(84, 129);
-            this.cbx_polarity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cbx_polarity.Name = "cbx_polarity";
-            this.cbx_polarity.SelectedIndex = 1;
-            this.cbx_polarity.Size = new System.Drawing.Size(231, 26);
-            this.cbx_polarity.TabIndex = 172;
-            this.cbx_polarity.TextStr = "忽略极性";
-            // 
-            // nud_minScore
-            // 
-            this.nud_minScore.BackColor = System.Drawing.Color.White;
-            this.nud_minScore.DecimalPlaces = 2;
-            this.nud_minScore.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_minScore.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nud_minScore.Location = new System.Drawing.Point(85, 9);
-            this.nud_minScore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.nud_minScore.MaximumSize = new System.Drawing.Size(300, 26);
-            this.nud_minScore.MaxValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_minScore.MinimumSize = new System.Drawing.Size(50, 26);
-            this.nud_minScore.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nud_minScore.Name = "nud_minScore";
-            this.nud_minScore.Size = new System.Drawing.Size(227, 26);
-            this.nud_minScore.TabIndex = 173;
-            this.nud_minScore.Value = 0.1D;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.BackColor = System.Drawing.Color.White;
-            this.numericUpDown3.DecimalPlaces = 0;
-            this.numericUpDown3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.numericUpDown3.Incremeent = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Location = new System.Drawing.Point(84, 96);
-            this.numericUpDown3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numericUpDown3.MaximumSize = new System.Drawing.Size(300, 28);
-            this.numericUpDown3.MaxValue = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown3.MinimumSize = new System.Drawing.Size(50, 28);
-            this.numericUpDown3.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(227, 28);
-            this.numericUpDown3.TabIndex = 177;
-            this.numericUpDown3.Value = 100D;
-            // 
-            // nud_angleStep
-            // 
-            this.nud_angleStep.BackColor = System.Drawing.Color.White;
-            this.nud_angleStep.DecimalPlaces = 0;
-            this.nud_angleStep.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_angleStep.Incremeent = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nud_angleStep.Location = new System.Drawing.Point(84, 67);
-            this.nud_angleStep.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.nud_angleStep.MaximumSize = new System.Drawing.Size(300, 28);
-            this.nud_angleStep.MaxValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nud_angleStep.MinimumSize = new System.Drawing.Size(50, 28);
-            this.nud_angleStep.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_angleStep.Name = "nud_angleStep";
-            this.nud_angleStep.Size = new System.Drawing.Size(227, 28);
-            this.nud_angleStep.TabIndex = 175;
-            this.nud_angleStep.Value = 1D;
-            // 
-            // nud_matchNum
-            // 
-            this.nud_matchNum.BackColor = System.Drawing.Color.White;
-            this.nud_matchNum.DecimalPlaces = 0;
-            this.nud_matchNum.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_matchNum.Incremeent = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_matchNum.Location = new System.Drawing.Point(85, 38);
-            this.nud_matchNum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.nud_matchNum.MaximumSize = new System.Drawing.Size(300, 28);
-            this.nud_matchNum.MaxValue = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nud_matchNum.MinimumSize = new System.Drawing.Size(50, 28);
-            this.nud_matchNum.MinValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_matchNum.Name = "nud_matchNum";
-            this.nud_matchNum.Size = new System.Drawing.Size(227, 28);
-            this.nud_matchNum.TabIndex = 174;
-            this.nud_matchNum.Value = 1D;
             // 
             // tkb_contrast
             // 
@@ -1174,7 +887,7 @@
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label26.Location = new System.Drawing.Point(249, 159);
+            this.label26.Location = new System.Drawing.Point(318, 160);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(31, 17);
             this.label26.TabIndex = 171;
@@ -1281,25 +994,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(376, 181);
             this.panel5.TabIndex = 151;
-            // 
-            // cbx_searchRegionType
-            // 
-            this.cbx_searchRegionType.BackColor = System.Drawing.Color.White;
-            this.cbx_searchRegionType.CanEdit = false;
-            this.cbx_searchRegionType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbx_searchRegionType.Items = new string[] {
-        "整幅图像",
-        "矩形",
-        "仿射矩形",
-        "圆",
-        "多点"};
-            this.cbx_searchRegionType.Location = new System.Drawing.Point(79, 14);
-            this.cbx_searchRegionType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.cbx_searchRegionType.Name = "cbx_searchRegionType";
-            this.cbx_searchRegionType.SelectedIndex = 0;
-            this.cbx_searchRegionType.Size = new System.Drawing.Size(172, 26);
-            this.cbx_searchRegionType.TabIndex = 122;
-            this.cbx_searchRegionType.TextStr = "整幅图像";
             // 
             // label5
             // 
@@ -1473,6 +1167,443 @@
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
             // 
+            // hWindowTool_Smart1
+            // 
+            this.hWindowTool_Smart1.DispStatus = false;
+            this.hWindowTool_Smart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hWindowTool_Smart1.hv_Image = null;
+            this.hWindowTool_Smart1.Location = new System.Drawing.Point(4, 5);
+            this.hWindowTool_Smart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.hWindowTool_Smart1.Name = "hWindowTool_Smart1";
+            this.tableLayoutPanel1.SetRowSpan(this.hWindowTool_Smart1, 3);
+            this.hWindowTool_Smart1.Size = new System.Drawing.Size(226, 169);
+            this.hWindowTool_Smart1.TabIndex = 0;
+            // 
+            // cmbErsion2
+            // 
+            this.cmbErsion2.BackColor = System.Drawing.Color.White;
+            this.cmbErsion2.CanEdit = false;
+            this.cmbErsion2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbErsion2.Items = new string[] {
+        "octagon",
+        "rectangle",
+        "rhombus"};
+            this.cmbErsion2.Location = new System.Drawing.Point(268, 91);
+            this.cmbErsion2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbErsion2.Name = "cmbErsion2";
+            this.cmbErsion2.SelectedIndex = 1;
+            this.cmbErsion2.Size = new System.Drawing.Size(95, 26);
+            this.cmbErsion2.TabIndex = 175;
+            this.cmbErsion2.TextStr = "rectangle";
+            this.cmbErsion2.SelectedIndexChanged += new Controls.DSelectedIndexChanged(this.cmbErsion1_SelectedIndexChanged);
+            // 
+            // cmbDilation
+            // 
+            this.cmbDilation.BackColor = System.Drawing.Color.White;
+            this.cmbDilation.CanEdit = false;
+            this.cmbDilation.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbDilation.Items = new string[] {
+        "octagon",
+        "rectangle",
+        "rhombus"};
+            this.cmbDilation.Location = new System.Drawing.Point(268, 49);
+            this.cmbDilation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbDilation.Name = "cmbDilation";
+            this.cmbDilation.SelectedIndex = 1;
+            this.cmbDilation.Size = new System.Drawing.Size(95, 26);
+            this.cmbDilation.TabIndex = 175;
+            this.cmbDilation.TextStr = "rectangle";
+            this.cmbDilation.SelectedIndexChanged += new Controls.DSelectedIndexChanged(this.cmbErsion1_SelectedIndexChanged);
+            // 
+            // cmbErsion1
+            // 
+            this.cmbErsion1.BackColor = System.Drawing.Color.White;
+            this.cmbErsion1.CanEdit = false;
+            this.cmbErsion1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbErsion1.Items = new string[] {
+        "octagon",
+        "rectangle",
+        "rhombus"};
+            this.cmbErsion1.Location = new System.Drawing.Point(268, 14);
+            this.cmbErsion1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbErsion1.Name = "cmbErsion1";
+            this.cmbErsion1.SelectedIndex = 1;
+            this.cmbErsion1.Size = new System.Drawing.Size(95, 26);
+            this.cmbErsion1.TabIndex = 175;
+            this.cmbErsion1.TextStr = "rectangle";
+            this.cmbErsion1.SelectedIndexChanged += new Controls.DSelectedIndexChanged(this.cmbErsion1_SelectedIndexChanged);
+            // 
+            // cNumErosionValue2
+            // 
+            this.cNumErosionValue2.BackColor = System.Drawing.Color.White;
+            this.cNumErosionValue2.DecimalPlaces = 0;
+            this.cNumErosionValue2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cNumErosionValue2.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumErosionValue2.Location = new System.Drawing.Point(71, 91);
+            this.cNumErosionValue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cNumErosionValue2.MaximumSize = new System.Drawing.Size(300, 26);
+            this.cNumErosionValue2.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.cNumErosionValue2.MinimumSize = new System.Drawing.Size(50, 26);
+            this.cNumErosionValue2.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumErosionValue2.Name = "cNumErosionValue2";
+            this.cNumErosionValue2.Size = new System.Drawing.Size(127, 26);
+            this.cNumErosionValue2.TabIndex = 174;
+            this.cNumErosionValue2.Value = 1D;
+            this.cNumErosionValue2.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            // 
+            // cNumDilationValue2
+            // 
+            this.cNumDilationValue2.BackColor = System.Drawing.Color.White;
+            this.cNumDilationValue2.DecimalPlaces = 0;
+            this.cNumDilationValue2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cNumDilationValue2.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumDilationValue2.Location = new System.Drawing.Point(71, 49);
+            this.cNumDilationValue2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cNumDilationValue2.MaximumSize = new System.Drawing.Size(300, 26);
+            this.cNumDilationValue2.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.cNumDilationValue2.MinimumSize = new System.Drawing.Size(50, 26);
+            this.cNumDilationValue2.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumDilationValue2.Name = "cNumDilationValue2";
+            this.cNumDilationValue2.Size = new System.Drawing.Size(127, 26);
+            this.cNumDilationValue2.TabIndex = 174;
+            this.cNumDilationValue2.Value = 1D;
+            this.cNumDilationValue2.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            // 
+            // cNumErosionValue1
+            // 
+            this.cNumErosionValue1.BackColor = System.Drawing.Color.White;
+            this.cNumErosionValue1.DecimalPlaces = 0;
+            this.cNumErosionValue1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cNumErosionValue1.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumErosionValue1.Location = new System.Drawing.Point(71, 14);
+            this.cNumErosionValue1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cNumErosionValue1.MaximumSize = new System.Drawing.Size(300, 26);
+            this.cNumErosionValue1.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.cNumErosionValue1.MinimumSize = new System.Drawing.Size(50, 26);
+            this.cNumErosionValue1.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.cNumErosionValue1.Name = "cNumErosionValue1";
+            this.cNumErosionValue1.Size = new System.Drawing.Size(127, 26);
+            this.cNumErosionValue1.TabIndex = 174;
+            this.cNumErosionValue1.Value = 1D;
+            this.cNumErosionValue1.ValueChanged += new Controls.DValueChanged(this.PreValueChanged);
+            // 
+            // nud_angleRange
+            // 
+            this.nud_angleRange.BackColor = System.Drawing.Color.White;
+            this.nud_angleRange.DecimalPlaces = 0;
+            this.nud_angleRange.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_angleRange.Incremeent = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nud_angleRange.Location = new System.Drawing.Point(208, 154);
+            this.nud_angleRange.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_angleRange.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_angleRange.MaxValue = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.nud_angleRange.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_angleRange.MinValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nud_angleRange.Name = "nud_angleRange";
+            this.nud_angleRange.Size = new System.Drawing.Size(102, 28);
+            this.nud_angleRange.TabIndex = 182;
+            this.nud_angleRange.Value = 10D;
+            // 
+            // ckb_autoContrast
+            // 
+            this.ckb_autoContrast.BackColor = System.Drawing.Color.White;
+            this.ckb_autoContrast.Checked = true;
+            this.ckb_autoContrast.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckb_autoContrast.Location = new System.Drawing.Point(85, 236);
+            this.ckb_autoContrast.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ckb_autoContrast.Name = "ckb_autoContrast";
+            this.ckb_autoContrast.Size = new System.Drawing.Size(96, 20);
+            this.ckb_autoContrast.TabIndex = 181;
+            this.ckb_autoContrast.TextStr = "自动";
+            // 
+            // nud_ScaleRange
+            // 
+            this.nud_ScaleRange.BackColor = System.Drawing.Color.White;
+            this.nud_ScaleRange.DecimalPlaces = 1;
+            this.nud_ScaleRange.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ScaleRange.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_ScaleRange.Location = new System.Drawing.Point(208, 183);
+            this.nud_ScaleRange.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_ScaleRange.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_ScaleRange.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nud_ScaleRange.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_ScaleRange.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_ScaleRange.Name = "nud_ScaleRange";
+            this.nud_ScaleRange.Size = new System.Drawing.Size(104, 28);
+            this.nud_ScaleRange.TabIndex = 180;
+            this.nud_ScaleRange.Value = 1.1D;
+            // 
+            // nud_ScaleStart
+            // 
+            this.nud_ScaleStart.BackColor = System.Drawing.Color.White;
+            this.nud_ScaleStart.DecimalPlaces = 1;
+            this.nud_ScaleStart.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ScaleStart.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_ScaleStart.Location = new System.Drawing.Point(85, 183);
+            this.nud_ScaleStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_ScaleStart.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_ScaleStart.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nud_ScaleStart.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_ScaleStart.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_ScaleStart.Name = "nud_ScaleStart";
+            this.nud_ScaleStart.Size = new System.Drawing.Size(96, 28);
+            this.nud_ScaleStart.TabIndex = 179;
+            this.nud_ScaleStart.Value = 0.9D;
+            // 
+            // nud_angleStart
+            // 
+            this.nud_angleStart.BackColor = System.Drawing.Color.White;
+            this.nud_angleStart.DecimalPlaces = 0;
+            this.nud_angleStart.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_angleStart.Incremeent = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nud_angleStart.Location = new System.Drawing.Point(85, 154);
+            this.nud_angleStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_angleStart.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_angleStart.MaxValue = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.nud_angleStart.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_angleStart.MinValue = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.nud_angleStart.Name = "nud_angleStart";
+            this.nud_angleStart.Size = new System.Drawing.Size(96, 28);
+            this.nud_angleStart.TabIndex = 176;
+            this.nud_angleStart.Value = -10D;
+            // 
+            // cbx_polarity
+            // 
+            this.cbx_polarity.BackColor = System.Drawing.Color.White;
+            this.cbx_polarity.CanEdit = false;
+            this.cbx_polarity.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbx_polarity.Items = new string[] {
+        "ignore_color_polarity",
+        "ignore_global_polarity",
+        "ignore_local_polarity",
+        "use_polarity"};
+            this.cbx_polarity.Location = new System.Drawing.Point(84, 129);
+            this.cbx_polarity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbx_polarity.Name = "cbx_polarity";
+            this.cbx_polarity.SelectedIndex = 3;
+            this.cbx_polarity.Size = new System.Drawing.Size(231, 26);
+            this.cbx_polarity.TabIndex = 172;
+            this.cbx_polarity.TextStr = "use_polarity";
+            // 
+            // nud_minScore
+            // 
+            this.nud_minScore.BackColor = System.Drawing.Color.White;
+            this.nud_minScore.DecimalPlaces = 2;
+            this.nud_minScore.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_minScore.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_minScore.Location = new System.Drawing.Point(85, 9);
+            this.nud_minScore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_minScore.MaximumSize = new System.Drawing.Size(300, 26);
+            this.nud_minScore.MaxValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_minScore.MinimumSize = new System.Drawing.Size(50, 26);
+            this.nud_minScore.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nud_minScore.Name = "nud_minScore";
+            this.nud_minScore.Size = new System.Drawing.Size(227, 26);
+            this.nud_minScore.TabIndex = 173;
+            this.nud_minScore.Value = 0.8D;
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.BackColor = System.Drawing.Color.White;
+            this.numericUpDown3.DecimalPlaces = 0;
+            this.numericUpDown3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown3.Incremeent = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Location = new System.Drawing.Point(84, 96);
+            this.numericUpDown3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numericUpDown3.MaximumSize = new System.Drawing.Size(300, 28);
+            this.numericUpDown3.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown3.MinimumSize = new System.Drawing.Size(50, 28);
+            this.numericUpDown3.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(227, 28);
+            this.numericUpDown3.TabIndex = 177;
+            this.numericUpDown3.Value = 100D;
+            // 
+            // nud_angleStep
+            // 
+            this.nud_angleStep.BackColor = System.Drawing.Color.White;
+            this.nud_angleStep.DecimalPlaces = 0;
+            this.nud_angleStep.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_angleStep.Incremeent = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nud_angleStep.Location = new System.Drawing.Point(84, 67);
+            this.nud_angleStep.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_angleStep.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_angleStep.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nud_angleStep.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_angleStep.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_angleStep.Name = "nud_angleStep";
+            this.nud_angleStep.Size = new System.Drawing.Size(227, 28);
+            this.nud_angleStep.TabIndex = 175;
+            this.nud_angleStep.Value = 1D;
+            // 
+            // nud_matchNum
+            // 
+            this.nud_matchNum.BackColor = System.Drawing.Color.White;
+            this.nud_matchNum.DecimalPlaces = 0;
+            this.nud_matchNum.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_matchNum.Incremeent = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_matchNum.Location = new System.Drawing.Point(85, 38);
+            this.nud_matchNum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nud_matchNum.MaximumSize = new System.Drawing.Size(300, 28);
+            this.nud_matchNum.MaxValue = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nud_matchNum.MinimumSize = new System.Drawing.Size(50, 28);
+            this.nud_matchNum.MinValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_matchNum.Name = "nud_matchNum";
+            this.nud_matchNum.Size = new System.Drawing.Size(227, 28);
+            this.nud_matchNum.TabIndex = 174;
+            this.nud_matchNum.Value = 1D;
+            // 
+            // cbx_searchRegionType
+            // 
+            this.cbx_searchRegionType.BackColor = System.Drawing.Color.White;
+            this.cbx_searchRegionType.CanEdit = false;
+            this.cbx_searchRegionType.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbx_searchRegionType.Items = new string[] {
+        "整幅图像",
+        "矩形",
+        "仿射矩形",
+        "圆",
+        "多点"};
+            this.cbx_searchRegionType.Location = new System.Drawing.Point(79, 14);
+            this.cbx_searchRegionType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbx_searchRegionType.Name = "cbx_searchRegionType";
+            this.cbx_searchRegionType.SelectedIndex = 0;
+            this.cbx_searchRegionType.Size = new System.Drawing.Size(172, 26);
+            this.cbx_searchRegionType.TabIndex = 122;
+            this.cbx_searchRegionType.TextStr = "整幅图像";
+            // 
             // FormPMAlignTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -1480,7 +1611,7 @@
             this.ClientSize = new System.Drawing.Size(999, 655);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1488,6 +1619,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "模板匹配工具";
             this.Load += new System.EventHandler(this.FormPMAlignTool_Load);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -1536,7 +1669,7 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tsbtRunTool;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1563,10 +1696,8 @@
         public System.Windows.Forms.Label label15;
         public System.Windows.Forms.Label label85;
         internal Controls.CCheckBox ckb_autoContrast;
-        public Controls.CNumericUpDown numericUpDown2;
-        public Controls.CNumericUpDown nud_angleRange;
-        public Controls.CNumericUpDown numericUpDown1;
-        public Controls.CNumericUpDown nud_angleStart;
+        public Controls.CNumericUpDown nud_ScaleRange;
+        public Controls.CNumericUpDown nud_ScaleStart;
         public Controls.CComboBox cbx_polarity;
         public Controls.CNumericUpDown nud_minScore;
         public Controls.CNumericUpDown numericUpDown3;
@@ -1624,5 +1755,16 @@
         private System.Windows.Forms.CheckBox cbCErosion2;
         internal System.Windows.Forms.Button btnCreateModel;
         internal System.Windows.Forms.Button btnAcqNewModelImage;
+        public Controls.CNumericUpDown nud_angleRange;
+        public Controls.CNumericUpDown nud_angleStart;
+        public Controls.CComboBox cmbErsion1;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label label6;
+        public Controls.CComboBox cmbErsion2;
+        public Controls.CComboBox cmbDilation;
+        private System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
     }
 }

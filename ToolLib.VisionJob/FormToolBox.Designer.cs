@@ -96,8 +96,9 @@
             treeNode4.Name = "节点3";
             treeNode4.SelectedImageIndex = 3;
             treeNode4.Text = "HIKVision";
-            treeNode5.ImageIndex = 4;
+            treeNode5.ImageKey = "相机.png";
             treeNode5.Name = "节点0";
+            treeNode5.SelectedImageKey = "相机.png";
             treeNode5.Text = "获取图像";
             treeNode6.Name = "节点5";
             treeNode6.Text = "滤波";
@@ -173,6 +174,7 @@
             this.imageList1.Images.SetKeyName(14, "停止.png");
             this.imageList1.Images.SetKeyName(15, "几何_32.png");
             this.imageList1.Images.SetKeyName(16, "图像预处理_32.png");
+            this.imageList1.Images.SetKeyName(17, "相机.png");
             // 
             // richTextBoxEx1
             // 
@@ -205,6 +207,7 @@
             this.imageListTool.Images.SetKeyName(8, "卡尺.png");
             this.imageListTool.Images.SetKeyName(9, "匹配.ico");
             this.imageListTool.Images.SetKeyName(10, "模板.ico");
+            this.imageListTool.Images.SetKeyName(11, "相机.png");
             // 
             // splitContainer1
             // 

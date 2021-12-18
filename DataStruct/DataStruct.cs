@@ -37,11 +37,11 @@ namespace DataStruct
         [Serializable]
         public class XYU
         {
-            internal XYU()
+            public XYU()
             {
                 _point = new XY();
             }
-            internal XYU(double x, double y, double u)
+            public XYU(double x, double y, double u)
             {
                 _point = new XY();
                 _point.X = x;

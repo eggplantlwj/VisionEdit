@@ -32,6 +32,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtRunTool = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -68,9 +71,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lb_RunTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -118,6 +118,22 @@
             this.statusStrip.Size = new System.Drawing.Size(1002, 22);
             this.statusStrip.TabIndex = 3;
             this.statusStrip.Text = "statusStrip1";
+            // 
+            // lb_RunStatus
+            // 
+            this.lb_RunStatus.Name = "lb_RunStatus";
+            this.lb_RunStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel1.Text = "                            ";
+            // 
+            // lb_RunTime
+            // 
+            this.lb_RunTime.Name = "lb_RunTime";
+            this.lb_RunTime.Size = new System.Drawing.Size(0, 17);
             // 
             // splitContainer1
             // 
@@ -528,23 +544,7 @@
             this.label9.TabIndex = 105;
             this.label9.Text = "起点列坐标：";
             // 
-            // lb_RunStatus
-            // 
-            this.lb_RunStatus.Name = "lb_RunStatus";
-            this.lb_RunStatus.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
-            this.toolStripStatusLabel1.Text = "                            ";
-            // 
-            // lb_RunTime
-            // 
-            this.lb_RunTime.Name = "lb_RunTime";
-            this.lb_RunTime.Size = new System.Drawing.Size(0, 17);
-            // 
-            // FormFindLine2
+            // FormFindLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -553,7 +553,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FormFindLine2";
+            this.Name = "FormFindLine";
             this.Text = "找线工具";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFindLine2_FormClosing);
             this.Load += new System.EventHandler(this.FormFindLine2_Load);

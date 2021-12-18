@@ -49,6 +49,7 @@ namespace CommonMethods
     {
         String,
         IntValue,
+        DoubleValue,
         Region,
         Image,
         Point,
@@ -89,6 +90,7 @@ namespace CommonMethods
         No_Input_String,
         Tool_Run_Error,
         Input_Value_Type_Error,
+        Model_UnFound,
         未运行,
         未启用,
         缺少输入搜索区域,

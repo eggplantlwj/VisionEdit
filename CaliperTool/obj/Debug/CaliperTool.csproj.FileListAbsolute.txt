@@ -32,9 +32,6 @@ G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.dll
 G:\VisionEdit\VisionEdit\CaliperTool\obj\Debug\CaliperTool.pdb
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csprojResolveAssemblyReference.cache
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
-F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\log4net.config
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\CaliperTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\CaliperTool.pdb
@@ -60,5 +57,8 @@ F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\HWindow_Tool.pdb
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\halcondotnet.xml
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\Newtonsoft.Json.xml
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\bin\Debug\DevComponents.DotNetBar2.xml
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.FormCaliper.resources
+F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.dll
 F:\GitHubClone\最新克隆\VisionEdit\CaliperTool\obj\Debug\CaliperTool.pdb

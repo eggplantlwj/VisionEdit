@@ -46,6 +46,7 @@ namespace VisionJobFactory
     public class FindLineToolInterface : IToolInfo
     {
         ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
+        ToolIO inputPos = new ToolIO("InputPos", null, DataType.Pose);
         ToolIO outputXld = new ToolIO("outputXld", null, DataType.Line);
         ToolIO startPointRow = new ToolIO("StartPointRow", null, DataType.IntValue);
         ToolIO startPointColumn = new ToolIO("StartPointColumn", null, DataType.IntValue);
@@ -59,7 +60,7 @@ namespace VisionJobFactory
             tool = new FindLine();
             FormToolName = "FindLineTool.FormFindLine";
             FormTool = null;
-            toolInput = new List<ToolIO>() { inputImage };
+            toolInput = new List<ToolIO>() { inputImage, inputPos };
             toolOutput = new List<ToolIO>() { outputXld, startPointRow, startPointColumn, endPointRow, endPointColumn };
         }
         /// <summary>
@@ -75,6 +76,7 @@ namespace VisionJobFactory
     public class CaliperInterface : IToolInfo
     {
         ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
+        ToolIO inputPos = new ToolIO("InputPos", null, DataType.Pose);
         ToolIO inputCenterRow = new ToolIO("inputCenterRow", null, DataType.IntValue);
         ToolIO inputCenterColumn = new ToolIO("inputCenterColumn", null, DataType.IntValue);
         ToolIO inputPhi = new ToolIO("inputPhi", null, DataType.IntValue);
@@ -88,7 +90,7 @@ namespace VisionJobFactory
             tool = new Caliper();
             FormToolName = "CaliperTool.FormCaliper";
             FormTool = null;
-            toolInput = new List<ToolIO>() { inputImage, inputCenterRow, inputCenterColumn, inputPhi };
+            toolInput = new List<ToolIO>() { inputImage, inputCenterRow, inputCenterColumn, inputPhi , inputPos };
             toolOutput = new List<ToolIO>() { outputCenterRow, outputCenterColumn };
         }
         /// <summary>
@@ -112,6 +114,10 @@ namespace VisionJobFactory
     {
         ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
         ToolIO outPose = new ToolIO("GetPose", null, DataType.Pose);
+        ToolIO outPoseX = new ToolIO("GetPose.X", null, DataType.IntValue);
+        ToolIO outPoseY = new ToolIO("GetPose.Y", null, DataType.IntValue);
+        ToolIO outPoseR = new ToolIO("GetPose.Z", null, DataType.DoubleValue);
+        ToolIO outPoseScore = new ToolIO("GetPose.Score", null, DataType.DoubleValue);
         public PMAlignToolToolInterface(string toolName)
         {
             enable = true;
@@ -121,7 +127,8 @@ namespace VisionJobFactory
             FormToolName = "PMAlignTool.FormPMAlignTool";
             FormTool = null;
             toolInput = new List<ToolIO>() { inputImage };
-            toolOutput = new List<ToolIO>() { outPose };
+            toolOutput = new List<ToolIO>() { outPose, outPoseX, outPoseY, outPoseR, outPoseScore };
+            
         }
         /// <summary>
         /// 只获取选择工具的描述信息
