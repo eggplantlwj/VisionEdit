@@ -38,3 +38,15 @@ F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.Propert
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csproj.GenerateResource.Cache
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.dll
 F:\GitHubClone\最新克隆\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.pdb
+F:\GitHubClone\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.dll.config
+F:\GitHubClone\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.dll
+F:\GitHubClone\VisionEdit\ImageWindow\bin\x64\Debug\HWindow_Tool.pdb
+F:\GitHubClone\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.dll
+F:\GitHubClone\VisionEdit\ImageWindow\bin\x64\Debug\halcondotnet.xml
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csprojResolveAssemblyReference.cache
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.HWindowTool_Smart.resources
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\ChoiceTech.Halcon.Control.HWindow_Final.resources
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\ViewROI.Properties.Resources.resources
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.csproj.GenerateResource.Cache
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.dll
+F:\GitHubClone\VisionEdit\ImageWindow\obj\x64\Debug\HWindow_Tool.pdb

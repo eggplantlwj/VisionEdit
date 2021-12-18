@@ -10,3 +10,10 @@ F:\GitHubClone\最新克隆\VisionEdit\DataStruct\bin\Debug\halcondotnet.dll
 F:\GitHubClone\最新克隆\VisionEdit\DataStruct\bin\Debug\halcondotnet.xml
 F:\GitHubClone\最新克隆\VisionEdit\DataStruct\obj\Debug\DataStruct.dll
 F:\GitHubClone\最新克隆\VisionEdit\DataStruct\obj\Debug\DataStruct.pdb
+F:\GitHubClone\VisionEdit\DataStruct\bin\Debug\DataStruct.dll
+F:\GitHubClone\VisionEdit\DataStruct\bin\Debug\DataStruct.pdb
+F:\GitHubClone\VisionEdit\DataStruct\bin\Debug\halcondotnet.dll
+F:\GitHubClone\VisionEdit\DataStruct\bin\Debug\halcondotnet.xml
+F:\GitHubClone\VisionEdit\DataStruct\obj\Debug\DataStruct.csprojResolveAssemblyReference.cache
+F:\GitHubClone\VisionEdit\DataStruct\obj\Debug\DataStruct.dll
+F:\GitHubClone\VisionEdit\DataStruct\obj\Debug\DataStruct.pdb

@@ -18,3 +18,14 @@ F:\GitHubClone\最新克隆\VisionEdit\ToolBase\bin\Debug\Newtonsoft.Json.xml
 F:\GitHubClone\最新克隆\VisionEdit\ToolBase\obj\Debug\ToolBase.csprojResolveAssemblyReference.cache
 F:\GitHubClone\最新克隆\VisionEdit\ToolBase\obj\Debug\ToolBase.dll
 F:\GitHubClone\最新克隆\VisionEdit\ToolBase\obj\Debug\ToolBase.pdb
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\ToolBase.dll
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\ToolBase.pdb
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\CommonMethods.dll
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\halcondotnet.dll
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\Newtonsoft.Json.dll
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\CommonMethods.pdb
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\halcondotnet.xml
+F:\GitHubClone\VisionEdit\ToolBase\bin\Debug\Newtonsoft.Json.xml
+F:\GitHubClone\VisionEdit\ToolBase\obj\Debug\ToolBase.csprojResolveAssemblyReference.cache
+F:\GitHubClone\VisionEdit\ToolBase\obj\Debug\ToolBase.dll
+F:\GitHubClone\VisionEdit\ToolBase\obj\Debug\ToolBase.pdb
