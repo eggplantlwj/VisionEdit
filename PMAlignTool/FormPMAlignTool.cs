@@ -1,4 +1,4 @@
-﻿using ChoiceTech.Halcon.Control;
+using ChoiceTech.Halcon.Control;
 using CommonMethods;
 using HalconDotNet;
 using Logger;

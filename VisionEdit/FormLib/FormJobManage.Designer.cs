@@ -1,4 +1,4 @@
-﻿namespace VisionEdit.FormLib
+namespace VisionEdit.FormLib
 {
     partial class FormJobManage
     {

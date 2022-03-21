@@ -4,12 +4,12 @@
 //
 // ***********************************************************************
 // <copyright file="UCVScrollbar.cs">
-//     Copyright by Huang Zhenghui(»ÆÕı»Ô) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
+//     Copyright by Huang Zhenghui(é»„æ­£è¾‰) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
 // </copyright>
 //
 // Blog: https://www.cnblogs.com/bfyx
-// GitHub£ºhttps://github.com/kwwwvagaa/NetWinformControl
-// gitee£ºhttps://gitee.com/kwwwvagaa/net_winform_custom_control.git
+// GitHubï¼šhttps://github.com/kwwwvagaa/NetWinformControl
+// giteeï¼šhttps://gitee.com/kwwwvagaa/net_winform_custom_control.git
 //
 // If you use this code, please keep this note.
 // ***********************************************************************
@@ -107,7 +107,7 @@ namespace HZH_Controls.Controls
         /// Gets or sets the large change.
         /// </summary>
         /// <value>The large change.</value>
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("×Ô¶¨Òå"), Description("LargeChange")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("è‡ªå®šä¹‰"), Description("LargeChange")]
         public int LargeChange
         {
             get { return moLargeChange; }
@@ -122,7 +122,7 @@ namespace HZH_Controls.Controls
         /// Gets or sets the small change.
         /// </summary>
         /// <value>The small change.</value>
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("×Ô¶¨Òå"), Description("SmallChange")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("è‡ªå®šä¹‰"), Description("SmallChange")]
         public int SmallChange
         {
             get { return moSmallChange; }
@@ -137,7 +137,7 @@ namespace HZH_Controls.Controls
         /// Gets or sets the minimum.
         /// </summary>
         /// <value>The minimum.</value>
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("×Ô¶¨Òå"), Description("Minimum")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("è‡ªå®šä¹‰"), Description("Minimum")]
         public int Minimum
         {
             get { return moMinimum; }
@@ -152,7 +152,7 @@ namespace HZH_Controls.Controls
         /// Gets or sets the maximum.
         /// </summary>
         /// <value>The maximum.</value>
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("×Ô¶¨Òå"), Description("Maximum")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("è‡ªå®šä¹‰"), Description("Maximum")]
         public int Maximum
         {
             get { return moMaximum; }
@@ -167,7 +167,7 @@ namespace HZH_Controls.Controls
         /// Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
-        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("×Ô¶¨Òå"), Description("Value")]
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true), DefaultValue(false), Category("è‡ªå®šä¹‰"), Description("Value")]
         public int Value
         {
             get { return moValue; }
@@ -282,9 +282,9 @@ namespace HZH_Controls.Controls
 
 
         /// <summary>
-        /// Òı·¢ <see cref="E:System.Windows.Forms.Control.Paint" /> ÊÂ¼ş¡£
+        /// å¼•å‘ <see cref="E:System.Windows.Forms.Control.Paint" /> äº‹ä»¶ã€‚
         /// </summary>
-        /// <param name="e">°üº¬ÊÂ¼şÊı¾İµÄ <see cref="T:System.Windows.Forms.PaintEventArgs" />¡£</param>
+        /// <param name="e">åŒ…å«äº‹ä»¶æ•°æ®çš„ <see cref="T:System.Windows.Forms.PaintEventArgs" />ã€‚</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

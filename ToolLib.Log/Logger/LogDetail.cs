@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,8 +27,9 @@ namespace Logger
                 string time = Regex.Split(logMsg, " -> ")[0];
                 string msgLevel = Regex.Split(logMsg, " -> ")[1].Split(',')[0];
                 string msgDetal = Regex.Split(logMsg, " -> ")[1];
+               // msgDetal = Regex.Split(msgDetal, ",")[1];
                 txbLogTime.Text = time;
-                txbLogLevel.Text = msgLevel; 
+                txbLogLevel.Text = msgLevel;
                 txbLogLevel.BackColor = (msgLevel == "Warn" || msgLevel == "Exception") ? Color.Red : Color.Lime;
                 richDetail.Text = msgDetal;
             }

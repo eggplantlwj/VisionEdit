@@ -1,4 +1,4 @@
-﻿using FormLib;
+using FormLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

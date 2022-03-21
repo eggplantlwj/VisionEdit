@@ -1,4 +1,4 @@
-﻿using CommonMethods;
+using CommonMethods;
 using CommonMethods.Interface;
 using Logger;
 using System;

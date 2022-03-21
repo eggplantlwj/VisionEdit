@@ -4,12 +4,12 @@
 //
 // ***********************************************************************
 // <copyright file="FontImages.cs">
-//     Copyright by Huang Zhenghui(»ÆÕı»Ô) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
+//     Copyright by Huang Zhenghui(é»„æ­£è¾‰) All, QQ group:568015492 QQ:623128629 Email:623128629@qq.com
 // </copyright>
 //
 // Blog: https://www.cnblogs.com/bfyx
-// GitHub£ºhttps://github.com/kwwwvagaa/NetWinformControl
-// gitee£ºhttps://gitee.com/kwwwvagaa/net_winform_custom_control.git
+// GitHubï¼šhttps://github.com/kwwwvagaa/NetWinformControl
+// giteeï¼šhttps://gitee.com/kwwwvagaa/net_winform_custom_control.git
 //
 // If you use this code, please keep this note.
 // ***********************************************************************
@@ -24,9 +24,9 @@ using System.IO;
 namespace HZH_Controls
 {
     /// <summary>
-    /// ×ÖÌåÍ¼±êÍ¼Æ¬,awesome×ÖÌåÄ¬ÈÏ¼ÓÔØ£¬elegant×ÖÌåÔÚÊ¹ÓÃÊ±ÑÓ³Ù¼ÓÔØ
-    /// Í¼±êÊ¾Àı http://www.fontawesome.com.cn/faicons/?tdsourcetag=s_pcqq_aiomsg
-    /// Í¼±êÊ¾Àı https://www.elegantthemes.com/blog/resources/elegant-icon-font
+    /// å­—ä½“å›¾æ ‡å›¾ç‰‡,awesomeå­—ä½“é»˜è®¤åŠ è½½ï¼Œelegantå­—ä½“åœ¨ä½¿ç”¨æ—¶å»¶è¿ŸåŠ è½½
+    /// å›¾æ ‡ç¤ºä¾‹ http://www.fontawesome.com.cn/faicons/?tdsourcetag=s_pcqq_aiomsg
+    /// å›¾æ ‡ç¤ºä¾‹ https://www.elegantthemes.com/blog/resources/elegant-icon-font
     /// </summary>
     public static class FontImages
     {
@@ -59,7 +59,7 @@ namespace HZH_Controls
 
 
         /// <summary>
-        /// ¹¹Ôìº¯Êı
+        /// æ„é€ å‡½æ•°
         /// </summary>
         /// <exception cref="FileNotFoundException">Font file not found</exception>
         static FontImages()
@@ -161,25 +161,25 @@ namespace HZH_Controls
             }
         }
         /// <summary>
-        /// »ñÈ¡Í¼±ê
+        /// è·å–å›¾æ ‡
         /// </summary>
-        /// <param name="iconText">Í¼±êÃû³Æ</param>
-        /// <param name="imageSize">Í¼±ê´óĞ¡</param>
-        /// <param name="foreColor">Ç°¾°É«</param>
-        /// <param name="backColor">±³¾°É«</param>
-        /// <returns>Í¼±ê</returns>
+        /// <param name="iconText">å›¾æ ‡åç§°</param>
+        /// <param name="imageSize">å›¾æ ‡å¤§å°</param>
+        /// <param name="foreColor">å‰æ™¯è‰²</param>
+        /// <param name="backColor">èƒŒæ™¯è‰²</param>
+        /// <returns>å›¾æ ‡</returns>
         public static Icon GetIcon(FontIcons iconText, int imageSize = 32, Color? foreColor = null, Color? backColor = null)
         {
             Bitmap image = GetImage(iconText, imageSize, foreColor, backColor);
             return image != null ? ToIcon(image, imageSize) : null;
         }
         /// <summary>
-        /// »ñÈ¡Í¼±ê.
+        /// è·å–å›¾æ ‡.
         /// </summary>
-        /// <param name="iconText">Í¼±êÃû³Æ.</param>
-        /// <param name="imageSize">Í¼±ê´óĞ¡.</param>
-        /// <param name="foreColor">Ç°¾°É«</param>
-        /// <param name="backColor">±³¾°É«.</param>
+        /// <param name="iconText">å›¾æ ‡åç§°.</param>
+        /// <param name="imageSize">å›¾æ ‡å¤§å°.</param>
+        /// <param name="foreColor">å‰æ™¯è‰²</param>
+        /// <param name="backColor">èƒŒæ™¯è‰².</param>
         /// <returns>Bitmap.</returns>
         /// <exception cref="FileNotFoundException">Font file not found</exception>
         public static Bitmap GetImage(FontIcons iconText, int imageSize = 32, Color? foreColor = null, Color? backColor = null)

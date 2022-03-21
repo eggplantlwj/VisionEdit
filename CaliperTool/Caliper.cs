@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CommonMethods;
 using HalconDotNet;
 using ToolBase;

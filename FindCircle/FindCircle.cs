@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using HalconDotNet;
 using static DataStruct.DataStruct;
 using ToolBase;

@@ -405,7 +405,7 @@ namespace ViewWindow.Model
             }
             catch (Exception)
             {
-               //Ã»ÓĞÏÔÊ¾roiµÄÊ±ºò ÒÆ¶¯Êó±ê»á±¨´í
+               //æ²¡æœ‰æ˜¾ç¤ºroiçš„æ—¶å€™ ç§»åŠ¨é¼ æ ‡ä¼šæŠ¥é”™
             }
 
 		}
@@ -418,7 +418,7 @@ namespace ViewWindow.Model
 
         /*****************************/
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÏÔÊ¾ROI--Rectangle1
+        /// åœ¨æŒ‡å®šä½ç½®æ˜¾ç¤ºROI--Rectangle1
         /// </summary>
         /// <param name="row1"></param>
         /// <param name="col1"></param>
@@ -460,7 +460,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÏÔÊ¾ROI--Rectangle2
+        /// åœ¨æŒ‡å®šä½ç½®æ˜¾ç¤ºROI--Rectangle2
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -486,7 +486,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Circle
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Circle
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -529,7 +529,7 @@ namespace ViewWindow.Model
         }
 
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÏÔÊ¾ROI--Line
+        /// åœ¨æŒ‡å®šä½ç½®æ˜¾ç¤ºROI--Line
         /// </summary>
         /// <param name="beginRow"></param>
         /// <param name="beginCol"></param>
@@ -554,7 +554,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Rectangle1
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Rectangle1
         /// </summary>
         /// <param name="row1"></param>
         /// <param name="col1"></param>
@@ -584,7 +584,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Rectangle1
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Rectangle1
         /// </summary>
         /// <param name="row1"></param>
         /// <param name="col1"></param>
@@ -614,7 +614,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Rectangle1
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Rectangle1
         /// </summary>
         /// <param name="row1"></param>
         /// <param name="col1"></param>
@@ -644,7 +644,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Rectangle2
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Rectangle2
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -675,7 +675,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Rectangle2
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Rectangle2
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -706,7 +706,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Circle
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Circle
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -758,7 +758,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// ÔÚÖ¸¶¨Î»ÖÃÉú³ÉROI--Line
+        /// åœ¨æŒ‡å®šä½ç½®ç”ŸæˆROI--Line
         /// </summary>
         /// <param name="beginRow"></param>
         /// <param name="beginCol"></param>
@@ -788,7 +788,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// »ñÈ¡µ±Ç°Ñ¡ÖĞROIµÄĞÅÏ¢
+        /// è·å–å½“å‰é€‰ä¸­ROIçš„ä¿¡æ¯
         /// </summary>
         /// <returns></returns>
         protected internal System.Collections.Generic.List<double> smallestActiveROI(out string name, out int index)
@@ -853,7 +853,7 @@ namespace ViewWindow.Model
         }
 
         /// <summary>
-        /// É¾³ıµ±Ç°Ñ¡ÖĞROI
+        /// åˆ é™¤å½“å‰é€‰ä¸­ROI
         /// </summary>
         /// <param name="roi"></param>
         protected internal void removeActiveROI(ref System.Collections.Generic.List<ROI> roi)
@@ -866,7 +866,7 @@ namespace ViewWindow.Model
             }
         }
         /// <summary>
-        /// Ñ¡ÖĞ¼¤»îROI
+        /// é€‰ä¸­æ¿€æ´»ROI
         /// </summary>
         /// <param name="index"></param>
         protected internal void selectROI(int index)
@@ -876,7 +876,7 @@ namespace ViewWindow.Model
             this.viewController.repaint();
         }
         /// <summary>
-        /// ¸´Î»´°¿ÚÏÔÊ¾
+        /// å¤ä½çª—å£æ˜¾ç¤º
         /// </summary>
         protected internal void resetWindowImage()
         {

@@ -1,4 +1,4 @@
-﻿namespace FormLib
+namespace FormLib
 {
     partial class FormLog
     {

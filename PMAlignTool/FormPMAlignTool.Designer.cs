@@ -1,4 +1,4 @@
-﻿namespace PMAlignTool
+namespace PMAlignTool
 {
     partial class FormPMAlignTool
     {

@@ -1,4 +1,4 @@
-﻿namespace FindCircle
+namespace FindCircle
 {
     partial class FormFindCircle
     {

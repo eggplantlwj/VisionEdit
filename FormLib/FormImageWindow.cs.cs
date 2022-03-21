@@ -1,4 +1,4 @@
-﻿using ChoiceTech.Halcon.Control;
+using ChoiceTech.Halcon.Control;
 using HalconDotNet;
 using System;
 using System.Collections.Generic;

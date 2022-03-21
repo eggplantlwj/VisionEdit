@@ -1,4 +1,4 @@
-﻿namespace Controls
+namespace Controls
 {
     partial class CComboBox
     {

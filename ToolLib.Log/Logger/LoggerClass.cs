@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace Logger
             logQueue.Enqueue(new LogInfo{ message = info, ex = null, logLevel = MsgLevel.Info});
             if(ShowMsgBox)
             {
-                MessageBox.Show(info);  
+                MessageBox.Show(info);
             }
         }
         public static void WriteLog(string info, MsgLevel msgLevel, bool ShowMsgBox = false)

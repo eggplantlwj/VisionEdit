@@ -1,4 +1,4 @@
-﻿namespace ViewROI
+namespace ViewROI
 {
     partial class HWindowTool_Smart
     {

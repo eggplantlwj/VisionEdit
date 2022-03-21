@@ -1,4 +1,4 @@
-﻿// 版权所有(C) ChoiceTech Corporation。保留所有权利。
+// 版权所有(C) ChoiceTech Corporation。保留所有权利。
 // 此代码的发布遵从
 // ChoiceTech 公共许可(HY-PL，http://choicetech.cn/hy-pl.html)的条款。
 //

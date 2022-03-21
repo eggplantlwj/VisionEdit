@@ -1,4 +1,4 @@
-﻿namespace HZH_Controls.Controls
+namespace HZH_Controls.Controls
 {
     partial class UCTimeLine
     {

@@ -1,4 +1,4 @@
-﻿namespace Logger
+namespace Logger
 {
     partial class UserLogger
     {
@@ -16,7 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
-            } 
+            }
             base.Dispose(disposing);
         }
 

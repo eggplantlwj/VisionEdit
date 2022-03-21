@@ -1,4 +1,4 @@
-﻿namespace HalconTool
+namespace HalconTool
 {
     partial class FormHalconTool
     {

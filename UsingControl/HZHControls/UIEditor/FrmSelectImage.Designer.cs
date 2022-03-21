@@ -1,4 +1,4 @@
-﻿namespace HZH_Controls
+namespace HZH_Controls
 {
     partial class FrmSelectImage
     {

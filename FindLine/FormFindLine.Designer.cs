@@ -1,4 +1,4 @@
-﻿namespace FindLineTool
+namespace FindLineTool
 {
     partial class FormFindLine
     {

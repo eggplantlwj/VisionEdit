@@ -1,4 +1,4 @@
-﻿namespace ChoiceTech.Halcon.Control
+namespace ChoiceTech.Halcon.Control
 {
     partial class HWindow_Final
     {

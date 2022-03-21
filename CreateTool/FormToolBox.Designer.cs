@@ -1,4 +1,4 @@
-﻿namespace CreateTool
+namespace CreateTool
 {
     partial class FormToolBox
     {

@@ -1,4 +1,4 @@
-﻿namespace VisionEdit
+namespace VisionEdit
 {
     partial class FormMain
     {

@@ -1,4 +1,4 @@
-﻿namespace HZH_Controls.Forms
+namespace HZH_Controls.Forms
 {
     partial class FrmLoading
     {

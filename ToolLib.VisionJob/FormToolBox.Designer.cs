@@ -1,4 +1,4 @@
-﻿namespace ToolLib.VisionJob
+namespace ToolLib.VisionJob
 {
     partial class FormToolBox
     {

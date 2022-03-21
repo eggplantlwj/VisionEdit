@@ -62,7 +62,7 @@ namespace ViewWindow.Model
 		/// stack without loss. For each additional object, the first entry 
 		/// is removed from the stack again.
 		/// </summary>
-		private const int MAXNUMOBJLIST       = 2;//Ô­Ê¼ÖµÎª50 Êµ¼ÊÉÏ2¶¼¿ÉÒÔ,ÒòÕâÀïÖ»ÊÇ´æ´¢±³¾°Í¼Æ¬
+		private const int MAXNUMOBJLIST       = 2;//åŸå§‹å€¼ä¸º50 å®é™…ä¸Š2éƒ½å¯ä»¥,å› è¿™é‡Œåªæ˜¯å­˜å‚¨èƒŒæ™¯å›¾ç‰‡
 
 
 		private int    stateView;
@@ -83,10 +83,10 @@ namespace ViewWindow.Model
 		private int           dispROI;
 
         /// <summary>
-        /// Ëõ·ÅÊÂ¼ş¿ª¹Ø
+        /// ç¼©æ”¾äº‹ä»¶å¼€å…³
         /// </summary>
         public bool drawModel = false;
-        //¿ªÆô±à¼­Ä£Ê½
+        //å¼€å¯ç¼–è¾‘æ¨¡å¼
         public bool EditModel = true;
 
 		/* Basic parameters, like dimension of window and displayed image part */
@@ -187,7 +187,7 @@ namespace ViewWindow.Model
 
         private void HMouseWheel(object sender, HMouseEventArgs e)
         {
-            //¹Ø±ÕËõ·ÅÊÂ¼ş
+            //å…³é—­ç¼©æ”¾äº‹ä»¶
             if (drawModel)
             {
                 return;
@@ -284,7 +284,7 @@ namespace ViewWindow.Model
 		/****************************************************************************/
 		private void zoomImage(double x, double y, double scale)
 		{
-            //¹Ø±ÕËõ·ÅÊÂ¼ş
+            //å…³é—­ç¼©æ”¾äº‹ä»¶
             if (drawModel)
             {
                 return;
@@ -321,13 +321,13 @@ namespace ViewWindow.Model
 
             if (zoomWndFactor < 0.01 && _zoomWndFactor < zoomWndFactor)
             {
-                //³¬¹ıÒ»¶¨Ëõ·Å±ÈÀı¾Í²»ÔÚËõ·Å
+                //è¶…è¿‡ä¸€å®šç¼©æ”¾æ¯”ä¾‹å°±ä¸åœ¨ç¼©æ”¾
                 resetWindow();
                 return;
             }
             if (zoomWndFactor > 100 && _zoomWndFactor > zoomWndFactor)
             {
-                //³¬¹ıÒ»¶¨Ëõ·Å±ÈÀı¾Í²»ÔÚËõ·Å
+                //è¶…è¿‡ä¸€å®šç¼©æ”¾æ¯”ä¾‹å°±ä¸åœ¨ç¼©æ”¾
                 resetWindow();
                 return;
             }
@@ -467,7 +467,7 @@ namespace ViewWindow.Model
 		/*************************************************************************/
 		private void mouseDown(object sender, HalconDotNet.HMouseEventArgs e)
 		{
-            //¹Ø±ÕËõ·ÅÊÂ¼ş
+            //å…³é—­ç¼©æ”¾äº‹ä»¶
             if (drawModel)
             {
                 return;
@@ -545,7 +545,7 @@ namespace ViewWindow.Model
 		/*******************************************************************/
 		private void mouseUp(object sender, HalconDotNet.HMouseEventArgs e)
 		{
-            //¹Ø±ÕËõ·ÅÊÂ¼ş
+            //å…³é—­ç¼©æ”¾äº‹ä»¶
             if (drawModel)
             {
                 return;
@@ -569,7 +569,7 @@ namespace ViewWindow.Model
 		private void mouseMoved(object sender, HalconDotNet.HMouseEventArgs e)
 		{
 
-            //¹Ø±ÕËõ·ÅÊÂ¼ş
+            //å…³é—­ç¼©æ”¾äº‹ä»¶
             if (drawModel)
             {
                 return;
@@ -745,7 +745,7 @@ namespace ViewWindow.Model
 			    window.ClearWindow();
 			    mGC.stateOfSettings.Clear();
 
-                //ÏÔÊ¾Í¼Æ¬
+                //æ˜¾ç¤ºå›¾ç‰‡
 			    for (int i=0; i < count; i++)
 			    {
 				    entry = ((HObjectEntry)HObjImageList[i]);
@@ -754,7 +754,7 @@ namespace ViewWindow.Model
 
 			    }
 
-                //ÏÔÊ¾region
+                //æ˜¾ç¤ºregion
                 showHObjectList();
 
 
@@ -766,7 +766,7 @@ namespace ViewWindow.Model
 
 			    HSystem.SetSystem("flush_graphic", "true");
 
-                //×¢ÊÍÁËÏÂÃæÓï¾ä,»áµ¼ÖÂ´°¿ÚÎŞ·¨ÊµÏÖËõ·ÅºÍÍÏ¶¯
+                //æ³¨é‡Šäº†ä¸‹é¢è¯­å¥,ä¼šå¯¼è‡´çª—å£æ— æ³•å®ç°ç¼©æ”¾å’Œæ‹–åŠ¨
                 window.SetColor("black");
                 window.DispLine(-100.0, -100.0, -101.0, -101.0);
 
@@ -790,7 +790,7 @@ namespace ViewWindow.Model
 		/// <param name="obj">Iconic object</param>
 		public void addIconicVar(HObject img)
 		{
-            //ÏÈ°ÑHObjImageList¸øÈ«²¿ÊÍ·ÅÁË,Ô´´úÂë »á³öÏÖÄÚ´æĞ¹Â©ÎÊÌâ
+            //å…ˆæŠŠHObjImageListç»™å…¨éƒ¨é‡Šæ”¾äº†,æºä»£ç  ä¼šå‡ºç°å†…å­˜æ³„æ¼é—®é¢˜
             for (int i = 0; i < HObjImageList.Count; i++)
             {
                  ((HObjectEntry)HObjImageList[i]).clear();
@@ -838,12 +838,12 @@ namespace ViewWindow.Model
 
 			HObjImageList.Add(entry);
 
-            //Ã¿µ±´«Èë±³¾°Í¼µÄÊ±ºò ¶¼Çå¿ÕHObjectList
+            //æ¯å½“ä¼ å…¥èƒŒæ™¯å›¾çš„æ—¶å€™ éƒ½æ¸…ç©ºHObjectList
             clearHObjectList();
 
             if (HObjImageList.Count > MAXNUMOBJLIST)
             {
-                //ĞèÒª×Ô¼ºÊÖ¶¯ÊÍ·Å
+                //éœ€è¦è‡ªå·±æ‰‹åŠ¨é‡Šæ”¾
                 ((HObjectEntry)HObjImageList[0]).clear();
                 HObjImageList.RemoveAt(1);
             }
@@ -987,7 +987,7 @@ namespace ViewWindow.Model
             this.setViewState(HWndCtrl.MODE_VIEW_NONE);
         }
         /// <summary>
-        /// Ìí¼ÓÉè¶¨ÏÔÊ¾µÄÍ¼Ïñ
+        /// æ·»åŠ è®¾å®šæ˜¾ç¤ºçš„å›¾åƒ
         /// </summary>
         /// <param name="image"></param>
         protected internal void addImageShow(HObject image)
@@ -996,32 +996,32 @@ namespace ViewWindow.Model
         }
 
 
-        #region ÔÙ´ÎÏÔÊ¾regionºÍ xld
+        #region å†æ¬¡æ˜¾ç¤ºregionå’Œ xld
 
         /// <summary>
-        /// hObjectListÓÃÀ´´æ´¢´æÈëµÄHObject
+        /// hObjectListç”¨æ¥å­˜å‚¨å­˜å…¥çš„HObject
         /// </summary>
         private List<HObjectWithColor> hObjectList = new List<HObjectWithColor>();
 
         /// <summary>
-        /// Ä¬ÈÏºìÑÕÉ«ÏÔÊ¾
+        /// é»˜è®¤çº¢é¢œè‰²æ˜¾ç¤º
         /// </summary>
-        /// <param name="hObj">´«ÈëµÄregion.xld,image</param>
+        /// <param name="hObj">ä¼ å…¥çš„region.xld,image</param>
         public void DispObj(HObject hObj)
         {
             DispObj(hObj, null);
         }
 
         /// <summary>
-        /// ÖØĞÂ¿ª±ÙÄÚ´æ±£´æ ·ÀÖ¹±»´«ÈëµÄHObjectÔÚÆäËûµØ·½disposeºó,²»ÄÜÖØÏÖ
+        /// é‡æ–°å¼€è¾Ÿå†…å­˜ä¿å­˜ é˜²æ­¢è¢«ä¼ å…¥çš„HObjectåœ¨å…¶ä»–åœ°æ–¹disposeå,ä¸èƒ½é‡ç°
         /// </summary>
-        /// <param name="hObj">´«ÈëµÄregion.xld,image</param>
-        /// <param name="color">ÑÕÉ«</param>
+        /// <param name="hObj">ä¼ å…¥çš„region.xld,image</param>
+        /// <param name="color">é¢œè‰²</param>
         public void DispObj(HObject hObj, string color)
         {
             lock (this)
             {
-                //ÏÔÊ¾Ö¸¶¨µÄÑÕÉ«
+                //æ˜¾ç¤ºæŒ‡å®šçš„é¢œè‰²
                 if (color != null)
                 {
                     HOperatorSet.SetColor(viewPort.HalconWindow, color);
@@ -1043,13 +1043,13 @@ namespace ViewWindow.Model
 
                 }
 
-                //»Ö¸´Ä¬ÈÏµÄºìÉ«
+                //æ¢å¤é»˜è®¤çš„çº¢è‰²
                 HOperatorSet.SetColor(viewPort.HalconWindow, "red");
             }
         }
 
         /// <summary>
-        /// Ã¿´Î´«ÈëĞÂµÄ±³¾°ImageÊ±,Çå¿ÕhObjectList,±ÜÃâÄÚ´æÃ»ÓĞ±»ÊÍ·Å
+        /// æ¯æ¬¡ä¼ å…¥æ–°çš„èƒŒæ™¯Imageæ—¶,æ¸…ç©ºhObjectList,é¿å…å†…å­˜æ²¡æœ‰è¢«é‡Šæ”¾
         /// </summary>
         public void clearHObjectList()
         {
@@ -1063,7 +1063,7 @@ namespace ViewWindow.Model
         }
 
         /// <summary>
-        /// ½«hObjectListÖĞµÄHObject,°´ÕÕÏÈºóË³ĞòÏÔÊ¾³öÀ´
+        /// å°†hObjectListä¸­çš„HObject,æŒ‰ç…§å…ˆåé¡ºåºæ˜¾ç¤ºå‡ºæ¥
         /// </summary>
         private void showHObjectList()
         {
@@ -1083,14 +1083,14 @@ namespace ViewWindow.Model
                     {
                         viewPort.HalconWindow.DispObj(hObjectWithColor.HObject);
 
-                        //»Ö¸´Ä¬ÈÏµÄºìÉ«
+                        //æ¢å¤é»˜è®¤çš„çº¢è‰²
                         HOperatorSet.SetColor(viewPort.HalconWindow, "red");
                     }
                 }
             }
             catch (Exception e)
             {
-                //ÓĞÊ±ºòhobj±»disposeÁË,µ«ÊÇÆä±¾Éí²»Îªnull,´ËÊ±Ôò±¨´í. ÒÑ¾­Ê¹ÓÃIsInitialized½â¾öÁË 
+                //æœ‰æ—¶å€™hobjè¢«disposeäº†,ä½†æ˜¯å…¶æœ¬èº«ä¸ä¸ºnull,æ­¤æ—¶åˆ™æŠ¥é”™. å·²ç»ä½¿ç”¨IsInitializedè§£å†³äº† 
             }
         }
 

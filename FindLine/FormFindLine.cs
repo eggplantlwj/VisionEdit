@@ -1,4 +1,4 @@
-﻿using CommonMethods;
+using CommonMethods;
 using HalconDotNet;
 using System;
 using System.Collections.Generic;

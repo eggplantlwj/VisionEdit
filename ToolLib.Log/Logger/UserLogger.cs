@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Logger;
@@ -87,7 +87,7 @@ namespace Logger
                             ControlListBox(msgLog, logInfo, listBoxExpection);
                             break;
                         default:
-                            break; 
+                            break;
                     }
                     listBoxAll.Items.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss-fff") + " -> " + msgLog.ToString() + "," + logInfo);
                     listBoxAll.SelectedIndex = listBoxAll.Items.Count - 1;
@@ -95,7 +95,7 @@ namespace Logger
                     {
                         listBoxAll.Items.Clear();
                     }
-                    Application.DoEvents(); 
+                    Application.DoEvents();
                 });
             }
             catch(Exception)
