@@ -98,7 +98,7 @@ namespace PMAlignTool
         /// <summary>
         /// 角度范围
         /// </summary>
-        internal int angleRange { get; set; } = 30;
+        internal int angleRange { get; set; } = 360;
         /// <summary>
         /// 角度步长
         /// </summary>
@@ -108,10 +108,15 @@ namespace PMAlignTool
         /// </summary>
         internal int contrast { get; set; } = 30;
         /// <summary>
+        /// 超时处理
+        /// </summary>
+        internal int timeOut { get; set; } = 500;
+        /// <summary>
         /// 训练时所使用的模板图像，不点击获取图像时，不进行更新
         /// </summary>
         public HObject oldTrainImage { get; set; }
         public bool isCreateModel { get; set; }
+        internal string pmaModelName { get; set; } = Guid.NewGuid().ToString();
 
         public override void DispMainWindow(HWindow dispHWindow)
         {
@@ -151,11 +156,11 @@ namespace PMAlignTool
         public RegionType searchRegionType { get; set; }
         public HObject SearchRegion { get; private set; }
 
-        public override void Run(SoftwareRunState softwareRunState)
+        public override void Run(SoftwareRunState softwareState)
         {
             Stopwatch sw = new Stopwatch();
             sw.Restart();
-
+            softwareRunState = softwareState;
             if (inputImage == null)
             {
                 FormPMAlignTool.Instance.SetToolStatus("工具输入图像为空", ToolRunStatu.Not_Input_Image);
@@ -180,15 +185,8 @@ namespace PMAlignTool
                     //对预期线的找模板区域做放射变换
 
                 }
-                minScore = FormPMAlignTool.Instance.nud_minScore.Value;
-                startAngle = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStart.Value);
-                angleRange = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleRange.Value);
-                angleStep = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStep.Value);
-                polarity = FormPMAlignTool.Instance.cbx_polarity.TextStr;
-                isAutoConstants = FormPMAlignTool.Instance.ckb_autoContrast.Checked;
-                minScale = FormPMAlignTool.Instance.nud_ScaleStart.Value;
-                maxScale = FormPMAlignTool.Instance.nud_ScaleRange.Value;
-                HObject findModelImg = ProcessImage(inputImage);
+                UpdateParamsFromUI(); // 操作前先将UI中参数写入类
+                 HObject findModelImg = ProcessImage(inputImage);
                 int ret = FindModelTemplate(findModelImg);
                 ToolRunStatu myState = ret == 0 ? ToolRunStatu.Succeed : ToolRunStatu.Model_UnFound;
                 string retMsg = ret == 0 ? "工具运行成功,已找到匹配项！" : "未找到匹配项";
@@ -205,7 +203,19 @@ namespace PMAlignTool
                 
             }
         }
-
+        public void UpdateParamsFromUI()
+        {
+            minScore = FormPMAlignTool.Instance.nud_minScore.Value;
+            startAngle = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStart.Value);
+            angleRange = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleRange.Value);
+            angleStep = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStep.Value);
+            polarity = FormPMAlignTool.Instance.cbx_polarity.TextStr;
+            isAutoConstants = FormPMAlignTool.Instance.ckb_autoContrast.Checked;
+            minScale = FormPMAlignTool.Instance.nud_ScaleStart.Value;
+            maxScale = FormPMAlignTool.Instance.nud_ScaleRange.Value;
+            timeOut = Convert.ToInt16(FormPMAlignTool.Instance.nud_Timeout.Value);
+            contrast = Convert.ToInt16(FormPMAlignTool.Instance.tkb_contrast.Value);
+        }
         public override void DispImage()
         {
             FormPMAlignTool.Instance.myHwindow.DispHWindow.ClearWindow();
@@ -244,11 +254,44 @@ namespace PMAlignTool
             HOperatorSet.GenEmptyObj(out createModelImg);
             createModelImg = ProcessImage(inputImage);
             HOperatorSet.ReduceDomain(createModelImg, templateRegion, out template);
+            minScore = FormPMAlignTool.Instance.nud_minScore.Value;
+            startAngle = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStart.Value);
+            angleRange = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleRange.Value);
+            angleStep = Convert.ToInt16(FormPMAlignTool.Instance.nud_angleStep.Value);
+            polarity = FormPMAlignTool.Instance.cbx_polarity.TextStr;
+            isAutoConstants = FormPMAlignTool.Instance.ckb_autoContrast.Checked;
+            minScale = FormPMAlignTool.Instance.nud_ScaleStart.Value;
+            maxScale = FormPMAlignTool.Instance.nud_ScaleRange.Value;
             try
             {
                 HTuple rows, cols, angles, scores, scale;
                 if (matchMode == MatchMode.BasedShape)
                 {
+                    HOperatorSet.CreateShapeModel(template,
+                                                 "auto",
+                                                0,
+                                                 360,
+                                                 "auto",
+                                                 "auto",
+                                                 polarity,
+                                                  isAutoConstants ? (HTuple)"auto" : (HTuple)contrast,
+                                                 "auto",
+                                                  out modelID);
+                    HOperatorSet.FindShapeModel(createModelImg,
+                                               (HTuple)modelID,
+                                               ((HTuple)startAngle).TupleRad(),
+                                               ((HTuple)angleRange - startAngle).TupleRad(),
+                                               (HTuple)minScore,
+                                               (HTuple)matchNum,
+                                               (HTuple)0.5,
+                                               (HTuple)"least_squares",
+                                               (HTuple)0,
+                                               (HTuple)0.9,
+                                                out rows,
+                                                out cols,
+                                                out angles,
+                                                out scores);
+                    /*
                     HOperatorSet.CreateScaledShapeModel(template,
                                                  "auto",
                                                 ((HTuple)startAngle).TupleRad(),
@@ -262,7 +305,7 @@ namespace PMAlignTool
                                                   isAutoConstants ? (HTuple)"auto" : (HTuple)contrast,
                                                  "auto",
                                                   out modelID);
-                    HOperatorSet.FindScaledShapeModel(inputImage,
+                    HOperatorSet.FindScaledShapeModel(createModelImg,
                                                (HTuple)modelID,
                                                ((HTuple)startAngle).TupleRad(),
                                                ((HTuple)angleRange - startAngle).TupleRad(),
@@ -279,6 +322,7 @@ namespace PMAlignTool
                                                 out angles,
                                                 out scale,
                                                 out scores);
+                  */
                 }
                 else
                 {
@@ -289,7 +333,7 @@ namespace PMAlignTool
                                                  "auto",
                                                  "use_polarity",
                                                   out modelID);
-                    HOperatorSet.FindNccModel(inputImage,
+                    HOperatorSet.FindNccModel(createModelImg,
                                                 (HTuple)modelID,
                                                 ((HTuple)startAngle).TupleRad(),
                                                 ((HTuple)angleRange - startAngle).TupleRad(),
@@ -305,6 +349,7 @@ namespace PMAlignTool
                 }
                 isCreateModel = true;
                 HOperatorSet.WriteRegion(templateRegion, FormPMAlignTool.Instance.myToolInfo.FormToolName + ".hobj");
+                HOperatorSet.WriteShapeModel(modelID, pmaModelName + ".ShapeModel");
                 if (scores != null && scores.Type != HTupleType.EMPTY)
                 {
                     templatePose = new PosXYU { X = rows[0].D, Y = cols[0].D , U = angles[0].D };
@@ -331,11 +376,12 @@ namespace PMAlignTool
                 LoggerClass.WriteLog("未创建或加载模板", MsgLevel.Exception);
                 return -1;
             }
-            if (File.Exists(toolName + ".hobj"))
+            if (!File.Exists(pmaModelName + ".ShapeModel"))
             {
-                HOperatorSet.ReadRegion(out templateRegion, toolName + ".hobj");
-                LoggerClass.WriteLog($"{FormPMAlignTool.Instance.myToolInfo.FormToolName} 已加载模板", MsgLevel.Info);
+                LoggerClass.WriteLog("未创建或加载模板", MsgLevel.Exception);
+                return -1;
             }
+            HOperatorSet.ReadShapeModel(pmaModelName + ".ShapeModel", out modelID);
             HObject image;
             if (searchRegionType == RegionType.AllImage)
             {
@@ -350,10 +396,25 @@ namespace PMAlignTool
             L_resultList.Clear();
             try
             {
+                image = ProcessImage(image);
                 if (matchMode == MatchMode.BasedShape)
                 {
                     HTuple temp;
-
+                    HOperatorSet.FindShapeModel(image,
+                                               (HTuple)modelID,
+                                               ((HTuple)startAngle).TupleRad(),
+                                               ((HTuple)angleRange - startAngle).TupleRad(),
+                                               (HTuple)minScore,
+                                               (HTuple)matchNum,
+                                               (HTuple)0.5,
+                                               (HTuple)"least_squares",
+                                               (HTuple)0,
+                                               (HTuple)0.7,
+                                                out rows,
+                                                out cols,
+                                                out angles,
+                                                out scores);
+                    /*
                     HOperatorSet.FindScaledShapeModel(image,
                                                (HTuple)modelID,
                                                ((HTuple)startAngle).TupleRad(),
@@ -371,7 +432,7 @@ namespace PMAlignTool
                                                 out angles,
                                                 out temp,
                                                 out scores);
-
+                */
                 }
                 else
                 {
@@ -389,8 +450,7 @@ namespace PMAlignTool
                                                  out angles,
                                                  out scores);
                 }
-                FormPMAlignTool.Instance.myHwindow.DispHWindow.ClearWindow();
-                FormPMAlignTool.Instance.myHwindow.DispImage(inputImage);
+                
                 if (rows.TupleLength() > 0)
                 {
                     for (int i = 0; i < rows.TupleLength(); i++)
@@ -416,10 +476,18 @@ namespace PMAlignTool
                         }
                     }
                 }
-                if(L_resultList.Count > 0)
+                if (softwareRunState == SoftwareRunState.Debug)
+                {
+                    FormPMAlignTool.Instance.myHwindow.DispHWindow.ClearWindow();
+                    FormPMAlignTool.Instance.myHwindow.DispImage(inputImage);
+                }
+                if (L_resultList.Count > 0)
                 {
                     toolRunStatu = ToolRunStatu.Succeed;
-                    ShowTemplate(FormPMAlignTool.Instance.myHwindow.DispHWindow);
+                    if (softwareRunState == SoftwareRunState.Debug)
+                    {
+                        ShowTemplate(FormPMAlignTool.Instance.myHwindow.DispHWindow);
+                    }  
                     return 0;
                 }
             }
@@ -448,25 +516,19 @@ namespace PMAlignTool
                     dispHWindow.ClearWindow();
                     dispHWindow.DispObj(inputImage);
                 }
-                if (matchMode == MatchMode.BasedShape)
+                if(L_resultList.Count > 0)
                 {
-                    HOperatorSet.GetShapeModelContours(out contour, modelID, new HTuple(1));
-                    HTuple area, row, col;
-                    HOperatorSet.AreaCenter(templateRegion, out area, out row, out col);
-                    HTuple homMat2D;
-                    HOperatorSet.HomMat2dIdentity(out homMat2D);
-                    HOperatorSet.HomMat2dTranslate(homMat2D, row, col, out homMat2D);
-                    HOperatorSet.AffineTransContourXld(contour, out contour, homMat2D);
-                    dispHWindow.SetColor("green");
-                    dispHWindow.DispObj(contour);
+                    foreach (var item in L_resultList)
+                    {
+                        HTuple homMat2D;
+                        HOperatorSet.GetShapeModelContours(out contour, modelID, new HTuple(1));
+                        HOperatorSet.VectorAngleToRigid(0, 0, 0, item.Row, item.Col, item.Angle,out homMat2D);
+                        HOperatorSet.AffineTransContourXld(contour, out contour, homMat2D);
+                        dispHWindow.SetColor("green");
+                        dispHWindow.DispObj(contour);
+                    }
                 }
-                HObject outBoundary, inBoundary;
-                HOperatorSet.Boundary(templateRegion, out outBoundary, "inner_filled");
-                HOperatorSet.Boundary(templateRegion, out inBoundary, "outer");
-                HOperatorSet.SetColor(FormPMAlignTool.Instance.myHwindow.DispHWindow, "green");
-                HOperatorSet.SetLineStyle(FormPMAlignTool.Instance.myHwindow.DispHWindow, new HTuple());
-                dispHWindow.DispObj(outBoundary);
-                dispHWindow.DispObj(inBoundary);
+                
             }
             catch (Exception ex)
             {

@@ -46,7 +46,7 @@ namespace VisionJobFactory
     public class FindLineToolInterface : IToolInfo
     {
         ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
-        ToolIO inputPos = new ToolIO("InputPos", new object(), DataType.Pose);
+        ToolIO inputPos = new ToolIO("InputPos", null, DataType.Pose);
         ToolIO outputXld = new ToolIO("outputXld", null, DataType.Line);
         ToolIO startPointRow = new ToolIO("StartPointRow", null, DataType.IntValue);
         ToolIO startPointColumn = new ToolIO("StartPointColumn", null, DataType.IntValue);

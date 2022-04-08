@@ -346,46 +346,6 @@ namespace FindLineTool
                 //arrowTrans.Dispose();
             }
         }
-
-        internal void DrawExpectLine(HWindow myHwindow)
-        {
-
-            /*
-            if(inputImage != null)
-            {
-                try
-                {
-                    HOperatorSet.SetColor(myHwindow, new HTuple("green"));
-                    Stopwatch sw = new Stopwatch();
-                    sw.Restart();
-                    HOperatorSet.DrawLineMod(myHwindow, newExpectLineStartRow, newExpectLineStartCol, newExpectLineEndRow, newExpectLineEndCol, out expectLineStartRow, out expectLineStartCol, out expectLineEndRow, out expectLineEndCol);
-
-                    if (inputPose != null)
-                    {
-                        templatePose.X = inputPose.X;
-                        templatePose.Y = inputPose.Y;
-                        templatePose.U = inputPose.U;
-                    }
-
-                    FormFindLine.Instance.tbx_expectLineStartRow.Text = expectLineStartRow.TupleString("10.3f");
-                    FormFindLine.Instance.tbx_expectLineStartCol.Text = expectLineStartCol.TupleString("10.3f");
-                    FormFindLine.Instance.tbx_expectLineEndRow.Text = expectLineEndRow.TupleString("10.3f");
-                    FormFindLine.Instance.tbx_expectLineEndCol.Text = expectLineEndCol.TupleString("10.3f");
-                    
-                    Run(SoftwareRunState.Debug);
-                }
-                catch (Exception ex)
-                {
-                    FormFindLine.Instance.SetToolStatus($"编辑卡尺时工具出现异常！{ex}", ToolRunStatu.Tool_Run_Error);
-                }
-            }
-            else
-            {
-                FormFindLine.Instance.SetToolStatus("输入图像为空！", ToolRunStatu.Not_Input_Image);
-            }
-            */
-        }
-
         /// <summary>
         /// 将数据传递给FindlineToolInterface
         /// </summary>

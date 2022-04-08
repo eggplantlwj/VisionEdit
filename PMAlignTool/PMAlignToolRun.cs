@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using HalconDotNet;
 using FormLib;
 using Logger;
+using static DataStruct.DataStruct;
 
 namespace PMAlignTool
 {
@@ -33,6 +34,7 @@ namespace PMAlignTool
         public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
         {
             PMAlign myPMAlign = (PMAlign)L_toolList[toolIndex].tool;
+            
             VisionJob myJob = VisionJobParams.pVisionProject.Project[jobName];
             for (int j = 0; j < inputItemNum; j++)
             {
@@ -62,6 +64,17 @@ namespace PMAlignTool
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myPMAlign.runTime}", Color.Green, selectNode);
                 myPMAlign.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
+                // 将输出值赋值到界面输出中
+                if (myPMAlign.L_resultList.Count > 0)
+                {
+                    L_toolList[toolIndex].toolOutput[0] = new ToolIO("GetPose",
+                        new PosXYU { X = myPMAlign.L_resultList[0].Row, Y = myPMAlign.L_resultList[0].Col, U = myPMAlign.L_resultList[0].Angle }, 
+                        DataType.Pose);
+                    L_toolList[toolIndex].toolOutput[1] = new ToolIO("GetPose.X", myPMAlign.L_resultList[0].Row, DataType.IntValue);
+                    L_toolList[toolIndex].toolOutput[2] = new ToolIO("GetPose.Y", myPMAlign.L_resultList[0].Col, DataType.IntValue);
+                    L_toolList[toolIndex].toolOutput[3] = new ToolIO("GetPose.Z", myPMAlign.L_resultList[0].Angle, DataType.DoubleValue);
+                    L_toolList[toolIndex].toolOutput[4] = new ToolIO("GetPose.Score", myPMAlign.L_resultList[0].Socre, DataType.DoubleValue);
+                }
             }
         }
     }

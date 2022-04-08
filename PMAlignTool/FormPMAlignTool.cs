@@ -77,6 +77,7 @@ namespace PMAlignTool
         private void InitTool()
         {
             isInitTool = true;
+            #region 图像预处理
             cNumErosionValue1.Value = myPMAlign.imageProcess.erosionValue1.algValue;
             cbCErosion1.Checked = myPMAlign.imageProcess.erosionValue1.isEnable;
             cmbErsion1.TextStr = myPMAlign.imageProcess.erosionValue1.algName;
@@ -88,7 +89,19 @@ namespace PMAlignTool
             cNumErosionValue2.Value = myPMAlign.imageProcess.erosionValue2.algValue;
             cbCErosion2.Checked = myPMAlign.imageProcess.erosionValue2.isEnable;
             cmbErsion2.TextStr = myPMAlign.imageProcess.erosionValue2.algName;
-            isInitTool = false;
+            #endregion
+            #region 界面参数
+            nud_minScore.Value = myPMAlign.minScore;
+            nud_matchNum.Value = myPMAlign.matchNum;
+            nud_angleStep.Value = myPMAlign.angleStep;
+            nud_Timeout.Value = myPMAlign.timeOut;
+            nud_angleStart.Value = myPMAlign.startAngle;
+            nud_angleRange.Value = myPMAlign.angleRange;
+            nud_ScaleStart.Value = myPMAlign.minScale;
+            nud_ScaleRange.Value = myPMAlign.maxScale;
+            tkb_contrast.Value = myPMAlign.contrast;
+
+            #endregion
         }
 
         private void btnAcqNewModelImage_Click(object sender, EventArgs e)
@@ -286,6 +299,11 @@ namespace PMAlignTool
         private void tsbtRunTool_Click(object sender, EventArgs e)
         {
             myPMAlign.Run(SoftwareRunState.Debug);
+        }
+
+        private void tkb_contrast_Scroll(object sender, EventArgs e)
+        {
+            lbl_contastValue.Text = tkb_contrast.Value.ToString();
         }
     }
 }

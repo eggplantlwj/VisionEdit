@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ToolLib.VisionJob</RootNamespace>
     <AssemblyName>ToolLib.VisionJob</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2">
-      <HintPath>..\VisionEdit\bin\Debug\DevComponents.DotNetBar2.dll</HintPath>
+      <HintPath>..\VisionEdit\bin\Debug\ThirdLib\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,6 +82,14 @@
     <ProjectReference Include="..\DataStruct\DataStruct.csproj">
       <Project>{df3d4d4c-02df-4f92-9fd4-0a861f64b0ef}</Project>
       <Name>DataStruct</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormLib\FormLib.csproj">
+      <Project>{8c6fc8c6-8874-494b-8260-071f291aa33d}</Project>
+      <Name>FormLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9BAA53FD-89B5-43E2-AC59-A27B006DEBB6}</Project>
+      <Name>HWindow_Tool</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
       <Project>{D4E052B9-E541-4B67-A1F9-273073EF1D4B}</Project>

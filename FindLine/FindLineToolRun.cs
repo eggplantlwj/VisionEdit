@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolLib.VisionJob;
+using static DataStruct.DataStruct;
 
 namespace FindLineTool
 {
@@ -38,18 +39,30 @@ namespace FindLineTool
             {
                 if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
                 {
-                    selectNode.ForeColor = Color.Red;
-                    LoggerClass.WriteLog(L_toolList[toolIndex].toolName + "  无输入图像", MsgLevel.Exception);
+                    // 仅当无输入图像时，将工具置为错误
+                    if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage")
+                    {
+                        selectNode.ForeColor = Color.Red;
+                        LoggerClass.WriteLog(L_toolList[toolIndex].toolName + "  无输入图像", MsgLevel.Exception);
+                        myFindLine.runMessage = "无输入图像";
+                    }   
                 }
                 else
                 {
                     string sourceFrom = L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value.ToString();
-                    if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage")
+                    string sourceToolName = Regex.Split(sourceFrom, "->")[0];
+                    sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, "->")[0].Length - 3);
+                    string toolItem = Regex.Split(sourceFrom, "->")[1];
+                    switch (L_toolList[toolIndex].toolInput[j].IOName)
                     {
-                        string sourceToolName = Regex.Split(sourceFrom, "->")[0];
-                        sourceToolName = sourceToolName.Substring(3, Regex.Split(sourceFrom, "->")[0].Length - 3);
-                        string toolItem = Regex.Split(sourceFrom, "->")[1];
-                        myFindLine.inputImage = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HObject;
+                        case "InputImage":
+                            myFindLine.inputImage = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HObject;
+                            break;
+                        case "InputPos":
+                            myFindLine.inputPose = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as PosXYU;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }

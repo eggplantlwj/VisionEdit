@@ -84,21 +84,6 @@ namespace HalconTool
         /// </summary>
         internal WorkMode workMode = WorkMode.ReadMultImage;
 
-        public bool ReadImage(out string filePath)
-        {
-            filePath = string.Empty;
-            HTuple channelCount = 0;
-            OpenFileDialog dig_openImage = new OpenFileDialog();
-            dig_openImage.Title = "请选择图像文件路径";
-            dig_openImage.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            dig_openImage.Filter = "图像文件(*.*)|*.*|图像文件(*.png)|*.png|图像文件(*.jpg)|*.jpg|图像文件(*.tif)|*.tif";
-            if (dig_openImage.ShowDialog() == DialogResult.OK)
-            {
-                filePath = dig_openImage.FileName;
-                outputImageFilePath = dig_openImage.FileName;
-            }
-            return true;
-        }
 
         public override void Run(SoftwareRunState softwareState)
         {
@@ -109,7 +94,6 @@ namespace HalconTool
             SetToolStatusDisp();
             sw.Stop();
             runTime = $"工具运行时间：{sw.ElapsedMilliseconds.ToString()} ms";
-            
         }
 
         public override void DispImage()
@@ -150,7 +134,8 @@ namespace HalconTool
                 if (softwareRunState == SoftwareRunState.Debug)
                 {
                     FormHalconTool.Instance.myHwindow.DispImage(outputImage);
-                }   
+                }
+                
             }
             else
             {

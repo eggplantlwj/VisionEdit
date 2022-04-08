@@ -1,5 +1,6 @@
 using CommonMethods;
 using CommonMethods.Interface;
+using FormLib;
 using Logger;
 using System;
 using System.Collections.Generic;
@@ -745,6 +746,7 @@ namespace ToolLib.VisionJob
 
         public void Run()
         {
+            FormImageWindow.Instance.ClearWindow();
             for (int i = 0; i < L_toolList.Count; i++)
             {
                 TreeNode treeNode = GetToolNodeByNodeText(L_toolList[i].toolName);

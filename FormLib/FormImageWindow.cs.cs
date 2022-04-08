@@ -42,5 +42,10 @@ namespace FormLib
             this.panel1.Controls.Add(myHWindow);
             myHWindow.Dock = DockStyle.Fill;
         }
+
+        public void ClearWindow()
+        {
+            myHWindow.DispHWindow.ClearWindow();
+        }
     }
 }
