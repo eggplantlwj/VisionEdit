@@ -67,9 +67,7 @@ namespace PMAlignTool
                 // 将输出值赋值到界面输出中
                 if (myPMAlign.L_resultList.Count > 0)
                 {
-                    L_toolList[toolIndex].toolOutput[0] = new ToolIO("GetPose",
-                        new PosXYU { X = myPMAlign.L_resultList[0].Row, Y = myPMAlign.L_resultList[0].Col, U = myPMAlign.L_resultList[0].Angle }, 
-                        DataType.Pose);
+                    L_toolList[toolIndex].toolOutput[0] = new ToolIO("GetPose", myPMAlign.posHomMat2D,DataType.Pose);
                     L_toolList[toolIndex].toolOutput[1] = new ToolIO("GetPose.X", myPMAlign.L_resultList[0].Row, DataType.IntValue);
                     L_toolList[toolIndex].toolOutput[2] = new ToolIO("GetPose.Y", myPMAlign.L_resultList[0].Col, DataType.IntValue);
                     L_toolList[toolIndex].toolOutput[3] = new ToolIO("GetPose.Z", myPMAlign.L_resultList[0].Angle, DataType.DoubleValue);

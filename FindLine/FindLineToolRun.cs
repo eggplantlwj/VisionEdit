@@ -59,7 +59,7 @@ namespace FindLineTool
                             myFindLine.inputImage = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HObject;
                             break;
                         case "InputPos":
-                            myFindLine.inputPose = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as PosXYU;
+                            myFindLine.inputPoseHomMat2D = myJob.GetToolInfoByToolName(sourceToolName).GetOutput(toolItem).value as HTuple;
                             break;
                         default:
                             break;

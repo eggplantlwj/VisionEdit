@@ -67,8 +67,10 @@ namespace FindLineTool
             myHwindow.Dock = DockStyle.Fill;
             InitTool();
         }
+        bool isInit = false;
         private void InitTool()
         {
+            isInit = true;
             this.Text = myToolInfo.toolName;
             Application.DoEvents();
 
@@ -84,14 +86,16 @@ namespace FindLineTool
             tbx_caliperLength2.Text = myFindLine.weidth.ToString();
             chBDispRec.Checked = myFindLine.dispRec;
             chBDispCross.Checked = myFindLine.dispCross;
-            // 将要编辑的线显示
-            selected_drawing_object = HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] { myFindLine.expectLineStartRow, myFindLine.expectLineStartCol, myFindLine.expectLineEndRow, myFindLine.expectLineEndCol });
+            //// 将要编辑的线显示
+            selected_drawing_object = myFindLine.inputPoseHomMat2D != null? HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] { myFindLine.newExpectLineStartRow, myFindLine.newExpectLineStartCol, myFindLine.newExpectLineEndRow, myFindLine.newExpectLineEndCol })
+                :HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] {myFindLine.modelStartRow, myFindLine.modelStartCol, myFindLine.modelEndRow, myFindLine.modelEndCol });
             GC.KeepAlive(selected_drawing_object);
             selected_drawing_object.OnSelect(OnSelectDrawingObject);
             selected_drawing_object.OnAttach(OnSelectDrawingObject);
             selected_drawing_object.OnResize(OnSelectDrawingObject);
             selected_drawing_object.OnDrag(OnSelectDrawingObject);
             myHwindow.DispHWindow.AttachDrawingObjectToWindow(selected_drawing_object);
+            isInit = false;
         }
         /// <summary>
         /// 参数回调
@@ -122,7 +126,7 @@ namespace FindLineTool
         }
         /// <summary>
         /// 设定工具运行状态
-        /// </summary>
+        /// </summary>`
         /// <param name="msg">运行中的信息</param>
         /// <param name="status">运行状态</param>
         public void SetToolStatus(string msg, ToolRunStatu status)
@@ -146,8 +150,11 @@ namespace FindLineTool
 
         private void DispSetCheck(object sender, EventArgs e)
         {
-            myFindLine.dispRec = chBDispRec.Checked ? true : false;
-            myFindLine.dispCross = chBDispCross.Checked ? true : false;
+            if(!isInit)
+            {
+                myFindLine.dispRec = chBDispRec.Checked ? true : false;
+                myFindLine.dispCross = chBDispCross.Checked ? true : false;
+            }
         }
 
         private void FormFindLine2_FormClosing(object sender, FormClosingEventArgs e)
@@ -156,6 +163,12 @@ namespace FindLineTool
             this.Dispose();
             this.Dispose();
             GC.Collect();
+        }
+
+        private void btnSetModelPose_Click(object sender, EventArgs e)
+        {
+            myFindLine.UpdateModelLineLocation();
+            MessageBox.Show("模板线位置已更新");
         }
     }
 }

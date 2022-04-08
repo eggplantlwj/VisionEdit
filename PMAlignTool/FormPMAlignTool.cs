@@ -102,6 +102,7 @@ namespace PMAlignTool
             tkb_contrast.Value = myPMAlign.contrast;
 
             #endregion
+            isInitTool = false;
         }
 
         private void btnAcqNewModelImage_Click(object sender, EventArgs e)
@@ -305,5 +306,21 @@ namespace PMAlignTool
         {
             lbl_contastValue.Text = tkb_contrast.Value.ToString();
         }
+
+        private void UIParams_ValueChanged(double value)
+        {
+            if (!isInitTool)
+            {
+                myPMAlign.minScore = nud_minScore.Value;
+                myPMAlign.startAngle = Convert.ToInt16(nud_angleStart.Value);
+                myPMAlign.angleRange = Convert.ToInt16(nud_angleRange.Value);
+                myPMAlign.angleStep = Convert.ToInt16(nud_angleStep.Value);
+                myPMAlign.polarity = cbx_polarity.TextStr;
+                myPMAlign.isAutoConstants = ckb_autoContrast.Checked;
+                myPMAlign.minScale = nud_ScaleStart.Value;
+                myPMAlign.maxScale = nud_ScaleRange.Value;
+            }
+        }
+
     }
 }

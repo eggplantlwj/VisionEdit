@@ -1030,6 +1030,7 @@ namespace PMAlignTool
             this.nud_angleRange.Size = new System.Drawing.Size(102, 28);
             this.nud_angleRange.TabIndex = 182;
             this.nud_angleRange.Value = 10D;
+            this.nud_angleRange.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // ckb_autoContrast
             // 
@@ -1071,6 +1072,7 @@ namespace PMAlignTool
             this.nud_ScaleRange.Size = new System.Drawing.Size(104, 28);
             this.nud_ScaleRange.TabIndex = 180;
             this.nud_ScaleRange.Value = 1.1D;
+            this.nud_ScaleRange.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // nud_ScaleStart
             // 
@@ -1100,6 +1102,7 @@ namespace PMAlignTool
             this.nud_ScaleStart.Size = new System.Drawing.Size(96, 28);
             this.nud_ScaleStart.TabIndex = 179;
             this.nud_ScaleStart.Value = 0.9D;
+            this.nud_ScaleStart.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // nud_angleStart
             // 
@@ -1129,6 +1132,7 @@ namespace PMAlignTool
             this.nud_angleStart.Size = new System.Drawing.Size(96, 28);
             this.nud_angleStart.TabIndex = 176;
             this.nud_angleStart.Value = -10D;
+            this.nud_angleStart.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // cbx_polarity
             // 
@@ -1176,6 +1180,7 @@ namespace PMAlignTool
             this.nud_minScore.Size = new System.Drawing.Size(227, 26);
             this.nud_minScore.TabIndex = 173;
             this.nud_minScore.Value = 0.8D;
+            this.nud_minScore.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // nud_Timeout
             // 
@@ -1205,6 +1210,7 @@ namespace PMAlignTool
             this.nud_Timeout.Size = new System.Drawing.Size(227, 28);
             this.nud_Timeout.TabIndex = 177;
             this.nud_Timeout.Value = 500D;
+            this.nud_Timeout.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // nud_angleStep
             // 
@@ -1234,6 +1240,7 @@ namespace PMAlignTool
             this.nud_angleStep.Size = new System.Drawing.Size(227, 28);
             this.nud_angleStep.TabIndex = 175;
             this.nud_angleStep.Value = 1D;
+            this.nud_angleStep.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // nud_matchNum
             // 
@@ -1263,6 +1270,7 @@ namespace PMAlignTool
             this.nud_matchNum.Size = new System.Drawing.Size(227, 28);
             this.nud_matchNum.TabIndex = 174;
             this.nud_matchNum.Value = 1D;
+            this.nud_matchNum.ValueChanged += new Controls.DValueChanged(this.UIParams_ValueChanged);
             // 
             // tkb_contrast
             // 

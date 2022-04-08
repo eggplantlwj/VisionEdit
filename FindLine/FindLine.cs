@@ -16,9 +16,52 @@ namespace FindLineTool
         /// </summary>
         public PosXYU inputPose = new PosXYU();
         /// <summary>
+        /// 输入姿态
+        /// </summary>
+        public HTuple inputPoseHomMat2D = new HTuple();
+        /// <summary>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+>>>>>>> 8c64a4f (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
+        /// 位置修正姿态
+        /// </summary>
+        public HTuple changePoseHomMat2D = new HTuple();
+        /// <summary>
+        /// 制作模板时的位姿
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> b070592 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
         /// 制作模板时的输入位姿
+>>>>>>> b070592 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+>>>>>>> 8c64a4f (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
         /// </summary>
         public PosXYU templatePose = new PosXYU();
+        /// <summary>
+        /// 修改的位姿
+        /// </summary>
+        public HTuple changedPose = new HTuple();
         /// <summary>
         /// 卡尺
         /// </summary>
@@ -50,7 +93,11 @@ namespace FindLineTool
         /// <summary>
         /// 新的跟随姿态变化后的预期线信息
         /// </summary>
-        HTuple newExpectLineStartRow = new HTuple(200), newExpectLineStartCol = new HTuple(200), newExpectLineEndRow = new HTuple(200), newExpectLineEndCol = new HTuple(600);
+        public HTuple modelStartRow = new HTuple(200), modelStartCol = new HTuple(200), modelEndRow = new HTuple(200), modelEndCol = new HTuple(600);
+        /// <summary>
+        /// 新的跟随姿态变化后的预期线信息
+        /// </summary>
+        public HTuple newExpectLineStartRow = new HTuple(200), newExpectLineStartCol = new HTuple(200), newExpectLineEndRow = new HTuple(200), newExpectLineEndCol = new HTuple(600);
         ///// <summary>
         ///// 区域中心行坐标
         ///// </summary>
@@ -214,7 +261,16 @@ namespace FindLineTool
             FormFindLine.Instance.myHwindow.DispHWindow.ClearWindow();
             DispImage();
         }
-        
+        // 更新模板线的位置，并生成变换矩阵
+        public void UpdateModelLineLocation()
+        {
+            // 计算新的位置线和转换之后位置线之间的差异，再将差异补偿到模板位置线中
+            HOperatorSet.VectorToSimilarity(new HTuple(newExpectLineStartRow, newExpectLineEndRow), new HTuple(newExpectLineStartCol, newExpectLineEndCol),
+                new HTuple(expectLineStartRow, expectLineEndRow), new HTuple(expectLineStartCol, expectLineEndCol), out changePoseHomMat2D);
+            // 更新位置
+            HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelStartRow, modelStartCol, out modelStartRow, out modelStartCol);
+            HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelEndRow, modelEndCol, out modelEndRow, out modelEndCol);
+        }
 
         public override void Run(SoftwareRunState softwareRunState)
         {
@@ -235,20 +291,62 @@ namespace FindLineTool
                 {
                     UpdateImage();
                 }
-                if (inputPose != null)
+                if (inputPoseHomMat2D != null)
                 {
-                    HTuple Row = inputPose.X - templatePose.X;
-                    HTuple Col = inputPose.Y - templatePose.Y;
-                    HTuple angle = inputPose.U - templatePose.U;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    //对预期线的起始点做放射变换
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelStartRow, modelStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelEndRow, modelEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+=======
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> b070592 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
+                    //HTuple Row = inputPose.X - templatePose.X;
+                    //HTuple Col = inputPose.Y - templatePose.Y;
+                    //HTuple angle = inputPose.U - templatePose.U;
 
-                    HTuple _homMat2D;
-                    HOperatorSet.HomMat2dIdentity(out _homMat2D);
-                    HOperatorSet.HomMat2dRotate(_homMat2D, (HTuple)(angle), (HTuple)templatePose.X, (HTuple)templatePose.Y, out _homMat2D);
-                    HOperatorSet.HomMat2dTranslate(_homMat2D, (HTuple)(Row), (HTuple)(Col), out _homMat2D);
+                    //HTuple _homMat2D;
+                    //HOperatorSet.HomMat2dIdentity(out _homMat2D);
+                    //HOperatorSet.HomMat2dRotate(_homMat2D, (HTuple)(angle), (HTuple)templatePose.X, (HTuple)templatePose.Y, out _homMat2D);
+                    //HOperatorSet.HomMat2dTranslate(_homMat2D, (HTuple)(Row), (HTuple)(Col), out _homMat2D);
 
                     //对预期线的起始点做放射变换
-                    HOperatorSet.AffineTransPixel(_homMat2D, (HTuple)expectLineStartRow, (HTuple)expectLineStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
-                    HOperatorSet.AffineTransPixel(_homMat2D, (HTuple)expectLineEndRow, (HTuple)expectLineEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, (HTuple)expectLineStartRow, (HTuple)expectLineStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, (HTuple)expectLineEndRow, (HTuple)expectLineEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> b070592 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
+=======
+                    //对预期线的起始点做放射变换
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelStartRow, modelStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelEndRow, modelEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+                    //对预期线的起始点做放射变换
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelStartRow, modelStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelEndRow, modelEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+>>>>>>> 8c64a4f (1、修复找线工具的selectObject无法实时跟随的问题)
+=======
+>>>>>>> b070592 (修正FindLine工具无法位置跟随的问题)
+=======
+>>>>>>> fa76389 (修正FindLine工具无法位置跟随的问题)
+=======
+                    //对预期线的起始点做放射变换
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelStartRow, modelStartCol, out newExpectLineStartRow, out newExpectLineStartCol);
+                    HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelEndRow, modelEndCol, out newExpectLineEndRow, out newExpectLineEndCol);
+>>>>>>> 751e985 (1、修复找线工具的selectObject无法实时跟随的问题)
                 }
                 else
                 {

@@ -71,6 +71,7 @@ namespace FindLineTool
             this.label7 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnSetModelPose = new Sunny.UI.UISymbolButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -189,6 +190,7 @@ namespace FindLineTool
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSetModelPose);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.tbx_minScore);
             this.groupBox1.Controls.Add(this.label5);
@@ -544,6 +546,20 @@ namespace FindLineTool
             this.label9.TabIndex = 105;
             this.label9.Text = "起点列坐标：";
             // 
+            // btnSetModelPose
+            // 
+            this.btnSetModelPose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSetModelPose.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSetModelPose.IsScaled = false;
+            this.btnSetModelPose.Location = new System.Drawing.Point(40, 437);
+            this.btnSetModelPose.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnSetModelPose.Name = "btnSetModelPose";
+            this.btnSetModelPose.Size = new System.Drawing.Size(352, 35);
+            this.btnSetModelPose.Symbol = 361771;
+            this.btnSetModelPose.TabIndex = 334;
+            this.btnSetModelPose.Text = "标定为模板位置";
+            this.btnSetModelPose.Click += new System.EventHandler(this.btnSetModelPose_Click);
+            // 
             // FormFindLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -624,5 +640,6 @@ namespace FindLineTool
         private System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
+        private Sunny.UI.UISymbolButton btnSetModelPose;
     }
 }

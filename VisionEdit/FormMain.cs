@@ -115,6 +115,7 @@ namespace VisionEdit
             if (dr == DialogResult.Yes)
             {
                 VisionJobParams.pVisionProject.SaveObject();
+                Environment.Exit(0);
             }
             else if (dr == DialogResult.Cancel)
             {
