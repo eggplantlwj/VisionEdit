@@ -167,7 +167,7 @@ namespace ToolLib.VisionJob
                         {
                             if (L_toolList[i].toolName == moveNode.Text)
                             {
-                                SwapDataFun(L_toolList, i, targeNode.Index);
+                                SwapDataFun(L_toolList, i, targeNode.Index-1);
                                 break;
                             }
                         }
@@ -327,6 +327,7 @@ namespace ToolLib.VisionJob
         {
             //判断是否在节点单击
             TreeViewHitTestInfo test = GetJobTree().HitTest(e.X, e.Y);
+            // 右键 && 工具节点的输入输出项
             if (e.Button == MouseButtons.Right && test.Node.Level == 1)
             {
                 GetJobTree().ContextMenuStrip = rightClickMenu;
@@ -336,6 +337,14 @@ namespace ToolLib.VisionJob
                     rightClickMenu.Items.Add("删除连线");
                     rightClickMenu.Items[0].Click += DeleteLine;
                 }
+            }
+            // 右键 && 工具节点
+            if (e.Button == MouseButtons.Right && test.Node.Level == 0)
+            {
+                GetJobTree().ContextMenuStrip = rightClickMenu;
+                rightClickMenu.Items.Clear();
+                rightClickMenu.Items.Add("删除工具");
+                rightClickMenu.Items[0].Click += DeleteItem;
             }
         }
 
@@ -654,47 +663,15 @@ namespace ToolLib.VisionJob
                 int level = GetJobTree().SelectedNode.Level;
                 string fatherNodeText = string.Empty;
 
+                List<string> KeyValueList = new List<string>() { };
+                List<TreeNode> D_itemAndSourceKeysList = new List<TreeNode>() { };
+                string keyItem = string.Empty;
+                string valueItem = string.Empty;
                 //如果是子节点
                 if (level == 1)
                 {
                     fatherNodeText = GetJobTree().SelectedNode.Parent.Text;
                 }
-                foreach (TreeNode toolNode in GetJobTree().Nodes)
-                {
-                    if (level == 1)
-                    {
-                        if (toolNode.Text == fatherNodeText)
-                        {
-                            foreach (var itemNode in toolNode.Nodes)
-                            {
-                                if (itemNode != null)
-                                {
-                                    if (((TreeNode)itemNode).Text == nodeText)
-                                    {
-                                        //移除连线集合中的这条连线
-                                        for (int i = 0; i < D_itemAndSource.Count; i++)
-                                        {
-                                            if (((TreeNode)itemNode) == D_itemAndSource.Keys.ToArray()[i] || ((TreeNode)itemNode) == D_itemAndSource[D_itemAndSource.Keys.ToArray()[i]])
-                                                D_itemAndSource.Remove(D_itemAndSource.Keys.ToArray()[i]);
-                                        }
-
-                                        ((TreeNode)itemNode).Remove();
-                                        GetJobTree().SelectedNode = null;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (((TreeNode)toolNode).Text == nodeText)
-                        {
-                            ((TreeNode)toolNode).Remove();
-                            break;
-                        }
-                    }
-                }
-
                 //如果是父节点
                 if (level == 0)
                 {
@@ -705,37 +682,73 @@ namespace ToolLib.VisionJob
                             try
                             {
                                 //移除连线集合中的这条连线
-                                for (int j = D_itemAndSource.Count - 1; j >= 0; j--)
+                                for (int j = 0; j < D_itemAndSource.Count; j++ )
                                 {
-                                    if (nodeText == D_itemAndSource.Keys.ToArray()[j].Parent.Text || nodeText == D_itemAndSource[D_itemAndSource.Keys.ToArray()[j]].Parent.Text)
-                                        D_itemAndSource.Remove(D_itemAndSource.Keys.ToArray()[j]);
+                                    keyItem = D_itemAndSource.Keys.ToArray()[j].Parent.Text;
+                                    valueItem = D_itemAndSource[D_itemAndSource.Keys.ToArray()[j]].Parent.Text;
+                                    KeyValueList.Add(keyItem);
+                                    if (nodeText == keyItem || nodeText == valueItem)
+                                    {
+                                        TreeNode selectNode = D_itemAndSource.Keys.ToArray()[j];
+                                        D_itemAndSourceKeysList.Add(selectNode);
+                                    }
+                                }
+                                foreach (var item in D_itemAndSourceKeysList)
+                                {
+                                    D_itemAndSource.Remove(item);
                                 }
                             }
                             catch { }
-
                             L_toolList.RemoveAt(i);
                         }
                     }
-                }
-                else
-                {
-                    for (int i = 0; i < L_toolList.Count; i++)
+                    // 在非该节点中，将与该节点相关的输入值删除
+                    foreach (var item in KeyValueList)
                     {
-                        if (L_toolList[i].toolName == fatherNodeText)
+                        for (int j = 0; j < L_toolList.Count; j++)
                         {
-                            for (int j = 0; j < L_toolList[i].toolInput.Count; j++)
+                            for (int k = 0; k < L_toolList[j].toolInput.Count; k++)
                             {
-                                if (L_toolList[i].toolInput[j].value.ToString() == Regex.Split(nodeText, "《")[0])
-                                    L_toolList[i].RemoveInputIO(Regex.Split(nodeText, "《")[0]);
-                            }
-                            for (int j = 0; j < L_toolList[i].toolOutput.Count; j++)
-                            {
-                                if (L_toolList[i].toolOutput[j].IOName == nodeText.Substring(3))
-                                    L_toolList[i].RemoveOutputIO(nodeText.Substring(3));
+                                if (L_toolList[j].toolName == item)
+                                {
+                                    string sourceFrom = L_toolList[j].GetInput(L_toolList[j].toolInput[k].IOName).value.ToString();
+                                    if (L_toolList[j].toolInput[k].value.ToString() == sourceFrom)
+                                    {
+                                        L_toolList[j].toolInput[k].value = null;
+                                    }
+                                }
                             }
                         }
                     }
+                    
                 }
+
+                // 将该节点在流程树中删除
+                foreach (TreeNode toolNode in GetJobTree().Nodes)
+                {
+                    if (toolNode.Text == nodeText)
+                    {
+                        GetJobTree().Nodes.Remove(toolNode);
+                        break;
+                    }
+                }
+                // 与之相关的节点进行还原
+                foreach (TreeNode toolNode in GetJobTree().Nodes)
+                {
+                    foreach (TreeNode itemNode in toolNode.Nodes)
+                    {
+                        foreach (var item in D_itemAndSourceKeysList)
+                        {
+                            if (itemNode.Text == item.Text)
+                            {
+                                string text = Regex.Split(itemNode.Text, "《")[0];
+                                itemNode.Text = text;
+                            }
+                        }
+
+                    }
+                }
+                    
             }
             catch (Exception ex)
             {

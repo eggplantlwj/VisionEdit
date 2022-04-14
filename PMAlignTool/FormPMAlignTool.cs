@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,10 @@ namespace PMAlignTool
         private PMAlign myPMAlign = new PMAlign();
         public IToolInfo myToolInfo = new IToolInfo();
         public HWindowTool_Smart myHwindow = new HWindowTool_Smart();
-        private HDrawingObject selected_drawing_object = new HDrawingObject();
+        private HDrawingObject serachRegion_drawing_object = new HDrawingObject();
         public List<HDrawingObject> templateModelListAdd = new List<HDrawingObject>() { };
         public List<HDrawingObject> templateModelListSub = new List<HDrawingObject>() { };
-
+        public List<HDrawingObject> templateModelList = new List<HDrawingObject>() { };
         public FormPMAlignTool(ref object pmalign)
         {
             InitializeComponent();
@@ -100,17 +101,14 @@ namespace PMAlignTool
             nud_ScaleStart.Value = myPMAlign.minScale;
             nud_ScaleRange.Value = myPMAlign.maxScale;
             tkb_contrast.Value = myPMAlign.contrast;
-
             #endregion
-            isInitTool = false;
-        }
-
-        private void btnAcqNewModelImage_Click(object sender, EventArgs e)
-        {
-            if (myPMAlign.inputImage != null)
+            if(myPMAlign.modelPartImage != null)
             {
-                myPMAlign.oldTrainImage = myPMAlign.inputImage;
+                hWindowTool_Smart1.DispImage(myPMAlign.modelPartImage);
             }
+            // myHwindow.DispHWindow.AttachDrawingObjectToWindow(serachRegion_drawing_object);
+            tsbtRunTool_Click(null, null);
+             isInitTool = false;
         }
         private ShapeMode selectType;
         private void btnOperateROI_Click(object sender, EventArgs e)
@@ -182,6 +180,12 @@ namespace PMAlignTool
             selectObj.Dispose();
         }
 
+        private void OnSerchRegionDrawingObject(HDrawingObject dobj, HWindow hwin, string type)
+        {
+            HObject selectObj = dobj.GetDrawingObjectIconic();
+            myPMAlign.SearchRegion = selectObj.Clone();
+        }
+
         public HObject contour;
         private void btnCreateModel_Click(object sender, EventArgs e)
         {
@@ -206,19 +210,11 @@ namespace PMAlignTool
                     HTuple row1, col1, row2, col2;
                     HOperatorSet.SmallestRectangle1(myPMAlign.templateRegion, out row1, out col1, out row2, out col2);
                     HObject outRectangle1;
-                    HOperatorSet.GenRectangle1(out outRectangle1, row1 - 20, col1 - 20, row2 + 20, col2 + 20);
-                    HObject imageReduced, imagePart;
+                    HOperatorSet.GenRectangle1(out outRectangle1, row1, col1, row2, col2);
+                    HObject imageReduced;
                     HOperatorSet.ReduceDomain(myPMAlign.inputImage, outRectangle1, out imageReduced);
-                    HObject outBoundary, inBoundary;
-                    HOperatorSet.Boundary(myPMAlign.templateRegion, out outBoundary, "inner_filled");
-                    HOperatorSet.Boundary(myPMAlign.templateRegion, out inBoundary, "outer");
-                    HOperatorSet.CropDomain(imageReduced, out imagePart);
                     HOperatorSet.SetSystem("flush_graphic", "true");
-                    hWindowTool_Smart1.DispImage(imagePart);
-                    hWindowTool_Smart1.DispHWindow.SetColor("green");
-                    hWindowTool_Smart1.DispHWindow.SetDraw("margin");
-                    hWindowTool_Smart1.DispHWindow.DispObj(outBoundary);
-                    hWindowTool_Smart1.DispHWindow.DispObj(inBoundary);
+                    hWindowTool_Smart1.DispImage(myPMAlign.modelPartImage);
                     if (myPMAlign.matchMode == MatchMode.BasedShape)
                     {
                         HOperatorSet.SetLineStyle(myHwindow.DispHWindow, new HTuple());
@@ -320,6 +316,51 @@ namespace PMAlignTool
                 myPMAlign.minScale = nud_ScaleStart.Value;
                 myPMAlign.maxScale = nud_ScaleRange.Value;
             }
+        }
+
+        private void btnChangeModel_Click(object sender, EventArgs e)
+        {
+            if(!File.Exists(myPMAlign.pmaModelName + ".ShapeModel"))
+            {
+                MessageBox.Show("还未创建过模板，请先进行创建！");
+                return;
+            }
+            myPMAlign.inputImage = myPMAlign.oldTrainImage;
+            myPMAlign.Run(SoftwareRunState.Debug);
+
+        }
+
+        private void cbx_searchRegionType_SelectedIndexChanged()
+        {
+            serachRegion_drawing_object.ClearDrawingObject();
+            string selectRegion = cbx_searchRegionType.TextStr;
+            switch (selectRegion)
+            {
+                case "整幅图像":
+                    myPMAlign.searchRegionType = RegionType.AllImage;
+                    return;
+                case "矩形":
+                    myPMAlign.searchRegionType = RegionType.Rectangle1;
+                    serachRegion_drawing_object = HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.RECTANGLE1, new HTuple[] { 100, 100, 300, 400 });
+                    break;
+                case "圆":
+                    myPMAlign.searchRegionType = RegionType.Circle;
+                    serachRegion_drawing_object = HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.CIRCLE, new HTuple[] { 200, 200, 100 });
+                    break;
+                case "多点":
+                    myPMAlign.searchRegionType = RegionType.MultPoint;
+                    break;
+                default:
+                    break;
+            }
+            GC.KeepAlive(serachRegion_drawing_object);
+            serachRegion_drawing_object.OnSelect(OnSerchRegionDrawingObject);
+            serachRegion_drawing_object.OnAttach(OnSerchRegionDrawingObject);
+            serachRegion_drawing_object.OnResize(OnSerchRegionDrawingObject);
+            serachRegion_drawing_object.OnDrag(OnSerchRegionDrawingObject);
+            serachRegion_drawing_object.SetDrawingObjectParams("color", "yellow");
+            myHwindow.DispHWindow.AttachDrawingObjectToWindow(serachRegion_drawing_object);
+            
         }
 
     }

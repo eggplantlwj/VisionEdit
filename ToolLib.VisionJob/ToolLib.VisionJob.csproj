@@ -92,7 +92,7 @@
       <Name>HWindow_Tool</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
-      <Project>{D4E052B9-E541-4B67-A1F9-273073EF1D4B}</Project>
+      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
       <Name>Logger</Name>
     </ProjectReference>
   </ItemGroup>

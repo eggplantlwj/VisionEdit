@@ -9,6 +9,7 @@ using CommonMethods;
 using HalconDotNet;
 using ToolBase;
 using System.Diagnostics;
+using ViewROI;
 
 namespace HalconTool
 {
@@ -159,7 +160,7 @@ namespace HalconTool
             }
         }
 
-        public override void DispMainWindow(HWindow window)
+        public override void DispMainWindow(HWindowTool_Smart window)
         {
             throw new NotImplementedException();
         }

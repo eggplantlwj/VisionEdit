@@ -29,6 +29,10 @@ namespace PMAlignTool
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPMAlignTool));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -77,7 +81,7 @@ namespace PMAlignTool
             this.cbCErosion1 = new System.Windows.Forms.CheckBox();
             this.cbCErosion2 = new System.Windows.Forms.CheckBox();
             this.btnCreateModel = new System.Windows.Forms.Button();
-            this.btnAcqNewModelImage = new System.Windows.Forms.Button();
+            this.btnChangeModel = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -118,14 +122,13 @@ namespace PMAlignTool
             this.cbx_showTemplate = new System.Windows.Forms.CheckBox();
             this.ckb_showFeature = new System.Windows.Forms.CheckBox();
             this.ckb_showCross = new System.Windows.Forms.CheckBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.dgv_matchResult = new System.Windows.Forms.DataGridView();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dgv_matchResult = new Sunny.UI.UIDataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -152,8 +155,7 @@ namespace PMAlignTool
             this.panel5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_matchResult)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,7 +168,7 @@ namespace PMAlignTool
             this.lb_RunTime});
             this.statusStrip.Location = new System.Drawing.Point(0, 633);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(999, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1007, 22);
             this.statusStrip.TabIndex = 0;
             // 
             // lb_RunStatus
@@ -192,7 +194,7 @@ namespace PMAlignTool
             this.tsbtRunTool});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(999, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(1007, 32);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -218,8 +220,8 @@ namespace PMAlignTool
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(999, 601);
-            this.splitContainer1.SplitterDistance = 599;
+            this.splitContainer1.Size = new System.Drawing.Size(1007, 601);
+            this.splitContainer1.SplitterDistance = 603;
             this.splitContainer1.TabIndex = 2;
             // 
             // panel1
@@ -228,7 +230,7 @@ namespace PMAlignTool
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(599, 601);
+            this.panel1.Size = new System.Drawing.Size(603, 601);
             this.panel1.TabIndex = 0;
             // 
             // tabControl1
@@ -236,13 +238,13 @@ namespace PMAlignTool
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(396, 601);
+            this.tabControl1.Size = new System.Drawing.Size(400, 601);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -251,7 +253,7 @@ namespace PMAlignTool
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(388, 568);
+            this.tabPage1.Size = new System.Drawing.Size(392, 568);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "模板";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -278,7 +280,7 @@ namespace PMAlignTool
             this.tableLayoutPanel1.Controls.Add(this.panel10, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.panel14, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.btnCreateModel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnAcqNewModelImage, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnChangeModel, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -293,7 +295,7 @@ namespace PMAlignTool
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.405694F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.20996F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.12456F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(382, 562);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 562);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel13
@@ -304,7 +306,7 @@ namespace PMAlignTool
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(3, 382);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(376, 29);
+            this.panel13.Size = new System.Drawing.Size(380, 29);
             this.panel13.TabIndex = 126;
             // 
             // label4
@@ -326,7 +328,7 @@ namespace PMAlignTool
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(3, 254);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(376, 23);
+            this.panel9.Size = new System.Drawing.Size(380, 23);
             this.panel9.TabIndex = 124;
             // 
             // label3
@@ -349,7 +351,7 @@ namespace PMAlignTool
             this.hWindowTool_Smart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.hWindowTool_Smart1.Name = "hWindowTool_Smart1";
             this.tableLayoutPanel1.SetRowSpan(this.hWindowTool_Smart1, 3);
-            this.hWindowTool_Smart1.Size = new System.Drawing.Size(226, 169);
+            this.hWindowTool_Smart1.Size = new System.Drawing.Size(228, 169);
             this.hWindowTool_Smart1.TabIndex = 0;
             // 
             // panel3
@@ -360,7 +362,7 @@ namespace PMAlignTool
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 182);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(376, 22);
+            this.panel3.Size = new System.Drawing.Size(380, 22);
             this.panel3.TabIndex = 121;
             // 
             // label1
@@ -382,7 +384,7 @@ namespace PMAlignTool
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 210);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(376, 38);
+            this.panel8.Size = new System.Drawing.Size(380, 38);
             this.panel8.TabIndex = 122;
             // 
             // panel18
@@ -392,7 +394,7 @@ namespace PMAlignTool
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(376, 38);
+            this.panel18.Size = new System.Drawing.Size(380, 38);
             this.panel18.TabIndex = 147;
             // 
             // rabGray
@@ -430,9 +432,9 @@ namespace PMAlignTool
             this.groupBox1.Controls.Add(this.rabFormLocal);
             this.groupBox1.Controls.Add(this.rabFormFlow);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(237, 3);
+            this.groupBox1.Location = new System.Drawing.Point(239, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(142, 79);
+            this.groupBox1.Size = new System.Drawing.Size(144, 79);
             this.groupBox1.TabIndex = 123;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "模板图像来源";
@@ -478,7 +480,7 @@ namespace PMAlignTool
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(3, 283);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(376, 93);
+            this.panel10.Size = new System.Drawing.Size(380, 93);
             this.panel10.TabIndex = 125;
             // 
             // panel12
@@ -633,7 +635,7 @@ namespace PMAlignTool
             this.panel14.Location = new System.Drawing.Point(3, 417);
             this.panel14.Name = "panel14";
             this.tableLayoutPanel1.SetRowSpan(this.panel14, 2);
-            this.panel14.Size = new System.Drawing.Size(376, 142);
+            this.panel14.Size = new System.Drawing.Size(380, 142);
             this.panel14.TabIndex = 127;
             // 
             // label8
@@ -854,34 +856,34 @@ namespace PMAlignTool
             this.btnCreateModel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
             this.btnCreateModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateModel.ForeColor = System.Drawing.Color.White;
-            this.btnCreateModel.Location = new System.Drawing.Point(237, 134);
+            this.btnCreateModel.Location = new System.Drawing.Point(239, 134);
             this.btnCreateModel.Name = "btnCreateModel";
-            this.btnCreateModel.Size = new System.Drawing.Size(142, 42);
+            this.btnCreateModel.Size = new System.Drawing.Size(144, 42);
             this.btnCreateModel.TabIndex = 129;
             this.btnCreateModel.TabStop = false;
             this.btnCreateModel.Text = "创建模板";
             this.btnCreateModel.UseVisualStyleBackColor = false;
             this.btnCreateModel.Click += new System.EventHandler(this.btnCreateModel_Click);
             // 
-            // btnAcqNewModelImage
+            // btnChangeModel
             // 
-            this.btnAcqNewModelImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(150)))), ((int)(((byte)(219)))));
-            this.btnAcqNewModelImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAcqNewModelImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAcqNewModelImage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAcqNewModelImage.FlatAppearance.BorderSize = 0;
-            this.btnAcqNewModelImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
-            this.btnAcqNewModelImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.btnAcqNewModelImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAcqNewModelImage.ForeColor = System.Drawing.Color.White;
-            this.btnAcqNewModelImage.Location = new System.Drawing.Point(237, 88);
-            this.btnAcqNewModelImage.Name = "btnAcqNewModelImage";
-            this.btnAcqNewModelImage.Size = new System.Drawing.Size(142, 40);
-            this.btnAcqNewModelImage.TabIndex = 129;
-            this.btnAcqNewModelImage.TabStop = false;
-            this.btnAcqNewModelImage.Text = "获取图像";
-            this.btnAcqNewModelImage.UseVisualStyleBackColor = false;
-            this.btnAcqNewModelImage.Click += new System.EventHandler(this.btnAcqNewModelImage_Click);
+            this.btnChangeModel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(150)))), ((int)(((byte)(219)))));
+            this.btnChangeModel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnChangeModel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeModel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnChangeModel.FlatAppearance.BorderSize = 0;
+            this.btnChangeModel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkGray;
+            this.btnChangeModel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.btnChangeModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeModel.ForeColor = System.Drawing.Color.White;
+            this.btnChangeModel.Location = new System.Drawing.Point(239, 88);
+            this.btnChangeModel.Name = "btnChangeModel";
+            this.btnChangeModel.Size = new System.Drawing.Size(144, 40);
+            this.btnChangeModel.TabIndex = 129;
+            this.btnChangeModel.TabStop = false;
+            this.btnChangeModel.Text = "修改模板";
+            this.btnChangeModel.UseVisualStyleBackColor = false;
+            this.btnChangeModel.Click += new System.EventHandler(this.btnChangeModel_Click);
             // 
             // tabPage2
             // 
@@ -889,7 +891,7 @@ namespace PMAlignTool
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(388, 568);
+            this.tabPage2.Size = new System.Drawing.Size(392, 568);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "参数";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -919,7 +921,7 @@ namespace PMAlignTool
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(382, 562);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(386, 562);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // panel4
@@ -929,7 +931,7 @@ namespace PMAlignTool
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 344);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(376, 28);
+            this.panel4.Size = new System.Drawing.Size(380, 28);
             this.panel4.TabIndex = 150;
             // 
             // label2
@@ -953,7 +955,7 @@ namespace PMAlignTool
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(376, 28);
+            this.panel11.Size = new System.Drawing.Size(380, 28);
             this.panel11.TabIndex = 148;
             // 
             // label11
@@ -999,7 +1001,7 @@ namespace PMAlignTool
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 37);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(376, 301);
+            this.panel2.Size = new System.Drawing.Size(380, 301);
             this.panel2.TabIndex = 149;
             // 
             // nud_angleRange
@@ -1419,7 +1421,7 @@ namespace PMAlignTool
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 378);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(376, 181);
+            this.panel5.Size = new System.Drawing.Size(380, 181);
             this.panel5.TabIndex = 151;
             // 
             // cbx_searchRegionType
@@ -1440,6 +1442,7 @@ namespace PMAlignTool
             this.cbx_searchRegionType.Size = new System.Drawing.Size(172, 26);
             this.cbx_searchRegionType.TabIndex = 122;
             this.cbx_searchRegionType.TextStr = "整幅图像";
+            this.cbx_searchRegionType.SelectedIndexChanged += new Controls.DSelectedIndexChanged(this.cbx_searchRegionType_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -1456,7 +1459,7 @@ namespace PMAlignTool
             this.tabPage4.Controls.Add(this.panel6);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(388, 568);
+            this.tabPage4.Size = new System.Drawing.Size(392, 568);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "图形";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1471,7 +1474,7 @@ namespace PMAlignTool
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(388, 568);
+            this.panel6.Size = new System.Drawing.Size(392, 568);
             this.panel6.TabIndex = 0;
             // 
             // checkBox2
@@ -1535,89 +1538,102 @@ namespace PMAlignTool
             this.ckb_showCross.Text = "显示参考点";
             this.ckb_showCross.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tabPage3
             // 
-            this.tabPage5.Controls.Add(this.panel7);
-            this.tabPage5.Location = new System.Drawing.Point(4, 29);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(388, 568);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "结果";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.dgv_matchResult);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(0, 0);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(388, 568);
-            this.panel7.TabIndex = 0;
+            this.tabPage3.Controls.Add(this.dgv_matchResult);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(392, 568);
+            this.tabPage3.TabIndex = 5;
+            this.tabPage3.Text = "结果";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // dgv_matchResult
             // 
-            this.dgv_matchResult.AllowDrop = true;
-            this.dgv_matchResult.AllowUserToAddRows = false;
-            this.dgv_matchResult.AllowUserToDeleteRows = false;
-            this.dgv_matchResult.AllowUserToResizeRows = false;
-            this.dgv_matchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.dgv_matchResult.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_matchResult.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_matchResult.BackgroundColor = System.Drawing.Color.White;
+            this.dgv_matchResult.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_matchResult.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv_matchResult.ColumnHeadersHeight = 32;
+            this.dgv_matchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_matchResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column7,
-            this.Column8,
-            this.Column9,
-            this.Column10,
-            this.Column12});
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5});
             this.dgv_matchResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_matchResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgv_matchResult.EnableHeadersVisualStyles = false;
+            this.dgv_matchResult.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dgv_matchResult.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.dgv_matchResult.Location = new System.Drawing.Point(0, 0);
-            this.dgv_matchResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgv_matchResult.Name = "dgv_matchResult";
-            this.dgv_matchResult.ReadOnly = true;
-            this.dgv_matchResult.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_matchResult.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_matchResult.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dgv_matchResult.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_matchResult.RowTemplate.Height = 23;
-            this.dgv_matchResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_matchResult.Size = new System.Drawing.Size(388, 568);
-            this.dgv_matchResult.TabIndex = 13;
+            this.dgv_matchResult.SelectedIndex = -1;
+            this.dgv_matchResult.ShowGridLine = true;
+            this.dgv_matchResult.Size = new System.Drawing.Size(392, 568);
+            this.dgv_matchResult.TabIndex = 0;
             // 
-            // Column7
+            // Column1
             // 
-            this.Column7.HeaderText = "编号";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 70;
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column1.HeaderText = "编号";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 66;
             // 
-            // Column8
+            // Column2
             // 
-            this.Column8.HeaderText = "分数";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 75;
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "分值";
+            this.Column2.Name = "Column2";
             // 
-            // Column9
+            // Column3
             // 
-            this.Column9.HeaderText = "行";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 70;
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column3.HeaderText = "行";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 50;
             // 
-            // Column10
+            // Column4
             // 
-            this.Column10.HeaderText = "列";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 70;
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column4.HeaderText = "列";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 50;
             // 
-            // Column12
+            // Column5
             // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column12.HeaderText = "角度(°)";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column5.HeaderText = "角度";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 66;
             // 
             // FormPMAlignTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 655);
+            this.ClientSize = new System.Drawing.Size(1007, 655);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip);
@@ -1668,8 +1684,7 @@ namespace PMAlignTool
             this.tabPage4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_matchResult)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1687,7 +1702,6 @@ namespace PMAlignTool
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private ViewROI.HWindowTool_Smart hWindowTool_Smart1;
         private System.Windows.Forms.Panel panel3;
@@ -1728,13 +1742,6 @@ namespace PMAlignTool
         public System.Windows.Forms.CheckBox cbx_showTemplate;
         public System.Windows.Forms.CheckBox ckb_showFeature;
         public System.Windows.Forms.CheckBox ckb_showCross;
-        private System.Windows.Forms.Panel panel7;
-        internal System.Windows.Forms.DataGridView dgv_matchResult;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rabFormLocal;
@@ -1763,7 +1770,7 @@ namespace PMAlignTool
         private System.Windows.Forms.CheckBox cbCErosion1;
         private System.Windows.Forms.CheckBox cbCErosion2;
         internal System.Windows.Forms.Button btnCreateModel;
-        internal System.Windows.Forms.Button btnAcqNewModelImage;
+        internal System.Windows.Forms.Button btnChangeModel;
         public Controls.CNumericUpDown nud_angleRange;
         public Controls.CNumericUpDown nud_angleStart;
         public Controls.CComboBox cmbErsion1;
@@ -1775,5 +1782,12 @@ namespace PMAlignTool
         private System.Windows.Forms.ToolStripStatusLabel lb_RunStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        public Sunny.UI.UIDataGridView dgv_matchResult;
     }
 }

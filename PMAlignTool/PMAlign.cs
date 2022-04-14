@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Logger;
 using System.Diagnostics;
 using System.IO;
+using ViewROI;
 
 namespace PMAlignTool
 {
@@ -118,11 +119,15 @@ namespace PMAlignTool
         public bool isCreateModel { get; set; }
         internal string pmaModelName { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
+        /// 剪出的模板图像
+        /// </summary>
+        public HObject modelPartImage = new HObject();
+        /// <summary>
         /// 模板位置和实际位置的姿态差异
         /// </summary>
         internal HTuple posHomMat2D = new HTuple();
 
-        public override void DispMainWindow(HWindow dispHWindow)
+        public override void DispMainWindow(HWindowTool_Smart dispHWindow)
         {
             if (showFeature)
             {
@@ -158,8 +163,7 @@ namespace PMAlignTool
         public bool isAutoConstants { get; set; }
         public string modelFilePath { get; set; }
         public RegionType searchRegionType { get; set; }
-        public HObject SearchRegion { get; private set; }
-
+        public HObject SearchRegion { get; set; }
         public override void Run(SoftwareRunState softwareState)
         {
             Stopwatch sw = new Stopwatch();
@@ -167,7 +171,9 @@ namespace PMAlignTool
             softwareRunState = softwareState;
             if (inputImage == null)
             {
-                FormPMAlignTool.Instance.SetToolStatus("工具输入图像为空", ToolRunStatu.Not_Input_Image);
+                toolRunStatu = ToolRunStatu.Lack_Of_Input_Image;
+                runMessage = "工具输入图像为空";
+                FormPMAlignTool.Instance.SetToolStatus(runMessage, toolRunStatu);
                 return;
             }
             try
@@ -192,21 +198,36 @@ namespace PMAlignTool
               //  UpdateParamsFromUI(); // 操作前先将UI中参数写入类
                  HObject findModelImg = ProcessImage(inputImage);
                 int ret = FindModelTemplate(findModelImg);
+                UpdateResultDataGridview();
                 ToolRunStatu myState = ret == 0 ? ToolRunStatu.Succeed : ToolRunStatu.Model_UnFound;
-                string retMsg = ret == 0 ? "工具运行成功,已找到匹配项！" : "未找到匹配项";
+                toolRunStatu = myState;
+                string retMsg = ret == 0 ? $"{toolName}工具运行成功,已找到匹配项！" : $"{toolName}未找到匹配项";
+                runMessage = retMsg;
                 sw.Stop();
                 runTime = $"运行时间： {sw.ElapsedMilliseconds} ms";
                 FormPMAlignTool.Instance.SetToolStatus(retMsg, myState);
             }
             catch (Exception ex)
             {
-                FormPMAlignTool.Instance.SetToolStatus($"工具运行异常，异常原因： {ex}", ToolRunStatu.Tool_Run_Error);
+                FormPMAlignTool.Instance.SetToolStatus($"{toolName}工具运行异常，异常原因： {ex}", ToolRunStatu.Tool_Run_Error);
             }
             finally
             {
                 
             }
         }
+
+        public void UpdateResultDataGridview()
+        {
+            FormPMAlignTool.Instance.dgv_matchResult.Rows.Clear();
+            int count = 0;
+            foreach (var item in L_resultList)
+            {
+                FormPMAlignTool.Instance.dgv_matchResult.AddRow(++count, item.Socre, item.Row, item.Col, item.Angle);
+            }
+
+        }
+
         public void UpdateParamsFromUI()
         {
             minScore = FormPMAlignTool.Instance.nud_minScore.Value;
@@ -261,7 +282,7 @@ namespace PMAlignTool
             oldTrainImage = inputImage;
             if (FormPMAlignTool.Instance.templateModelListAdd.Count == 0)
             {
-                LoggerClass.WriteLog("未划定模板建立区域", MsgLevel.Exception);
+                LoggerClass.WriteLog($"{toolName}未划定模板建立区域", MsgLevel.Exception);
                 isCreateModel = false;
                 return -1;
             }
@@ -270,6 +291,7 @@ namespace PMAlignTool
             HOperatorSet.GenEmptyObj(out createModelImg);
             createModelImg = ProcessImage(inputImage);
             HOperatorSet.ReduceDomain(createModelImg, templateRegion, out template);
+            HOperatorSet.CropDomain(template, out modelPartImage);
             //SetParamsFromUI();
             try
             {
@@ -327,6 +349,7 @@ namespace PMAlignTool
                 isCreateModel = true;
                 HOperatorSet.WriteRegion(templateRegion, FormPMAlignTool.Instance.myToolInfo.FormToolName + ".hobj");
                 HOperatorSet.WriteShapeModel(modelID, pmaModelName + ".ShapeModel");
+
                 if (scores != null && scores.Type != HTupleType.EMPTY)
                 {
                     templatePose = new PosXYU { X = rows[0].D, Y = cols[0].D , U = angles[0].D };
@@ -335,28 +358,23 @@ namespace PMAlignTool
             }
             catch (Exception ex)
             {
-                Logger.LoggerClass.WriteLog("创建模板时出现异常", ex);
+                Logger.LoggerClass.WriteLog($"{toolName}创建模板时出现异常", ex);
                 isCreateModel = false;
                 return -1;
             }
             finally
             {
-                FormPMAlignTool.Instance.templateModelListAdd.Clear();
-                FormPMAlignTool.Instance.templateModelListSub.Clear();
+              //  FormPMAlignTool.Instance.templateModelListAdd.Clear();
+              //  FormPMAlignTool.Instance.templateModelListSub.Clear();
             }
             return 0;
         }
 
         public int FindModelTemplate(HObject findModelImage)
         {
-            if (!isCreateModel)
-            {
-                LoggerClass.WriteLog("未创建或加载模板", MsgLevel.Exception);
-                return -1;
-            }
             if (!File.Exists(pmaModelName + ".ShapeModel"))
             {
-                LoggerClass.WriteLog("未创建或加载模板", MsgLevel.Exception);
+                LoggerClass.WriteLog($"{toolName}未创建或加载模板", MsgLevel.Exception);
                 return -1;
             }
             HOperatorSet.ReadShapeModel(pmaModelName + ".ShapeModel", out modelID);
@@ -466,14 +484,14 @@ namespace PMAlignTool
                     toolRunStatu = ToolRunStatu.Succeed;
                     if (softwareRunState == SoftwareRunState.Debug)
                     {
-                        ShowTemplate(FormPMAlignTool.Instance.myHwindow.DispHWindow);
+                        ShowTemplate(FormPMAlignTool.Instance.myHwindow);
                     }  
                     return 0;
                 }
             }
             catch (Exception ex)
             {
-                LoggerClass.WriteLog("寻找模板时出现异常！", ex);
+                LoggerClass.WriteLog($"{toolName}寻找模板时出现异常！", ex);
                 toolRunStatu = ToolRunStatu.Not_Succeed;
             }
             return -1;
@@ -483,7 +501,7 @@ namespace PMAlignTool
         /// <summary>
         /// 显示模板
         /// </summary>
-        internal void ShowTemplate(HWindow dispHWindow, bool clearImg = false)
+        internal void ShowTemplate(HWindowTool_Smart dispHWindow, bool clearImg = false)
         {
             try
             {
@@ -493,8 +511,8 @@ namespace PMAlignTool
                 }
                 if(clearImg)
                 {
-                    dispHWindow.ClearWindow();
-                    dispHWindow.DispObj(inputImage);
+                    dispHWindow.DispHWindow.ClearWindow();
+                    dispHWindow.DispImage(inputImage);
                 }
                 if(L_resultList.Count > 0)
                 {
@@ -504,15 +522,15 @@ namespace PMAlignTool
                         HOperatorSet.GetShapeModelContours(out contour, modelID, new HTuple(1));
                         HOperatorSet.VectorAngleToRigid(0, 0, 0, item.Row, item.Col, item.Angle,out homMat2D);
                         HOperatorSet.AffineTransContourXld(contour, out contour, homMat2D);
-                        dispHWindow.SetColor("green");
-                        dispHWindow.DispObj(contour);
+                        dispHWindow.DispHWindow.SetColor("green");
+                        dispHWindow.DispHWindow.DispObj(contour);
                     }
                 }
                 
             }
             catch (Exception ex)
             {
-                Logger.LoggerClass.WriteLog("显示模板时出现错误", ex);
+                Logger.LoggerClass.WriteLog($"{toolName}显示模板时出现错误", ex);
             }
         }
 

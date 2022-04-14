@@ -122,5 +122,14 @@ namespace VisionEdit
                 e.Cancel = true;
             }
         }
+
+        private void tsmiSaveObject_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("是否要进行保存？", "提示", MessageBoxButtons.YesNoCancel);
+            if (dr == DialogResult.Yes)
+            {
+                VisionJobParams.pVisionProject.SaveObject();
+            }
+        }
     }
 }

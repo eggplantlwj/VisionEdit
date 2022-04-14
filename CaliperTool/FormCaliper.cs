@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CommonMethods;
 using ChoiceTech.Halcon.Control;
 using HalconDotNet;
+using ViewROI;
 
 namespace CaliperTool
 {
@@ -18,7 +19,7 @@ namespace CaliperTool
 
         public Caliper myCaliper = null;
         public IToolInfo myToolInfo = null;
-        public HSmartWindowControl myHwindow = new HSmartWindowControl();
+        public HWindowTool_Smart myHwindow = new HWindowTool_Smart();
 
         private static FormCaliper _instance;
         public FormCaliper(ref object caliper)
@@ -90,7 +91,7 @@ namespace CaliperTool
         private void btn_moveCliperRegion_Click(object sender, EventArgs e)
         {
             myCaliper.UpdateImage();
-            myCaliper.DrawExpectLine(myHwindow.HalconWindow);
+            myCaliper.DrawExpectLine(myHwindow.DispHWindow);
         }
 
         private void btn_runCaliperool_Click(object sender, EventArgs e)

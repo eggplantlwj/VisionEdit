@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonMethods;
 using HalconDotNet;
+using ViewROI;
 
 namespace ToolBase
 {
@@ -18,6 +19,6 @@ namespace ToolBase
         public abstract void Run(SoftwareRunState softwareRunState); 
         public HObject inputImage { get; set; }
         public abstract void  DispImage();
-        public abstract void DispMainWindow(HWindow window);
+        public abstract void DispMainWindow(HWindowTool_Smart window);
     }
 }

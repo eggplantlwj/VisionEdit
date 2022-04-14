@@ -3,6 +3,7 @@ using HalconDotNet;
 using static DataStruct.DataStruct;
 using ToolBase;
 using CommonMethods;
+using ViewROI;
 
 namespace FindCircle
 {
@@ -112,7 +113,7 @@ namespace FindCircle
             
         }
 
-        public override void DispMainWindow(HWindow window)
+        public override void DispMainWindow(HWindowTool_Smart window)
         {
             throw new NotImplementedException();
         }

@@ -29,15 +29,17 @@ namespace ViewROI
         private void InitializeComponent()
         {
             this.SmartWindow = new HalconDotNet.HSmartWindowControl();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.lb_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip.SuspendLayout();
+            this.uiContextMenuStrip1 = new Sunny.UI.UIContextMenuStrip();
+            this.tsmiDispCorr = new System.Windows.Forms.ToolStripMenuItem();
+            this.grayValueLable = new Sunny.UI.UISymbolLabel();
+            this.uiContextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SmartWindow
             // 
             this.SmartWindow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.SmartWindow.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.SmartWindow.ContextMenuStrip = this.uiContextMenuStrip1;
             this.SmartWindow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SmartWindow.HDoubleClickToFitContent = true;
             this.SmartWindow.HDrawingObjectsModifier = HalconDotNet.HSmartWindowControl.DrawingObjectsModifier.None;
@@ -53,45 +55,57 @@ namespace ViewROI
             this.SmartWindow.WindowSize = new System.Drawing.Size(576, 457);
             this.SmartWindow.HMouseMove += new HalconDotNet.HMouseEventHandler(this.SmartWindow_HMouseMove);
             // 
-            // statusStrip
+            // uiContextMenuStrip1
             // 
-            this.statusStrip.BackColor = System.Drawing.Color.White;
-            this.statusStrip.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lb_Status});
-            this.statusStrip.Location = new System.Drawing.Point(0, 435);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(576, 22);
-            this.statusStrip.TabIndex = 1;
-            this.statusStrip.Text = "statusStrip1";
-            this.statusStrip.Visible = false;
+            this.uiContextMenuStrip1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiContextMenuStrip1.IsScaled = false;
+            this.uiContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiDispCorr});
+            this.uiContextMenuStrip1.Name = "uiContextMenuStrip1";
+            this.uiContextMenuStrip1.Size = new System.Drawing.Size(145, 30);
             // 
-            // lb_Status
+            // tsmiDispCorr
             // 
-            this.lb_Status.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lb_Status.Name = "lb_Status";
-            this.lb_Status.Size = new System.Drawing.Size(0, 17);
+            this.tsmiDispCorr.Name = "tsmiDispCorr";
+            this.tsmiDispCorr.Size = new System.Drawing.Size(144, 26);
+            this.tsmiDispCorr.Text = "显示坐标";
+            this.tsmiDispCorr.Click += new System.EventHandler(this.tsmiDispCorr_Click);
+            // 
+            // grayValueLable
+            // 
+            this.grayValueLable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.grayValueLable.BackColor = System.Drawing.Color.Transparent;
+            this.grayValueLable.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grayValueLable.IsScaled = false;
+            this.grayValueLable.Location = new System.Drawing.Point(3, 430);
+            this.grayValueLable.MinimumSize = new System.Drawing.Size(1, 1);
+            this.grayValueLable.Name = "grayValueLable";
+            this.grayValueLable.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.grayValueLable.Size = new System.Drawing.Size(260, 26);
+            this.grayValueLable.Symbol = 61483;
+            this.grayValueLable.TabIndex = 4;
+            this.grayValueLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.grayValueLable.Visible = false;
             // 
             // HWindowTool_Smart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.grayValueLable);
             this.Controls.Add(this.SmartWindow);
             this.Name = "HWindowTool_Smart";
             this.Size = new System.Drawing.Size(576, 457);
             this.Load += new System.EventHandler(this.HWindowTool_Smart_Load);
             this.SizeChanged += new System.EventHandler(this.HWindowTool_Smart_SizeChanged);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
+            this.uiContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel lb_Status;
         public HalconDotNet.HSmartWindowControl SmartWindow;
+        private Sunny.UI.UIContextMenuStrip uiContextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDispCorr;
+        private Sunny.UI.UISymbolLabel grayValueLable;
     }
 }

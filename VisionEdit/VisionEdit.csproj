@@ -128,7 +128,7 @@
       <Name>DataStruct</Name>
     </ProjectReference>
     <ProjectReference Include="..\FormLib\FormLib.csproj">
-      <Project>{8C6FC8C6-8874-494B-8260-071F291AA33D}</Project>
+      <Project>{8c6fc8c6-8874-494b-8260-071f291aa33d}</Project>
       <Name>FormLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">

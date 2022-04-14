@@ -4,6 +4,7 @@ using static DataStruct.DataStruct;
 using ToolBase;
 using CommonMethods;
 using System.Diagnostics;
+using ViewROI;
 
 namespace FindLineTool
 {
@@ -334,22 +335,30 @@ namespace FindLineTool
                     Point start = new Point() { Row = ResultLineStartRow, Col = ResultLineStartCol };
                     Point end = new Point() { Row = ResultLineEndRow, Col = ResultLineEndCol };
                     resultLine = new Line() { StartPoint = start, EndPoint = end };
+                    HOperatorSet.AngleLx(ResultLineStartRow, ResultLineStartCol, ResultLineEndRow, ResultLineEndCol, out _angle);
+                    if (softwareRunState == SoftwareRunState.Debug)
+                    {
+                        DispMainWindow(FormFindLine.Instance.myHwindow);
+                        FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
+                        FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
+                        FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
+                        FormFindLine.Instance.tbx_resultEndCol.Text = ResultLineEndCol.ToString();
+                    }
+                    runMessage = "工具运行成功,已找到线！";
+                    toolRunStatu = ToolRunStatu.Succeed;
                 }
-                HOperatorSet.AngleLx(ResultLineStartRow, ResultLineStartCol, ResultLineEndRow, ResultLineEndCol, out _angle);
-                if (softwareRunState == SoftwareRunState.Debug)
+                else
                 {
-                    DispMainWindow(FormFindLine.Instance.myHwindow.DispHWindow);
-                    FormFindLine.Instance.tbx_resultStartRow.Text = ResultLineStartRow.ToString();
-                    FormFindLine.Instance.tbx_resultStartCol.Text = ResultLineEndCol.ToString();
-                    FormFindLine.Instance.tbx_resultEndRow.Text = ResultLineEndRow.ToString();
-                    FormFindLine.Instance.tbx_resultEndCol.Text = ResultLineEndCol.ToString();
+                    runMessage = "工具运行失败,未找到线";
+                    toolRunStatu = ToolRunStatu.Tool_Run_Error;
                 }
-                HOperatorSet.ClearMetrologyModel(handleID);
+                
                 // 参数传递
                 ParamsTrans();
                 sw.Stop();
                 runTime = $"运行时间： {sw.ElapsedMilliseconds} ms";
-                FormFindLine.Instance.SetToolStatus("工具运行成功！", ToolRunStatu.Succeed);
+                FormFindLine.Instance.SetToolStatus(runMessage, toolRunStatu);
+                HOperatorSet.ClearMetrologyModel(handleID);
             }
             catch (Exception ex)
             {
@@ -357,6 +366,7 @@ namespace FindLineTool
             }
             finally
             {
+                
                 //homMat2DArrow.Dispose();
                 //arrow.Dispose();
                 //arrowTrans.Dispose();
@@ -375,23 +385,23 @@ namespace FindLineTool
             FormFindLine.Instance.myToolInfo.toolOutput.Add(new ToolIO("EndPoint.Column", ResultLineEndCol, DataType.IntValue));
         }
 
-        public override void DispMainWindow(HWindow window)
+        public override void DispMainWindow(HWindowTool_Smart window)
         {
             // 显示矩形
             if (dispRec)
             {
-                window.SetColor("blue");
-                window.DispObj(contoursDisp);
+                window.DispHWindow.SetColor("blue");
+                window.DispHWindow.DispObj(contoursDisp);
             }
             // 显示交点
             if (dispCross)
             {
-                window.SetColor("orange");
-                window.DispObj(crossDisp);
+                window.DispHWindow.SetColor("orange");
+                window.DispHWindow.DispObj(crossDisp);
             }
             //显示找到的线
-            window.SetColor("green");
-            window.DispObj(LineDisp);
+            window.DispHWindow.SetColor("green");
+            window.DispHWindow.DispObj(LineDisp);
         }
         
     }

@@ -52,6 +52,10 @@
       <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
       <Name>CommonHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9baa53fd-89b5-43e2-ac59-a27b006debb6}</Project>
+      <Name>HWindow_Tool</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

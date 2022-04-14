@@ -58,7 +58,7 @@ namespace VisionEdit
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSaveObject = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.试图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.全局变量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -198,7 +198,7 @@ namespace VisionEdit
             this.关闭ToolStripMenuItem,
             this.打开ToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.保存ToolStripMenuItem,
+            this.tsmiSaveObject,
             this.退出ToolStripMenuItem1});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
@@ -260,16 +260,17 @@ namespace VisionEdit
             this.toolStripMenuItem1.Size = new System.Drawing.Size(200, 21);
             this.toolStripMenuItem1.Text = "克隆工程";
             // 
-            // 保存ToolStripMenuItem
+            // tsmiSaveObject
             // 
-            this.保存ToolStripMenuItem.BackColor = System.Drawing.Color.White;
-            this.保存ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("保存ToolStripMenuItem.Image")));
-            this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.保存ToolStripMenuItem.ShortcutKeyDisplayString = "       Ctrl+S";
-            this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(200, 21);
-            this.保存ToolStripMenuItem.Text = "保存";
+            this.tsmiSaveObject.BackColor = System.Drawing.Color.White;
+            this.tsmiSaveObject.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSaveObject.Image")));
+            this.tsmiSaveObject.Name = "tsmiSaveObject";
+            this.tsmiSaveObject.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.tsmiSaveObject.ShortcutKeyDisplayString = "       Ctrl+S";
+            this.tsmiSaveObject.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.tsmiSaveObject.Size = new System.Drawing.Size(200, 21);
+            this.tsmiSaveObject.Text = "保存";
+            this.tsmiSaveObject.Click += new System.EventHandler(this.tsmiSaveObject_Click);
             // 
             // 退出ToolStripMenuItem1
             // 
@@ -361,7 +362,7 @@ namespace VisionEdit
             this.布局管理ToolStripMenuItem1.BackColor = System.Drawing.Color.White;
             this.布局管理ToolStripMenuItem1.Name = "布局管理ToolStripMenuItem1";
             this.布局管理ToolStripMenuItem1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.布局管理ToolStripMenuItem1.Size = new System.Drawing.Size(152, 27);
+            this.布局管理ToolStripMenuItem1.Size = new System.Drawing.Size(137, 27);
             this.布局管理ToolStripMenuItem1.Text = "布局管理";
             // 
             // 切换到经典布局1ToolStripMenuItem
@@ -370,7 +371,7 @@ namespace VisionEdit
             this.切换到经典布局1ToolStripMenuItem.CheckOnClick = true;
             this.切换到经典布局1ToolStripMenuItem.Name = "切换到经典布局1ToolStripMenuItem";
             this.切换到经典布局1ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.切换到经典布局1ToolStripMenuItem.Size = new System.Drawing.Size(152, 27);
+            this.切换到经典布局1ToolStripMenuItem.Size = new System.Drawing.Size(137, 27);
             this.切换到经典布局1ToolStripMenuItem.Text = "经典布局1";
             // 
             // 切换到经典布局2ToolStripMenuItem
@@ -379,7 +380,7 @@ namespace VisionEdit
             this.切换到经典布局2ToolStripMenuItem.CheckOnClick = true;
             this.切换到经典布局2ToolStripMenuItem.Name = "切换到经典布局2ToolStripMenuItem";
             this.切换到经典布局2ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.切换到经典布局2ToolStripMenuItem.Size = new System.Drawing.Size(152, 27);
+            this.切换到经典布局2ToolStripMenuItem.Size = new System.Drawing.Size(137, 27);
             this.切换到经典布局2ToolStripMenuItem.Text = "经典布局2";
             // 
             // 解锁ToolStripMenuItem
@@ -390,14 +391,14 @@ namespace VisionEdit
             this.解锁ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.解锁ToolStripMenuItem.Name = "解锁ToolStripMenuItem";
             this.解锁ToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.解锁ToolStripMenuItem.Size = new System.Drawing.Size(152, 27);
+            this.解锁ToolStripMenuItem.Size = new System.Drawing.Size(137, 27);
             this.解锁ToolStripMenuItem.Text = "锁定";
             // 
             // tToolStripMenuItem6
             // 
             this.tToolStripMenuItem6.Font = new System.Drawing.Font("幼圆", 18F);
             this.tToolStripMenuItem6.Name = "tToolStripMenuItem6";
-            this.tToolStripMenuItem6.Size = new System.Drawing.Size(152, 28);
+            this.tToolStripMenuItem6.Size = new System.Drawing.Size(137, 28);
             this.tToolStripMenuItem6.Text = "T";
             this.tToolStripMenuItem6.Visible = false;
             // 
@@ -622,35 +623,35 @@ namespace VisionEdit
             // 
             this.登录ToolStripMenuItem.Name = "登录ToolStripMenuItem";
             this.登录ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.登录ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.登录ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.登录ToolStripMenuItem.Text = "登录";
             // 
             // 锁定ToolStripMenuItem
             // 
             this.锁定ToolStripMenuItem.Name = "锁定ToolStripMenuItem";
             this.锁定ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.锁定ToolStripMenuItem.Text = "锁定";
             // 
             // 运行一次ToolStripMenuItem
             // 
             this.运行一次ToolStripMenuItem.Name = "运行一次ToolStripMenuItem";
             this.运行一次ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.运行一次ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.运行一次ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.运行一次ToolStripMenuItem.Text = "运行一次";
             // 
             // 连续运行ToolStripMenuItem
             // 
             this.连续运行ToolStripMenuItem.Name = "连续运行ToolStripMenuItem";
             this.连续运行ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.连续运行ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.连续运行ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.连续运行ToolStripMenuItem.Text = "连续运行";
             // 
             // 停止连续ToolStripMenuItem
             // 
             this.停止连续ToolStripMenuItem.Name = "停止连续ToolStripMenuItem";
             this.停止连续ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.停止连续ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.停止连续ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.停止连续ToolStripMenuItem.Text = "停止连续";
             // 
             // panel2
@@ -800,7 +801,7 @@ namespace VisionEdit
         private System.Windows.Forms.ToolStripMenuItem 关闭ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSaveObject;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 试图ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 全局变量ToolStripMenuItem;

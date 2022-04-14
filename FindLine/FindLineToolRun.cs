@@ -74,7 +74,7 @@ namespace FindLineTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myFindLine.runTime}", Color.Green, selectNode);
-                myFindLine.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
+                myFindLine.DispMainWindow(FormImageWindow.Instance.myHWindow);
             }
         }
     }

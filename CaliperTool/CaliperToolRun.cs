@@ -73,7 +73,7 @@ namespace CaliperTool
             myCaliper.Run(SoftwareRunState.Release);
             if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
             {
-                myCaliper.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
+                myCaliper.DispMainWindow(FormImageWindow.Instance.myHWindow);
                 myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行成功", Color.Green, selectNode);
             }
             else

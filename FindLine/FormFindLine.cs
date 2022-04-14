@@ -95,6 +95,8 @@ namespace FindLineTool
             selected_drawing_object.OnResize(OnSelectDrawingObject);
             selected_drawing_object.OnDrag(OnSelectDrawingObject);
             myHwindow.DispHWindow.AttachDrawingObjectToWindow(selected_drawing_object);
+
+            tsbtRunTool_Click(null, null);
             isInit = false;
         }
         /// <summary>

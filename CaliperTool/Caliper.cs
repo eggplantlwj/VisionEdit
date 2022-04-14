@@ -4,7 +4,7 @@ using HalconDotNet;
 using ToolBase;
 using static DataStruct.DataStruct;
 using ChoiceTech.Halcon.Control;
-
+using ViewROI;
 
 namespace CaliperTool
 {
@@ -114,7 +114,7 @@ namespace CaliperTool
         {
             if (inputImage != null)
             {
-                FormCaliper.Instance.myHwindow.HalconWindow.DispObj(inputImage);
+                FormCaliper.Instance.myHwindow.DispHWindow.DispObj(inputImage);
             }
         }
 
@@ -158,7 +158,7 @@ namespace CaliperTool
 
         public void UpdateImage()
         {
-            FormCaliper.Instance.myHwindow.HalconWindow.ClearWindow();
+            FormCaliper.Instance.myHwindow.DispHWindow.ClearWindow();
             DispImage();
         }
 
@@ -211,7 +211,7 @@ namespace CaliperTool
                 HOperatorSet.GenCrossContourXld(out crossDisp, ResulttRow, ResultCol, new HTuple(80), new HTuple(0));
                 if(softwareRunState == SoftwareRunState.Debug)
                 {
-                    DispMainWindow(FormCaliper.Instance.myHwindow.HalconWindow);
+                    DispMainWindow(FormCaliper.Instance.myHwindow);
                     FormCaliper.Instance.tbx_resultStartRow.Text = ResulttRow.ToString();
                     FormCaliper.Instance.tbx_resultStartCol.Text = ResultCol.ToString();
                     FormCaliper.Instance.SetToolStatus("运行成功",  ToolRunStatu.Succeed);
@@ -250,19 +250,19 @@ namespace CaliperTool
             
         }
 
-        public override void DispMainWindow(HWindow window)
+        public override void DispMainWindow(HWindowTool_Smart window)
         {
             // 显示矩形
             if (dispRec && contoursDisp != null)
             {
-                window.SetColor("blue");
-                window.DispObj(contoursDisp);
+                window.DispHWindow.SetColor("blue");
+                window.DispHWindow.DispObj(contoursDisp);
             }
             // 显示交点
             if (dispCross && crossDisp != null)
             {
-                window.SetColor("green");
-                window.DispObj(crossDisp);
+                window.DispHWindow.SetColor("green");
+                window.DispHWindow.DispObj(crossDisp);
             }
             //显示找到的线
           //  window.DispObj(LineDisp, "green");

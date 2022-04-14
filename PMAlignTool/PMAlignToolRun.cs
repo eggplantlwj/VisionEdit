@@ -41,6 +41,7 @@ namespace PMAlignTool
                 if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
                 {
                     selectNode.ForeColor = Color.Red;
+                    myPMAlign.inputImage = null;
                     LoggerClass.WriteLog(L_toolList[toolIndex].toolName + "  无输入图像", MsgLevel.Exception);
                 }
                 else
@@ -63,7 +64,7 @@ namespace PMAlignTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myPMAlign.runTime}", Color.Green, selectNode);
-                myPMAlign.DispMainWindow(FormImageWindow.Instance.myHWindow.DispHWindow);
+                myPMAlign.DispMainWindow(FormImageWindow.Instance.myHWindow);
                 // 将输出值赋值到界面输出中
                 if (myPMAlign.L_resultList.Count > 0)
                 {
