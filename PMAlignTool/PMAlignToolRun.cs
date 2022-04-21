@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 using HalconDotNet;
 using FormLib;
 using Logger;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 
 namespace PMAlignTool
 {

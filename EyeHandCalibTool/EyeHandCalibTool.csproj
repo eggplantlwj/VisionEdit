@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3F66A390-7C85-4D9B-B66D-69A051B1CBC4}</ProjectGuid>
+    <ProjectGuid>{46EE89BB-5EC9-4EAD-9E32-3E57288A0BF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ToolLib.VisionToolList</RootNamespace>
-    <AssemblyName>ToolLib.VisionToolList</AssemblyName>
+    <RootNamespace>EyeHandCalibTool</RootNamespace>
+    <AssemblyName>EyeHandCalibTool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\VisionEdit\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,8 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="halcondotnet">
+      <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\halcondotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="SunnyUI">
+      <HintPath>..\VisionEdit\bin\Debug\ThirdLib\SunnyUI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,45 +49,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VisionToolList.cs" />
+    <Compile Include="EyeHandCalib.cs" />
+    <Compile Include="EyeHandCalibRun.cs" />
+    <Compile Include="FormEyeHandCalib.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEyeHandCalib.Designer.cs">
+      <DependentUpon>FormEyeHandCalib.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CaliperTool\CaliperTool.csproj">
-      <Project>{AABF8D49-FA00-4E25-9410-4A573D48DAB1}</Project>
-      <Name>CaliperTool</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="FormEyeHandCalib.resx">
+      <DependentUpon>FormEyeHandCalib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CommonMethods\CommonHelper.csproj">
-      <Project>{1C8D0DDC-2086-48A9-9586-F2B643E2FC54}</Project>
+      <Project>{1c8d0ddc-2086-48a9-9586-f2b643e2fc54}</Project>
       <Name>CommonHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EyeHandCalibTool\EyeHandCalibTool.csproj">
-      <Project>{46ee89bb-5ec9-4ead-9e32-3e57288a0bf7}</Project>
-      <Name>EyeHandCalibTool</Name>
+    <ProjectReference Include="..\DataStruct\DataStruct.csproj">
+      <Project>{df3d4d4c-02df-4f92-9fd4-0a861f64b0ef}</Project>
+      <Name>DataStruct</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FindCircle\FindCircleTool.csproj">
-      <Project>{3d2739db-5618-49bf-bf5c-5cccd6a55c64}</Project>
-      <Name>FindCircleTool</Name>
+    <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
+      <Project>{9baa53fd-89b5-43e2-ac59-a27b006debb6}</Project>
+      <Name>HWindow_Tool</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FindLine\FindLineTool.csproj">
-      <Project>{C3BB2B1C-ED0C-4879-A6D3-D86342C5086E}</Project>
-      <Name>FindLineTool</Name>
+    <ProjectReference Include="..\ToolBase\ToolBase.csproj">
+      <Project>{7cd50b44-bf56-4e8e-8fa1-05f6968c1835}</Project>
+      <Name>ToolBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HalconTool\HalconTool.csproj">
-      <Project>{F5669FB7-77EC-44B9-898B-6D575B7D26EA}</Project>
-      <Name>HalconTool</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HDevEngineTool\HDevEngineTool.csproj">
-      <Project>{6112406a-a986-4a68-9d22-f0d7f0f81e02}</Project>
-      <Name>HDevEngineTool</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PMAlignTool\PMAlignTool.csproj">
-      <Project>{C1C08195-2EC8-42E9-93BB-D5331E6C6687}</Project>
-      <Name>PMAlignTool</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SDKCameraTool\SDKCameraTool.csproj">
-      <Project>{1c61f57d-1a36-4a98-b7dd-a65f2dbbe468}</Project>
-      <Name>SDKCameraTool</Name>
+    <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
+      <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
+      <Name>Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

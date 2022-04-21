@@ -1,6 +1,6 @@
 using System;
 using HalconDotNet;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 using ToolBase;
 using CommonMethods;
 using System.Diagnostics;
@@ -15,19 +15,11 @@ namespace FindLineTool
         /// <summary>
         /// 输入姿态
         /// </summary>
-        public PosXYU inputPose = new PosXYU();
-        /// <summary>
-        /// 输入姿态
-        /// </summary>
         public HTuple inputPoseHomMat2D = new HTuple();
         /// <summary>
         /// 位置修正姿态
         /// </summary>
         public HTuple changePoseHomMat2D = new HTuple();
-        /// <summary>
-        /// 制作模板时的位姿
-        /// </summary>
-        public PosXYU templatePose = new PosXYU();
         /// <summary>
         /// 修改的位姿
         /// </summary>

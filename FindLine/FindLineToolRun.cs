@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolLib.VisionJob;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 
 namespace FindLineTool
 {

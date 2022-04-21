@@ -7,7 +7,7 @@ using HalconDotNet;
 
 namespace DataStruct
 {
-    public class DataStruct
+    public class DataStructClass
     {
         /// <summary>
         /// XYU结果

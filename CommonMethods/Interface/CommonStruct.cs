@@ -10,15 +10,15 @@ namespace CommonMethods
     {
         Job,
         HalconTool,
-        SDK_Basler,
-        SDK_PointGray,
-        SDK_HIKVision,
+        SDKBasler,
+        SDKPointGray,
+        SDKHIKVision,
         BlobAnalyse,
         FindLine,
         FindCircle,
         Caliper,
         ShapeMatch,
-        EyeHandCalibration,
+        EyeHandCalib,
         CircleCalibration,
         SubImage,
         CreateROI,
@@ -41,6 +41,7 @@ namespace CommonMethods
         Output,
         CreateLine,
         PMAlignTool,
+        HDevEngineTool,
         None
         
     }
@@ -56,6 +57,9 @@ namespace CommonMethods
         Line,
         Circle,
         Pose,
+        Object,
+        HXLD,
+        HObject
     }
 
     public enum SoftwareRunState

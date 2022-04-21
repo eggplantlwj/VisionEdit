@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16E8FF17-98A8-4452-AB9E-C433DC9C21F7}</ProjectGuid>
+    <ProjectGuid>{6112406A-A986-4A68-9D22-F0D7F0F81E02}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ToolLib.VisionJob</RootNamespace>
-    <AssemblyName>ToolLib.VisionJob</AssemblyName>
+    <RootNamespace>HDevEngineTool</RootNamespace>
+    <AssemblyName>HDevEngineTool</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,20 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevComponents.DotNetBar2">
-      <HintPath>..\VisionEdit\bin\Debug\ThirdLib\DevComponents.DotNetBar2.dll</HintPath>
+    <Reference Include="halcondotnet, Version=19.5.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\halcondotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="hdevenginedotnet">
+      <HintPath>C:\Program Files\MVTec\HALCON-19.05-Progress\bin\dotnet20\hdevenginedotnet.dll</HintPath>
     </Reference>
     <Reference Include="SunnyUI, Version=3.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\VisionEdit\bin\Debug\ThirdLib\SunnyUI.dll</HintPath>
+      <HintPath>bin\Debug\SunnyUI.dll</HintPath>
     </Reference>
-    <Reference Include="SunnyUI.Common, Version=3.0.9.0, Culture=neutral, PublicKeyToken=5a271fb7ba597231, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\VisionEdit\bin\Debug\ThirdLib\SunnyUI.Common.dll</HintPath>
-    </Reference>
+    <Reference Include="SunnyUI.Common, Version=3.0.9.0, Culture=neutral, PublicKeyToken=5a271fb7ba597231" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,65 +55,52 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\VisionEdit\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormJobManage.cs">
+    <Compile Include="FormHDevEngineTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormJobManage.Designer.cs">
-      <DependentUpon>FormJobManage.cs</DependentUpon>
+    <Compile Include="FormHDevEngineTool.Designer.cs">
+      <DependentUpon>FormHDevEngineTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormToolBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormToolBox.Designer.cs">
-      <DependentUpon>FormToolBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OperateProject.cs" />
-    <Compile Include="OperateTreeView.cs" />
+    <Compile Include="HDevEngineCode.cs" />
+    <Compile Include="HDevEngineToolRun.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="VisionJob.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VisionJobParams.cs" />
-    <Compile Include="VisionProject.cs" />
-    <Compile Include="VisionToolFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonMethods\CommonHelper.csproj">
       <Project>{1c8d0ddc-2086-48a9-9586-f2b643e2fc54}</Project>
       <Name>CommonHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataStruct\DataStruct.csproj">
-      <Project>{df3d4d4c-02df-4f92-9fd4-0a861f64b0ef}</Project>
-      <Name>DataStruct</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FormLib\FormLib.csproj">
       <Project>{8c6fc8c6-8874-494b-8260-071f291aa33d}</Project>
       <Name>FormLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageWindow\HWindow_Tool.csproj">
-      <Project>{9BAA53FD-89B5-43E2-AC59-A27B006DEBB6}</Project>
+      <Project>{9baa53fd-89b5-43e2-ac59-a27b006debb6}</Project>
       <Name>HWindow_Tool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolBase\ToolBase.csproj">
+      <Project>{7cd50b44-bf56-4e8e-8fa1-05f6968c1835}</Project>
+      <Name>ToolBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToolLib.Log\Logger\Logger.csproj">
       <Project>{d4e052b9-e541-4b67-a1f9-273073ef1d4b}</Project>
       <Name>Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ToolLib.VisionJob\ToolLib.VisionJob.csproj">
+      <Project>{16e8ff17-98a8-4452-ab9e-c433dc9c21f7}</Project>
+      <Name>ToolLib.VisionJob</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormJobManage.resx">
-      <DependentUpon>FormJobManage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormToolBox.resx">
-      <DependentUpon>FormToolBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="FormHDevEngineTool.resx">
+      <DependentUpon>FormHDevEngineTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

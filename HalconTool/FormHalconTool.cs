@@ -12,6 +12,7 @@ using CommonMethods;
 using HalconDotNet;
 using ChoiceTech.Halcon.Control;
 using ViewROI;
+using Sunny.UI;
 
 namespace HalconTool
 {
@@ -195,8 +196,20 @@ namespace HalconTool
         // 窗体载入时还原参数
         public void InitTool()
         {
-            txbFilePath.Text = myHalconTool.imagePath;
             chbRGB2Gray.Checked = myHalconTool.RGBToGray;
+            if(myHalconTool.workMode == WorkMode.ReadOneImage)
+            {
+                gbSignalImg.Enabled = true;
+                gbMultImg.Enabled = false;
+                txbFilePath.Text = myHalconTool.imagePath;
+            }
+            else
+            {
+                gbSignalImg.Enabled = false;
+                gbMultImg.Enabled = true;
+                tbxImageDirectory.Text = myHalconTool.imageDirectoryPath;
+                lbImageName.Text = myHalconTool.currentImageName;
+            }
         }
         /// <summary>
         /// 将数据传递给HalconToolInterface
@@ -244,6 +257,99 @@ namespace HalconTool
         private void chbRGB2Gray_CheckedChanged(object sender, EventArgs e)
         {
             myHalconTool.RGBToGray = chbRGB2Gray.Checked;
+        }
+
+        private void ImageSource_Click(object sender, EventArgs e)
+        {
+            UIGroupBox myGroupBox = (UIGroupBox)sender;
+            if (myGroupBox.Text == "单张图像")
+            {
+                if(myGroupBox.Enabled == true)
+                {
+                    gbSignalImg.Enabled = false;
+                    gbMultImg.Enabled = true;
+                    myHalconTool.workMode = WorkMode.ReadMultImage;
+                }
+            }
+            else
+            {
+                if (myGroupBox.Enabled == true)
+                {
+                    gbSignalImg.Enabled = true;
+                    gbMultImg.Enabled = false;
+                    myHalconTool.workMode = WorkMode.ReadOneImage;
+                }
+            }
+        }
+
+        private void btnSelectDir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowseDialog = new FolderBrowserDialog();
+            if (Directory.Exists(myHalconTool.imageDirectoryPath))
+                folderBrowseDialog.SelectedPath = myHalconTool.imageDirectoryPath;
+            folderBrowseDialog.Description = "请选择图像文件夹路径";
+            if (folderBrowseDialog.ShowDialog() == DialogResult.OK)
+            {
+                myHalconTool.imageDirectoryPath = folderBrowseDialog.SelectedPath;
+                this.tbxImageDirectory.Text = myHalconTool.imageDirectoryPath;
+                myHalconTool.L_imageFile.Clear();
+                string[] files = Directory.GetFiles(folderBrowseDialog.SelectedPath);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    FileInfo fileInfo = new FileInfo(files[i]);
+                    if (fileInfo.Extension == ".jpg" || fileInfo.Extension == ".bmp" || fileInfo.Extension == ".png" || fileInfo.Extension == ".tif")
+                        myHalconTool.L_imageFile.Add(files[i]);
+                }
+                if (myHalconTool.L_imageFile.Count > 0)
+                {
+                    myHalconTool.currentImageIndex = 0;
+                    myHalconTool.outputImageFilePath = myHalconTool.L_imageFile[myHalconTool.currentImageIndex];
+                    myHalconTool.DispImage();
+                    myHalconTool.currentImageName = Path.GetFileName(myHalconTool.L_imageFile[myHalconTool.currentImageIndex]);
+                    lbImageName.Text = myHalconTool.currentImageName;
+
+                }
+              //  lbl_imageNum.Text = "共" + myHalconTool.L_imageFile.Count + "张";
+
+            }
+        }
+
+        public void btnNext_Click(object sender, EventArgs e)
+        {
+            if (myHalconTool.L_imageFile.Count > 0)
+            {
+                int oldIndex = myHalconTool.currentImageIndex;
+                if(++myHalconTool.currentImageIndex < myHalconTool.L_imageFile.Count)
+                {
+                    myHalconTool.outputImageFilePath = myHalconTool.L_imageFile[myHalconTool.currentImageIndex];
+                    myHalconTool.Run(SoftwareRunState.Debug);
+                    myHalconTool.currentImageName = Path.GetFileName(myHalconTool.L_imageFile[myHalconTool.currentImageIndex]);
+                    lbImageName.Text = myHalconTool.currentImageName;
+                }
+                else
+                {
+                    myHalconTool.currentImageIndex = oldIndex;
+                }
+            }
+        }
+
+        private void btnOld_Click(object sender, EventArgs e)
+        {
+            if (myHalconTool.L_imageFile.Count > 0)
+            {
+                int oldIndex = myHalconTool.currentImageIndex;
+                if (--myHalconTool.currentImageIndex >= 0)
+                {
+                    myHalconTool.outputImageFilePath = myHalconTool.L_imageFile[myHalconTool.currentImageIndex];
+                    myHalconTool.Run(SoftwareRunState.Debug);
+                    myHalconTool.currentImageName = Path.GetFileName(myHalconTool.L_imageFile[myHalconTool.currentImageIndex]);
+                    lbImageName.Text = myHalconTool.currentImageName;
+                }
+                else
+                {
+                    myHalconTool.currentImageIndex = oldIndex;
+                }
+            }
         }
     }
 }

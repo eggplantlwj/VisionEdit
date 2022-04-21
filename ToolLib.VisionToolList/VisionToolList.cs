@@ -1,7 +1,9 @@
 using CaliperTool;
 using CommonMethods;
+using EyeHandCalibTool;
 using FindLineTool;
 using HalconTool;
+using HDevEngineTool;
 using PMAlignTool;
 using System;
 using System.Collections.Generic;
@@ -32,7 +34,6 @@ namespace VisionJobFactory
             toolInput = new List<ToolIO>();
             toolOutput = new List<ToolIO>() { outputImage };
         }
-
         /// <summary>
         /// 只获取选择工具的描述信息..
         /// </summary>
@@ -41,6 +42,39 @@ namespace VisionJobFactory
             toolDescription = "Halcon采集图像接口,可直接连接网口、USB等相机";
         }
     }
+
+    [Serializable]
+    [VisionToolAttribute(ToolType.SDKBasler)]
+    public class SDKBaslerInterface : IToolInfo
+    {
+        // 必添加输出项
+        ToolIO outputImage = new ToolIO("OutputImage", null, DataType.Image);
+        /// <summary>
+        /// 获取工具的所有信息
+        /// </summary>
+        /// <param name="生成的工具名称"></param>
+        public SDKBaslerInterface(string toolName)
+        {
+            enable = true;
+            toolType = ToolType.HalconTool;
+            this.toolName = toolName;
+            tool = new HalconTool.HalconTool();
+            FormTool = null;
+            FormToolName = "SDKBaslerTool.FormSDKBaslerTool";
+            toolInput = new List<ToolIO>();
+            toolOutput = new List<ToolIO>() { outputImage };
+        }
+        /// <summary>
+        /// 只获取选择工具的描述信息..
+        /// </summary>
+        public SDKBaslerInterface()
+        {
+            toolDescription = "Basler相机采集图像接口,可直接连接网口、USB等Basler相机";
+        }
+    }
+
+
+
     [Serializable]
     [VisionToolAttribute(ToolType.FindLine)]
     public class FindLineToolInterface : IToolInfo
@@ -109,6 +143,34 @@ namespace VisionJobFactory
     }
 
     [Serializable]
+    [VisionToolAttribute(ToolType.HDevEngineTool)]
+    public class HDevEngineToolToolInterface : IToolInfo
+    {
+        ToolIO inputImage = new ToolIO("InputImage", null, DataType.Image);
+        ToolIO inputPos = new ToolIO("InputPos", null, DataType.Pose);
+        ToolIO outObject = new ToolIO("OutObject", null, DataType.Object);
+        public HDevEngineToolToolInterface(string toolName)
+        {
+            enable = true;
+            toolType = ToolType.HDevEngineTool;
+            this.toolName = toolName;
+            tool = new HDevEngineCode();
+            FormToolName = "HDevEngineTool.FormHDevEngineTool";
+            FormTool = null;
+            toolInput = new List<ToolIO>() { inputImage, inputPos };
+            toolOutput = new List<ToolIO>() { outObject };
+
+        }
+        /// <summary>
+        /// 只获取选择工具的描述信息
+        /// </summary>
+        public HDevEngineToolToolInterface()
+        {
+            toolDescription = "使用Halcon引擎直接调用Halcon hdev代码";
+        }
+    }
+
+    [Serializable]
     [VisionToolAttribute(ToolType.PMAlignTool)]
     public class PMAlignToolToolInterface : IToolInfo
     {
@@ -136,6 +198,33 @@ namespace VisionJobFactory
         public PMAlignToolToolInterface()
         {
             toolDescription = "模板匹配工具，可得到根据图像捕获特征的姿态";
+        }
+    }
+    [Serializable]
+    [VisionToolAttribute(ToolType.EyeHandCalib)]
+    public class EyeHandCalibrationInterface : IToolInfo
+    {
+        ToolIO inputPoint = new ToolIO("InputPoint", null, DataType.Point);
+        ToolIO outPose = new ToolIO("GetPose", null, DataType.Pose);
+        ToolIO outPoint = new ToolIO("OutPoint", null, DataType.Point);
+        public EyeHandCalibrationInterface(string toolName)
+        {
+            enable = true;
+            toolType = ToolType.EyeHandCalib;
+            this.toolName = toolName;
+            tool = new EyeHandCalib();
+            FormToolName = "EyeHandCalibTool.FormEyeHandCalib";
+            FormTool = null;
+            toolInput = new List<ToolIO> { inputPoint };
+            toolOutput = new List<ToolIO>() { outPose,outPoint};
+            
+        }
+        /// <summary>
+        /// 只获取选择工具的描述信息
+        /// </summary>
+        public EyeHandCalibrationInterface()
+        {
+            toolDescription = "手眼标定工具，根据输入的图像坐标和机械坐标可测得姿态";
         }
     }
 }

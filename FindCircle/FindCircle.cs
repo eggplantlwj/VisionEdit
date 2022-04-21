@@ -1,6 +1,6 @@
 using System;
 using HalconDotNet;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 using ToolBase;
 using CommonMethods;
 using ViewROI;

@@ -10,6 +10,7 @@ using HalconDotNet;
 using ToolBase;
 using System.Diagnostics;
 using ViewROI;
+using System.IO;
 
 namespace HalconTool
 {
@@ -91,7 +92,23 @@ namespace HalconTool
             Stopwatch sw = new Stopwatch();
             sw.Restart();
             softwareRunState = softwareState;
-            DispImage();
+            if(workMode == WorkMode.ReadOneImage)
+            {
+                DispImage();
+            }
+            else
+            {
+                if (currentImageIndex <= L_imageFile.Count)
+                {
+                    currentImageIndex = currentImageIndex == L_imageFile.Count ? 0 : currentImageIndex;
+                    outputImageFilePath = L_imageFile[currentImageIndex];
+                    DispImage();
+                    currentImageName = Path.GetFileName(L_imageFile[currentImageIndex]);
+                    if(softwareState == SoftwareRunState.Release)
+                        currentImageIndex++;
+                }
+            }
+            
             SetToolStatusDisp();
             sw.Stop();
             runTime = $"工具运行时间：{sw.ElapsedMilliseconds.ToString()} ms";

@@ -30,9 +30,9 @@ namespace ToolLib.VisionJob
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("流程", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Halcon窗口", 3, 3);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Basler");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("HIKVision");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Halcon本地", 3, 3);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Basler相机");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("HIKVision相机");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("获取图像", new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3,
@@ -51,13 +51,19 @@ namespace ToolLib.VisionJob
             treeNode10,
             treeNode11,
             treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("找线");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("找圆");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("卡尺");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("几何", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15,
-            treeNode16});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("手眼标定");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("标定与校准", new System.Windows.Forms.TreeNode[] {
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("找线");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("找圆");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("卡尺");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("几何", new System.Windows.Forms.TreeNode[] {
+            treeNode16,
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Halcon引擎");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("脚本", new System.Windows.Forms.TreeNode[] {
+            treeNode20});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormToolBox));
             this.tvw_ToolBox = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -87,15 +93,15 @@ namespace ToolLib.VisionJob
             treeNode2.Name = "节点1";
             treeNode2.SelectedImageIndex = 3;
             treeNode2.Tag = "HalconTool";
-            treeNode2.Text = "Halcon窗口";
+            treeNode2.Text = "Halcon本地";
             treeNode3.ImageKey = "图像.png";
             treeNode3.Name = "节点2";
             treeNode3.SelectedImageIndex = 3;
-            treeNode3.Text = "Basler";
+            treeNode3.Text = "Basler相机";
             treeNode4.ImageKey = "图像.png";
             treeNode4.Name = "节点3";
             treeNode4.SelectedImageIndex = 3;
-            treeNode4.Text = "HIKVision";
+            treeNode4.Text = "HIKVision相机";
             treeNode5.ImageKey = "相机.png";
             treeNode5.Name = "节点0";
             treeNode5.SelectedImageKey = "相机.png";
@@ -122,30 +128,50 @@ namespace ToolLib.VisionJob
             treeNode13.ImageKey = "文件夹.png";
             treeNode13.Name = "节点8";
             treeNode13.Text = "匹配";
-            treeNode14.ImageKey = "Line.png";
-            treeNode14.Name = "FindLine";
-            treeNode14.SelectedImageKey = "Line.png";
-            treeNode14.Tag = "FindLine";
-            treeNode14.Text = "找线";
-            treeNode15.ImageKey = "Circle.png";
-            treeNode15.Name = "FindCircle";
-            treeNode15.SelectedImageKey = "Circle.png";
-            treeNode15.Text = "找圆";
-            treeNode16.ImageKey = "卡尺.png";
-            treeNode16.Name = "Caliper";
-            treeNode16.SelectedImageKey = "卡尺.png";
-            treeNode16.Tag = "Caliper";
-            treeNode16.Text = "卡尺";
-            treeNode17.ImageKey = "几何_32.png";
-            treeNode17.Name = "节点0";
-            treeNode17.SelectedImageKey = "几何_32.png";
-            treeNode17.Text = "几何";
+            treeNode14.ImageKey = "校准_48.png";
+            treeNode14.Name = "节点2";
+            treeNode14.SelectedImageKey = "校准_48.png";
+            treeNode14.Tag = "EyeHandCalib";
+            treeNode14.Text = "手眼标定";
+            treeNode15.ImageKey = "icons8_workflow_48.png";
+            treeNode15.Name = "节点1";
+            treeNode15.SelectedImageKey = "icons8_workflow_48.png";
+            treeNode15.Text = "标定与校准";
+            treeNode16.ImageKey = "Line.png";
+            treeNode16.Name = "FindLine";
+            treeNode16.SelectedImageKey = "Line.png";
+            treeNode16.Tag = "FindLine";
+            treeNode16.Text = "找线";
+            treeNode17.ImageKey = "Circle.png";
+            treeNode17.Name = "FindCircle";
+            treeNode17.SelectedImageKey = "Circle.png";
+            treeNode17.Text = "找圆";
+            treeNode18.ImageKey = "卡尺.png";
+            treeNode18.Name = "Caliper";
+            treeNode18.SelectedImageKey = "卡尺.png";
+            treeNode18.Tag = "Caliper";
+            treeNode18.Text = "卡尺";
+            treeNode19.ImageKey = "几何_32.png";
+            treeNode19.Name = "节点0";
+            treeNode19.SelectedImageKey = "几何_32.png";
+            treeNode19.Text = "几何";
+            treeNode20.ImageKey = "halcon_Icon.png";
+            treeNode20.Name = "HDevEngine";
+            treeNode20.SelectedImageKey = "halcon_Icon.png";
+            treeNode20.Tag = "HDevEngineTool";
+            treeNode20.Text = "Halcon引擎";
+            treeNode21.ImageKey = "脚本1";
+            treeNode21.Name = "脚本";
+            treeNode21.SelectedImageKey = "脚本1";
+            treeNode21.Text = "脚本";
             this.tvw_ToolBox.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode5,
             treeNode9,
             treeNode13,
-            treeNode17});
+            treeNode15,
+            treeNode19,
+            treeNode21});
             this.tvw_ToolBox.SelectedImageIndex = 4;
             this.tvw_ToolBox.Size = new System.Drawing.Size(417, 543);
             this.tvw_ToolBox.TabIndex = 1;
@@ -175,6 +201,11 @@ namespace ToolLib.VisionJob
             this.imageList1.Images.SetKeyName(15, "几何_32.png");
             this.imageList1.Images.SetKeyName(16, "图像预处理_32.png");
             this.imageList1.Images.SetKeyName(17, "相机.png");
+            this.imageList1.Images.SetKeyName(18, "脚本1");
+            this.imageList1.Images.SetKeyName(19, "脚本2");
+            this.imageList1.Images.SetKeyName(20, "halcon_Icon.png");
+            this.imageList1.Images.SetKeyName(21, "icons8_workflow_48.png");
+            this.imageList1.Images.SetKeyName(22, "校准_48.png");
             // 
             // richTextBoxEx1
             // 
@@ -208,6 +239,8 @@ namespace ToolLib.VisionJob
             this.imageListTool.Images.SetKeyName(9, "匹配.ico");
             this.imageListTool.Images.SetKeyName(10, "模板.ico");
             this.imageListTool.Images.SetKeyName(11, "相机.png");
+            this.imageListTool.Images.SetKeyName(12, "脚本");
+            this.imageListTool.Images.SetKeyName(13, "脚本2");
             // 
             // splitContainer1
             // 

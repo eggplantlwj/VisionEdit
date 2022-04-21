@@ -91,6 +91,7 @@ namespace ToolLib.VisionJob
             this.picNewJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picNewJob.TabIndex = 2;
             this.picNewJob.TabStop = false;
+            this.picNewJob.Click += new System.EventHandler(this.picNewJob_Click);
             // 
             // FormJobManage
             // 

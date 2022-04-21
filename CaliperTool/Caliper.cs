@@ -2,7 +2,7 @@ using System;
 using CommonMethods;
 using HalconDotNet;
 using ToolBase;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 using ChoiceTech.Halcon.Control;
 using ViewROI;
 

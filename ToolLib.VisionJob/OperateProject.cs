@@ -61,6 +61,8 @@ namespace ToolLib.VisionJob
             if(newAddJob)
             {
                 VisionJobParams.pVisionProject.Project.Add(jobName, new VisionJob(jobName));
+                FormJobManage.Instance.tabJobUnion.SelectedTab = newTab;
+               // newTab.Select();
             }
             InitJob(VisionJobParams.pVisionProject.Project[jobName]);
         }

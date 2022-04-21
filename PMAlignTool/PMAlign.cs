@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using CommonMethods;
 using HalconDotNet;
 using ToolBase;
-using static DataStruct.DataStruct;
+using static DataStruct.DataStructClass;
 using System.Windows.Forms;
 using Logger;
 using System.Diagnostics;
