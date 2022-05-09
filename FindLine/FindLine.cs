@@ -227,11 +227,15 @@ namespace FindLineTool
         public void UpdateModelLineLocation()
         {
             // 计算新的位置线和转换之后位置线之间的差异，再将差异补偿到模板位置线中
-            HOperatorSet.VectorToSimilarity(new HTuple(newExpectLineStartRow, newExpectLineEndRow), new HTuple(newExpectLineStartCol, newExpectLineEndCol),
+            if(newExpectLineStartRow.Type !=  HTupleType.EMPTY)
+            {
+                HOperatorSet.VectorToSimilarity(new HTuple(newExpectLineStartRow, newExpectLineEndRow), new HTuple(newExpectLineStartCol, newExpectLineEndCol),
                 new HTuple(expectLineStartRow, expectLineEndRow), new HTuple(expectLineStartCol, expectLineEndCol), out changePoseHomMat2D);
-            // 更新位置
-            HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelStartRow, modelStartCol, out modelStartRow, out modelStartCol);
-            HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelEndRow, modelEndCol, out modelEndRow, out modelEndCol);
+                // 更新位置
+                HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelStartRow, modelStartCol, out modelStartRow, out modelStartCol);
+                HOperatorSet.AffineTransPixel(changePoseHomMat2D, modelEndRow, modelEndCol, out modelEndRow, out modelEndCol);
+            }
+            
         }
 
         public override void Run(SoftwareRunState softwareRunState)
@@ -253,7 +257,7 @@ namespace FindLineTool
                 {
                     UpdateImage();
                 }
-                if (inputPoseHomMat2D != null)
+                if (inputPoseHomMat2D.Type != HTupleType.EMPTY)
                 {
                     //对预期线的起始点做放射变换
                     HOperatorSet.AffineTransPixel(inputPoseHomMat2D, modelStartRow, modelStartCol, out newExpectLineStartRow, out newExpectLineStartCol);

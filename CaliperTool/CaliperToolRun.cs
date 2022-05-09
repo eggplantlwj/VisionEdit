@@ -30,10 +30,10 @@ namespace CaliperTool
 {
     public class CaliperRun : IToolRun
     {
-        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
+        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindowForm)
         {
             Caliper myCaliper = (Caliper)L_toolList[toolIndex].tool;
-            VisionJob myJob = VisionJobParams.pVisionProject.Project[jobName];
+            VisionJob myJob = (VisionJob)runJob;
             for (int j = 0; j < inputItemNum; j++)
             {
                 if (L_toolList[toolIndex].toolInput[j].IOName == "InputImage" && L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
@@ -73,13 +73,14 @@ namespace CaliperTool
             myCaliper.Run(SoftwareRunState.Release);
             if (myCaliper.toolRunStatu == ToolRunStatu.Succeed)
             {
-                myCaliper.DispMainWindow(FormImageWindow.Instance.myHWindow);
+                myCaliper.DispMainWindow(((FormImageWindow)myHalconWindowForm).myHWindow);
                 myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行成功", Color.Green, selectNode);
             }
             else
             {
                 myJob.FormLogDisp(L_toolList[toolIndex].toolName + "  运行失败", Color.Red, selectNode);
             }
+            L_toolList[toolIndex].toolRunStatu = myCaliper.toolRunStatu;
         }
 
     }

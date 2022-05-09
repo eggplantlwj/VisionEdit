@@ -12,6 +12,7 @@
 * ==============================================================================
 */
 using CommonMethods;
+using FormLib;
 using Logger;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ToolLib.VisionJob
 {
@@ -65,6 +67,35 @@ namespace ToolLib.VisionJob
                // newTab.Select();
             }
             InitJob(VisionJobParams.pVisionProject.Project[jobName]);
+        }
+
+        public void CreateNewJob(string jobName, VisionJob newJob, bool newAddJob = true)
+        {
+            TabPage newTab = new TabPage(jobName);
+            newTab.Controls.Add(new TreeView());
+            FormJobManage.Instance.tabJobUnion.TabPages.Add(newTab);
+            if (newAddJob)
+            {
+                VisionJobParams.pVisionProject.Project.Add(jobName, newJob);
+                FormJobManage.Instance.tabJobUnion.SelectedTab = newTab;
+                // newTab.Select();
+            }
+            newJob.JobName = jobName;
+            InitJob(VisionJobParams.pVisionProject.Project[jobName]);
+        }
+
+        public void AddDispImageindow(DockPanel myPanel, DockState myState, string windowName)
+        {
+            if(VisionJobParams.pVisionProject.Project.ContainsKey(windowName))
+            {
+                FormImageWindow myImageWindow =  VisionJobParams.pVisionProject.Project[windowName].myHalconWindow;
+                if(myImageWindow == null)
+                {
+                    myImageWindow = new FormImageWindow();
+                }
+                myImageWindow.Text = windowName + "-图像";
+                myImageWindow.Show(myPanel, myState);
+            }
         }
 
         public void SaveJob()

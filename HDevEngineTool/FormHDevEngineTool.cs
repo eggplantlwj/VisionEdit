@@ -121,6 +121,7 @@ namespace HDevEngineTool
             if(myHDevEngine.ProgramCall != null)
             {
                 myHDevEngine.ProgramCall.Execute();
+               // HTuple a = myHDevEngine.ProgramCall.GetCtrlVarTuple("RunTime");
             }
             
         }

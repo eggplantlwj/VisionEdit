@@ -31,10 +31,10 @@ namespace FindLineTool
 {
     public class FindLineRun : IToolRun
     {
-        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
+        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindowForm)
         {
             FindLine myFindLine = (FindLine)L_toolList[toolIndex].tool;
-            VisionJob myJob = VisionJobParams.pVisionProject.Project[jobName];
+            VisionJob myJob = (VisionJob)runJob;
             for (int j = 0; j < inputItemNum; j++)
             {
                 if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
@@ -74,8 +74,9 @@ namespace FindLineTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myFindLine.runTime}", Color.Green, selectNode);
-                myFindLine.DispMainWindow(FormImageWindow.Instance.myHWindow);
+                myFindLine.DispMainWindow(((FormImageWindow)myHalconWindowForm).myHWindow);
             }
+            L_toolList[toolIndex].toolRunStatu = myFindLine.toolRunStatu;
         }
     }
 }

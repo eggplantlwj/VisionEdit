@@ -87,7 +87,7 @@ namespace FindLineTool
             chBDispRec.Checked = myFindLine.dispRec;
             chBDispCross.Checked = myFindLine.dispCross;
             //// 将要编辑的线显示
-            selected_drawing_object = myFindLine.inputPoseHomMat2D != null? HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] { myFindLine.newExpectLineStartRow, myFindLine.newExpectLineStartCol, myFindLine.newExpectLineEndRow, myFindLine.newExpectLineEndCol })
+            selected_drawing_object = myFindLine.inputPoseHomMat2D.Length != 0? HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] { myFindLine.newExpectLineStartRow, myFindLine.newExpectLineStartCol, myFindLine.newExpectLineEndRow, myFindLine.newExpectLineEndCol })
                 :HDrawingObject.CreateDrawingObject(HDrawingObject.HDrawingObjectType.LINE, new HTuple[] {myFindLine.modelStartRow, myFindLine.modelStartCol, myFindLine.modelEndRow, myFindLine.modelEndCol });
             GC.KeepAlive(selected_drawing_object);
             selected_drawing_object.OnSelect(OnSelectDrawingObject);

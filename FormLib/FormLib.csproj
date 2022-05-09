@@ -60,6 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormHalconWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHalconWindow.Designer.cs">
+      <DependentUpon>FormHalconWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormImageWindow.cs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormHalconWindow.resx">
+      <DependentUpon>FormHalconWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormImageWindow.cs.resx">
       <DependentUpon>FormImageWindow.cs.cs</DependentUpon>
     </EmbeddedResource>

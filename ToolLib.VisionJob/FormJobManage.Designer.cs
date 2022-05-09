@@ -32,10 +32,14 @@ namespace ToolLib.VisionJob
             this.tabJobUnion = new System.Windows.Forms.TabControl();
             this.btnCycleRun = new System.Windows.Forms.Button();
             this.btnSignael = new System.Windows.Forms.Button();
-            this.picDeleteJob = new System.Windows.Forms.PictureBox();
             this.picNewJob = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picDeleteJob)).BeginInit();
+            this.picDeleteJob = new System.Windows.Forms.PictureBox();
+            this.picSaveJob = new System.Windows.Forms.PictureBox();
+            this.picOpenJob = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picNewJob)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDeleteJob)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSaveJob)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picOpenJob)).BeginInit();
             this.SuspendLayout();
             // 
             // tabJobUnion
@@ -70,17 +74,6 @@ namespace ToolLib.VisionJob
             this.btnSignael.UseVisualStyleBackColor = true;
             this.btnSignael.Click += new System.EventHandler(this.btnSignael_Click);
             // 
-            // picDeleteJob
-            // 
-            this.picDeleteJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picDeleteJob.Image = ((System.Drawing.Image)(resources.GetObject("picDeleteJob.Image")));
-            this.picDeleteJob.Location = new System.Drawing.Point(53, 595);
-            this.picDeleteJob.Name = "picDeleteJob";
-            this.picDeleteJob.Size = new System.Drawing.Size(35, 40);
-            this.picDeleteJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDeleteJob.TabIndex = 2;
-            this.picDeleteJob.TabStop = false;
-            // 
             // picNewJob
             // 
             this.picNewJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -93,11 +86,48 @@ namespace ToolLib.VisionJob
             this.picNewJob.TabStop = false;
             this.picNewJob.Click += new System.EventHandler(this.picNewJob_Click);
             // 
+            // picDeleteJob
+            // 
+            this.picDeleteJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picDeleteJob.Image = ((System.Drawing.Image)(resources.GetObject("picDeleteJob.Image")));
+            this.picDeleteJob.Location = new System.Drawing.Point(53, 595);
+            this.picDeleteJob.Name = "picDeleteJob";
+            this.picDeleteJob.Size = new System.Drawing.Size(35, 40);
+            this.picDeleteJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDeleteJob.TabIndex = 2;
+            this.picDeleteJob.TabStop = false;
+            // 
+            // picSaveJob
+            // 
+            this.picSaveJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picSaveJob.Image = ((System.Drawing.Image)(resources.GetObject("picSaveJob.Image")));
+            this.picSaveJob.Location = new System.Drawing.Point(94, 595);
+            this.picSaveJob.Name = "picSaveJob";
+            this.picSaveJob.Size = new System.Drawing.Size(35, 40);
+            this.picSaveJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picSaveJob.TabIndex = 2;
+            this.picSaveJob.TabStop = false;
+            this.picSaveJob.Click += new System.EventHandler(this.picSaveJob_Click);
+            // 
+            // picOpenJob
+            // 
+            this.picOpenJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picOpenJob.Image = ((System.Drawing.Image)(resources.GetObject("picOpenJob.Image")));
+            this.picOpenJob.Location = new System.Drawing.Point(135, 595);
+            this.picOpenJob.Name = "picOpenJob";
+            this.picOpenJob.Size = new System.Drawing.Size(35, 40);
+            this.picOpenJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picOpenJob.TabIndex = 2;
+            this.picOpenJob.TabStop = false;
+            this.picOpenJob.Click += new System.EventHandler(this.picOpenJob_Click);
+            // 
             // FormJobManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 636);
+            this.Controls.Add(this.picOpenJob);
+            this.Controls.Add(this.picSaveJob);
             this.Controls.Add(this.picDeleteJob);
             this.Controls.Add(this.picNewJob);
             this.Controls.Add(this.btnSignael);
@@ -108,8 +138,10 @@ namespace ToolLib.VisionJob
             this.Name = "FormJobManage";
             this.Text = "JobManage";
             this.Load += new System.EventHandler(this.FormJobManage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picDeleteJob)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNewJob)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDeleteJob)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSaveJob)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picOpenJob)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,8 +149,10 @@ namespace ToolLib.VisionJob
         #endregion
         private System.Windows.Forms.Button btnCycleRun;
         private System.Windows.Forms.Button btnSignael;
+        public System.Windows.Forms.TabControl tabJobUnion;
         private System.Windows.Forms.PictureBox picNewJob;
         private System.Windows.Forms.PictureBox picDeleteJob;
-        public System.Windows.Forms.TabControl tabJobUnion;
+        private System.Windows.Forms.PictureBox picSaveJob;
+        private System.Windows.Forms.PictureBox picOpenJob;
     }
 }

@@ -190,7 +190,6 @@ namespace VisionJobFactory
             FormTool = null;
             toolInput = new List<ToolIO>() { inputImage };
             toolOutput = new List<ToolIO>() { outPose, outPoseX, outPoseY, outPoseR, outPoseScore };
-            
         }
         /// <summary>
         /// 只获取选择工具的描述信息

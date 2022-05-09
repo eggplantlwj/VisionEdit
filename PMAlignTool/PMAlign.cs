@@ -276,17 +276,25 @@ namespace PMAlignTool
             maxScale = FormPMAlignTool.Instance.nud_ScaleRange.Value;
         }
 
-        public int CreateModelTemplate()
+        public int CreateModelTemplate(bool setInputModelRegion, HObject inputModelRegion)
         {
             HObject template;
             oldTrainImage = inputImage;
-            if (FormPMAlignTool.Instance.templateModelListAdd.Count == 0)
+            // 判断是否从外部输入模板
+            if(setInputModelRegion)
             {
-                LoggerClass.WriteLog($"{toolName}未划定模板建立区域", MsgLevel.Exception);
-                isCreateModel = false;
-                return -1;
+                templateRegion = inputModelRegion;
             }
-            CreateModelRegion();
+            else
+            {
+                if (FormPMAlignTool.Instance.templateModelListAdd.Count == 0)
+                {
+                    LoggerClass.WriteLog($"{toolName}未划定模板建立区域", MsgLevel.Exception);
+                    isCreateModel = false;
+                    return -1;
+                }
+                CreateModelRegion();
+            }
             HObject createModelImg;
             HOperatorSet.GenEmptyObj(out createModelImg);
             createModelImg = ProcessImage(inputImage);

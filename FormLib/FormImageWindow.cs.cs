@@ -14,9 +14,11 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace FormLib
 {
+    [Serializable]
     public partial class FormImageWindow : DockContent
     {
         public HWindowTool_Smart myHWindow = new HWindowTool_Smart();
+        public string WindowName { get; set; }
         public FormImageWindow()
         {
             InitializeComponent();

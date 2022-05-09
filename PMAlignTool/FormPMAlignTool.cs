@@ -24,7 +24,7 @@ namespace PMAlignTool
         private HDrawingObject serachRegion_drawing_object = new HDrawingObject();
         public List<HDrawingObject> templateModelListAdd = new List<HDrawingObject>() { };
         public List<HDrawingObject> templateModelListSub = new List<HDrawingObject>() { };
-        public List<HDrawingObject> templateModelList = new List<HDrawingObject>() { };
+       
         public FormPMAlignTool(ref object pmalign)
         {
             InitializeComponent();
@@ -191,7 +191,7 @@ namespace PMAlignTool
         {
             if(myPMAlign.inputImage != null)
             {
-                if(myPMAlign.CreateModelTemplate() == 0)
+                if(myPMAlign.CreateModelTemplate(false, null) == 0)
                 {
                     if (myPMAlign.matchMode == MatchMode.BasedShape)
                     {

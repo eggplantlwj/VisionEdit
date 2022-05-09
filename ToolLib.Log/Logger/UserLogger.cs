@@ -176,14 +176,17 @@ namespace Logger
                     {
                         lock(myObject)
                         { 
-                            LogInfo log = LoggerClass.logQueue.Dequeue();
-                            if (log.ex != null)
+                            if(LoggerClass.logQueue.Count > 0)
                             {
-                                AddLog(log.logLevel, log.message, log.ex);
-                            }
-                            else
-                            {
-                                AddLog(log.logLevel, log.message);
+                                LogInfo log = LoggerClass.logQueue.Dequeue();
+                                if (log.ex != null)
+                                {
+                                    AddLog(log.logLevel, log.message, log.ex);
+                                }
+                                else
+                                {
+                                    AddLog(log.logLevel, log.message);
+                                }
                             }
                         }
                     }

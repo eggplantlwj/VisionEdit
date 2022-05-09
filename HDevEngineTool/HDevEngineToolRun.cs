@@ -11,7 +11,7 @@ namespace HDevEngineTool
 {
     public class HDevEngineToolRun : IToolRun
     {
-        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
+        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindowForm)
         {
             
         }

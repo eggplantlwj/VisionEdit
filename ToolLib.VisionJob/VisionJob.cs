@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ViewROI;
 
 namespace ToolLib.VisionJob
 {
@@ -257,6 +258,10 @@ namespace ToolLib.VisionJob
             {
                 if (!isDrawing)
                 {
+                    TreeView tree = GetJobTree();
+                    graph = tree.CreateGraphics();
+                    tree.CreateGraphics().Dispose();
+                    
                     isDrawing = true;
                     Thread th = new Thread(() =>
                     {
@@ -265,9 +270,7 @@ namespace ToolLib.VisionJob
                         colValueAndColor.Clear();
                         startNodeAndColor.Clear();
                         list.Clear();
-                        TreeView tree = GetJobTree();
-                        graph = tree.CreateGraphics();
-                        tree.CreateGraphics().Dispose();
+                        
                         foreach (KeyValuePair<TreeNode, TreeNode> item in D_itemAndSource)
                         {
                             // 将此划线线程委托到JOB管理界面
@@ -886,14 +889,21 @@ namespace ToolLib.VisionJob
                 string assemblyName = $"{L_toolList[i].FormToolName.Split('.')[0]}.{L_toolList[i].toolType.ToString()}Run,{L_toolList[i].FormToolName.Split('.')[0]}";
                 Type classType = Type.GetType(assemblyName);
                 IToolRun myTool = (IToolRun)Activator.CreateInstance(classType);
-                myTool.ToolRun(JobName, i, inputItemNum, treeNode, L_toolList);
+                myTool.ToolRun(JobName, i, inputItemNum, treeNode, L_toolList, this, myHalconWindow);
             }
         }
 
         public void FormLogDisp(string mes, Color color, TreeNode treeNode, Logger.MsgLevel msgLevel = Logger.MsgLevel.Info)
         {
-            Logger.LoggerClass.WriteLog(mes, msgLevel);
-            treeNode.ForeColor = color;
+            LoggerClass.WriteLog(mes, msgLevel);
+            if(treeNode != null)
+            {
+                treeNode.ForeColor = color;
+            }
+            
         }
+        [NonSerialized]
+        public FormImageWindow myHalconWindow = new FormImageWindow();
+
     }
 }

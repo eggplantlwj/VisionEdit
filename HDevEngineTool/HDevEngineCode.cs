@@ -54,8 +54,10 @@ namespace HDevEngineTool
                     MyProgram.LoadProgram(CodeFilePath);
                     ProgramCall = new HDevProgramCall(MyProgram);
                     MyEngine.SetHDevOperators(new HDevOpMultiWindowImpl(FormHDevEngineTool.Instance.myHwindow.SmartWindow.HalconWindow));
+                    
                 }
                 ProgramCall.Execute();
+              //  HTuple a = MyEngine.GetGlobalCtrlVarTuple("RunTime");
             }
         }
     }

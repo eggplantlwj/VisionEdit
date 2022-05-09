@@ -31,11 +31,10 @@ namespace PMAlignTool
 {
     public class PMAlignToolRun : IToolRun
     {
-        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
+        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindowForm)
         {
             PMAlign myPMAlign = (PMAlign)L_toolList[toolIndex].tool;
-            
-            VisionJob myJob = VisionJobParams.pVisionProject.Project[jobName];
+            VisionJob myJob = (VisionJob)runJob;
             for (int j = 0; j < inputItemNum; j++)
             {
                 if (L_toolList[toolIndex].GetInput(L_toolList[toolIndex].toolInput[j].IOName).value == null)
@@ -64,7 +63,7 @@ namespace PMAlignTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myPMAlign.runTime}", Color.Green, selectNode);
-                myPMAlign.DispMainWindow(FormImageWindow.Instance.myHWindow);
+                myPMAlign.DispMainWindow(((FormImageWindow)myHalconWindowForm).myHWindow);
                 // 将输出值赋值到界面输出中
                 if (myPMAlign.L_resultList.Count > 0)
                 {
@@ -75,6 +74,7 @@ namespace PMAlignTool
                     L_toolList[toolIndex].toolOutput[4] = new ToolIO("GetPose.Score", myPMAlign.L_resultList[0].Socre, DataType.DoubleValue);
                 }
             }
+            L_toolList[toolIndex].toolRunStatu = myPMAlign.toolRunStatu;
         }
     }
 }

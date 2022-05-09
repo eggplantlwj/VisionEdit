@@ -45,7 +45,7 @@ namespace VisionEdit
             InitDockPanel();
             _instance = this;
         }
-
+        bool configLoadFlag = false;
         private void InitDockPanel()
         {
             try
@@ -66,33 +66,38 @@ namespace VisionEdit
                     {
                         return myFormLog;
                     }
-                    if (persistString == typeof(FormImageWindow).ToString())
-                    {
-                        return myFormImageWindow;
-                    }
+                    //if (persistString == typeof(FormImageWindow).ToString())
+                    //{
+                    //    return new FormImageWindow();
+                    //}
                     //主框架之外的窗体不显示
                     return null;
                 });
+                configLoadFlag = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //配置文件不存在或配置文件有问题时 按系统默认规则加载子窗体
                 myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
                 myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
                 myFormLog.Show(this.dockPanel1, DockState.DockBottom);
-                myFormImageWindow.Show(this.dockPanel1, DockState.Document);
             }
         }
 
         private void FormMain2_Load(object sender, EventArgs e)
         {
-            // 窗体加载到主窗体
-            myFormToolBox.Show(this.dockPanel1, DockState.DockLeft);
-            myFormJobManage.Show(this.dockPanel1, DockState.DockRight);
-            myFormImageWindow.Show(this.dockPanel1, DockState.Document);
-            myFormLog.Show(this.dockPanel1, DockState.DockBottom);
             // 初始化JOB
             VisionJobParams.pVisionProject.LoadProject();
+            // 窗体加载到主窗体
+            foreach (var item in VisionJobParams.pVisionProject.Project)
+            {
+                if (item.Value.myHalconWindow == null)
+                {
+                    item.Value.myHalconWindow = new FormImageWindow();
+                }
+                item.Value.myHalconWindow.Text = item.Value.JobName + "-图像";
+                item.Value.myHalconWindow.Show(this.dockPanel1, DockState.Document);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -107,10 +112,7 @@ namespace VisionEdit
         /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists(m_DockPath))
-            {
-                dockPanel1.SaveAsXml(this.m_DockPath);
-            }
+            dockPanel1.SaveAsXml(this.m_DockPath);
             DialogResult dr = MessageBox.Show("是否要进行保存？", "提示", MessageBoxButtons.YesNoCancel);
             if (dr == DialogResult.Yes)
             {

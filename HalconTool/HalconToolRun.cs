@@ -27,11 +27,11 @@ namespace HalconTool
 {
     public class HalconToolRun : IToolRun
     {
-        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList)
+        public void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindowForm)
         {
             Type a = this.GetType();
             HalconTool myHalconTool = (HalconTool)L_toolList[toolIndex].tool;
-            VisionJob myJob = VisionJobParams.pVisionProject.Project[jobName];
+            VisionJob myJob = (VisionJob)runJob;
             myHalconTool.Run(SoftwareRunState.Release);
             if (myHalconTool.toolRunStatu != ToolRunStatu.Succeed)
             {
@@ -40,9 +40,10 @@ namespace HalconTool
             else
             {
                 myJob.FormLogDisp($"{L_toolList[toolIndex].toolName} 运行成功，{myHalconTool.runTime}", Color.Green, selectNode);
-                FormImageWindow.Instance.myHWindow.DispImage(myHalconTool.outputImage);
+                ((FormImageWindow)myHalconWindowForm).myHWindow.DispImage(myHalconTool.outputImage);
                 L_toolList[toolIndex].toolOutput[0] = new ToolIO("OutputImage", myHalconTool.outputImage, DataType.Image);
             }
+            L_toolList[toolIndex].toolRunStatu = myHalconTool.toolRunStatu;
         }
     }
 }

@@ -22,6 +22,6 @@ namespace CommonMethods.Interface
 {
     public interface IToolRun
     {
-        void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList);
+        void ToolRun(string jobName, int toolIndex, int inputItemNum, TreeNode selectNode, List<IToolInfo> L_toolList, IVisionJob runJob, Form myHalconWindow);
     }
 }

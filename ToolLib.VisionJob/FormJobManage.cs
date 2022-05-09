@@ -62,5 +62,35 @@ namespace ToolLib.VisionJob
                 }
             }
         }
+
+        private void picSaveJob_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog myDia = new SaveFileDialog();
+            string jobName = tabJobUnion.SelectedTab.Text;
+            myDia.Title = "保存job文件";
+            myDia.Filter = "job文件(*.job)|*.job";
+            myDia.FilterIndex = 1;
+            myDia.FileName = jobName;//这里是key
+            if (myDia.ShowDialog() == DialogResult.OK)
+            {
+                VisionJobParams.pVisionProject.SaveJob(jobName, myDia.FileName);
+            }
+        }
+
+        private void picOpenJob_Click(object sender, EventArgs e)
+        {
+            UIInputForm myUIInputForm = new UIInputForm();
+            myUIInputForm.Label.Text = "输入新建Job名称";
+            if (myUIInputForm.ShowDialog() == DialogResult.OK)
+            {
+                OpenFileDialog myDia = new OpenFileDialog();
+                if (myDia.ShowDialog() == DialogResult.OK)
+                {
+                    string newJobName = myUIInputForm.Editor.Text;
+                    VisionJobParams.pVisionProject.LoadJob(newJobName, myDia.FileName);
+                }
+            }
+               
+        }
     }
 }

@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ToolLib.VisionJob
 {
@@ -50,11 +51,6 @@ namespace ToolLib.VisionJob
                     foreach (var item in Project)
                     {
                         OperateProject.Instance.CreateNewJob(item.Key, false);
-                        //foreach (var tool in item.Value.L_toolList)
-                        //{
-                        //    OperateTreeView.Instance.Add_Tool((ToolType)Enum.Parse(typeof(ToolType), tool.toolType.ToString()), false);
-                        //}
-                       // OperateProject.Instance.InitJob(item.Value);
                     }
                     return true;
                 }
@@ -70,6 +66,46 @@ namespace ToolLib.VisionJob
         public void SaveObject()
         {
             Serialize.BinarySerialize(prjFilePath, Project);
+        }
+
+        public bool LoadJob(string jobName,string path)
+        {
+            if (!File.Exists(path))
+            {
+                Logger.LoggerClass.WriteLog("job路径不存在！", true);
+                return false;
+            }
+            else if(Project.ContainsKey(jobName))
+            {
+                Logger.LoggerClass.WriteLog("项目中已存在该JOB名称，请更换！", true);
+                return false;
+            }
+            else
+            {
+                try
+                {
+                    VisionJob myNewJob = Serialize.BinaryDeserialize<VisionJob>(path);
+                    OperateProject.Instance.CreateNewJob(jobName, myNewJob, true); // 新添加job
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LoggerClass.WriteLog("载入项目工程时出现异常！", ex);
+                    return false;
+                }
+            }
+        }
+
+        public void SaveJob(string jobName,string filePath)
+        {
+            if(Project.ContainsKey(jobName))
+            {
+                Serialize.BinarySerialize(filePath, Project[jobName]);
+            }
+            else
+            {
+                Logger.LoggerClass.WriteLog("保存时出现异常，未找到Job", true);
+            }
         }
     }
 }
