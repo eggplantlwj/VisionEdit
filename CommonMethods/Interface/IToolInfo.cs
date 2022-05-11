@@ -29,7 +29,8 @@ namespace CommonMethods
         /// <summary>
         /// 工具窗体,由于无法对Form进行序列化，所以作为静态变量
         /// </summary>
-        public static Form FormTool { get; set; }
+        [NonSerialized]
+        public Form FormTool = new Form();
         /// <summary>
         /// 工具窗体名
         /// </summary>
@@ -54,11 +55,16 @@ namespace CommonMethods
         /// 工具运行结果
         /// </summary>
         public ToolRunStatu toolRunStatu { get; set; }
+        /// <summary>
+        /// 绑定的JOB名称
+        /// </summary>
+        public string bingingJobName { get; set; }
         public IToolInfo()
         {
             enable = true;
             toolType = ToolType.None;
             toolName = string.Empty;
+            bingingJobName = string.Empty;
             tool = new object();
             toolInput = new List<ToolIO>();
             toolOutput = new List<ToolIO>();

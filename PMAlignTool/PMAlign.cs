@@ -25,12 +25,20 @@ using Logger;
 using System.Diagnostics;
 using System.IO;
 using ViewROI;
+using DataStruct;
 
 namespace PMAlignTool
 {
     [Serializable]
     public class PMAlign : IToolBase
     {
+        /// <summary>
+        /// 绑定job名称
+        /// </summary>
+        public string bingdingJobName { get; set; }
+        /// <summary>
+        /// 工具名称
+        /// </summary>
         public string toolName { get; set; } = string.Empty;
         /// <summary>
         /// 输入姿态
@@ -115,12 +123,14 @@ namespace PMAlignTool
         /// <summary>
         /// 训练时所使用的模板图像，不点击获取图像时，不进行更新
         /// </summary>
-        public HObject oldTrainImage { get; set; }
+        [NonSerialized]
+        public HObject oldTrainImage;
         public bool isCreateModel { get; set; }
         internal string pmaModelName { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// 剪出的模板图像
         /// </summary>
+        [NonSerialized]
         public HObject modelPartImage = new HObject();
         /// <summary>
         /// 模板位置和实际位置的姿态差异
@@ -163,7 +173,8 @@ namespace PMAlignTool
         public bool isAutoConstants { get; set; }
         public string modelFilePath { get; set; }
         public RegionType searchRegionType { get; set; }
-        public HObject SearchRegion { get; set; }
+        [NonSerialized]
+        public HObject SearchRegion;
         public override void Run(SoftwareRunState softwareState)
         {
             Stopwatch sw = new Stopwatch();
@@ -195,7 +206,6 @@ namespace PMAlignTool
                     //对预期线的找模板区域做放射变换
 
                 }
-              //  UpdateParamsFromUI(); // 操作前先将UI中参数写入类
                  HObject findModelImg = ProcessImage(inputImage);
                 int ret = FindModelTemplate(findModelImg);
                 UpdateResultDataGridview();
@@ -220,10 +230,16 @@ namespace PMAlignTool
         public void UpdateResultDataGridview()
         {
             FormPMAlignTool.Instance.dgv_matchResult.Rows.Clear();
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Clear();
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Add("num", "序号");
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Add("Socre", "分值");
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Add("Row", "行");
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Add("Col", "列");
+            //FormPMAlignTool.Instance.dgv_matchResult.Columns.Add("Angle", "角度");
             int count = 0;
             foreach (var item in L_resultList)
             {
-                FormPMAlignTool.Instance.dgv_matchResult.AddRow(++count, item.Socre, item.Row, item.Col, item.Angle);
+                FormPMAlignTool.Instance.dgv_matchResult.Rows.Add(++count, item.Socre, item.Row, item.Col, item.Angle);
             }
 
         }
@@ -355,8 +371,9 @@ namespace PMAlignTool
                                                  out scores);
                 }
                 isCreateModel = true;
-                HOperatorSet.WriteRegion(templateRegion, FormPMAlignTool.Instance.myToolInfo.FormToolName + ".hobj");
-                HOperatorSet.WriteShapeModel(modelID, pmaModelName + ".ShapeModel");
+                // 模板句柄信息
+                Directory.CreateDirectory(ConfigData.ConfigPath + $"\\{bingdingJobName}\\");
+                HOperatorSet.WriteShapeModel(modelID, ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm");
 
                 if (scores != null && scores.Type != HTupleType.EMPTY)
                 {
@@ -380,12 +397,12 @@ namespace PMAlignTool
 
         public int FindModelTemplate(HObject findModelImage)
         {
-            if (!File.Exists(pmaModelName + ".ShapeModel"))
+            if (!File.Exists(ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm"))
             {
                 LoggerClass.WriteLog($"{toolName}未创建或加载模板", MsgLevel.Exception);
                 return -1;
             }
-            HOperatorSet.ReadShapeModel(pmaModelName + ".ShapeModel", out modelID);
+            HOperatorSet.ReadShapeModel(ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm", out modelID);
             HObject image;
             if (searchRegionType == RegionType.AllImage)
             {

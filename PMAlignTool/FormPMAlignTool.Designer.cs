@@ -29,10 +29,6 @@ namespace PMAlignTool
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPMAlignTool));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lb_RunStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -123,7 +119,7 @@ namespace PMAlignTool
             this.ckb_showFeature = new System.Windows.Forms.CheckBox();
             this.ckb_showCross = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dgv_matchResult = new Sunny.UI.UIDataGridView();
+            this.dgv_matchResult = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1550,21 +1546,7 @@ namespace PMAlignTool
             // 
             // dgv_matchResult
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.dgv_matchResult.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv_matchResult.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgv_matchResult.BackgroundColor = System.Drawing.Color.White;
-            this.dgv_matchResult.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_matchResult.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_matchResult.ColumnHeadersHeight = 32;
-            this.dgv_matchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgv_matchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_matchResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -1572,62 +1554,36 @@ namespace PMAlignTool
             this.Column4,
             this.Column5});
             this.dgv_matchResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_matchResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgv_matchResult.EnableHeadersVisualStyles = false;
-            this.dgv_matchResult.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dgv_matchResult.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.dgv_matchResult.Location = new System.Drawing.Point(0, 0);
             this.dgv_matchResult.Name = "dgv_matchResult";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_matchResult.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgv_matchResult.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dgv_matchResult.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_matchResult.RowTemplate.Height = 23;
-            this.dgv_matchResult.SelectedIndex = -1;
-            this.dgv_matchResult.ShowGridLine = true;
             this.dgv_matchResult.Size = new System.Drawing.Size(392, 568);
             this.dgv_matchResult.TabIndex = 0;
             // 
             // Column1
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Column1.HeaderText = "编号";
+            this.Column1.HeaderText = "序号";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 66;
             // 
             // Column2
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column2.HeaderText = "分值";
             this.Column2.Name = "Column2";
             // 
             // Column3
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Column3.HeaderText = "行";
             this.Column3.Name = "Column3";
-            this.Column3.Width = 50;
             // 
             // Column4
             // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Column4.HeaderText = "列";
             this.Column4.Name = "Column4";
-            this.Column4.Width = 50;
             // 
             // Column5
             // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Column5.HeaderText = "角度";
             this.Column5.Name = "Column5";
-            this.Column5.Width = 66;
             // 
             // FormPMAlignTool
             // 
@@ -1788,6 +1744,6 @@ namespace PMAlignTool
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        public Sunny.UI.UIDataGridView dgv_matchResult;
+        public System.Windows.Forms.DataGridView dgv_matchResult;
     }
 }

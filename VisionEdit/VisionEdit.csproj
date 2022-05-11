@@ -59,7 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfig.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>

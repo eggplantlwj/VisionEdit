@@ -76,7 +76,8 @@ namespace HalconTool
         /// <summary>
         /// 输出图像
         /// </summary>
-        public HObject outputImage = null;
+        [NonSerialized]
+        public HObject outputImage = new HObject();
         /// <summary>
         /// 输出图像的路径
         /// </summary>
@@ -98,7 +99,7 @@ namespace HalconTool
             }
             else
             {
-                if (currentImageIndex <= L_imageFile.Count)
+                if (currentImageIndex <= L_imageFile.Count && L_imageFile.Count != 0)
                 {
                     currentImageIndex = currentImageIndex == L_imageFile.Count ? 0 : currentImageIndex;
                     outputImageFilePath = L_imageFile[currentImageIndex];

@@ -64,7 +64,6 @@ namespace ToolLib.VisionJob
             {
                 VisionJobParams.pVisionProject.Project.Add(jobName, new VisionJob(jobName));
                 FormJobManage.Instance.tabJobUnion.SelectedTab = newTab;
-               // newTab.Select();
             }
             InitJob(VisionJobParams.pVisionProject.Project[jobName]);
         }
@@ -219,12 +218,12 @@ namespace ToolLib.VisionJob
                     string AssemblyName = VisionJobParams.pVisionProject.Project[jobName].L_toolList[i].FormToolName.Split('.')[0];
                     string className = VisionJobParams.pVisionProject.Project[jobName].L_toolList[i].FormToolName;
                     toolClass = VisionJobParams.pVisionProject.Project[jobName].L_toolList[i];
-                    IToolInfo.FormTool = (Form)Assembly.Load(AssemblyName).CreateInstance(className, false, BindingFlags.Default, null, new object[] { toolClass }, null, null);
-                    IToolInfo.FormTool.ShowDialog();
-                    //VisionJobParams.myProject[jobName].L_toolList[i].SetFormTool(IToolInfo.FormTool);
-                    //VisionJobParams.myProject[jobName].L_toolList[i].GetFormTool().ShowDialog();
-                    //VisionJobParams.myProject[jobName].L_toolList[i].FormTool = (Form)Assembly.Load(AssemblyName).CreateInstance(className, false, BindingFlags.Default, null, new object[] { toolClass }, null, null);
-                    //VisionJobParams.myProject[jobName].L_toolList[i].FormTool.ShowDialog();
+                    VisionJobParams.pVisionProject.Project[jobName].L_toolList[i].bingingJobName = jobName;
+                    //IToolInfo.FormTool = (Form)Assembly.Load(AssemblyName).CreateInstance(className, false, BindingFlags.Default, null, new object[] { toolClass }, null, null);
+                    //IToolInfo.FormTool.ShowDialog();
+                    VisionJobParams.pVisionProject.Project[jobName].L_toolList[i].FormTool = (Form)Assembly.Load(AssemblyName).CreateInstance(className, false, BindingFlags.Default, null, new object[] { toolClass }, null, null);
+                    VisionJobParams.pVisionProject.Project[jobName].L_toolList[i].FormTool.Show();
+                    
                 }
             }
         }

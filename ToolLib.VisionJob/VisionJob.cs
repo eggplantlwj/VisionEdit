@@ -904,6 +904,7 @@ namespace ToolLib.VisionJob
         }
         [NonSerialized]
         public FormImageWindow myHalconWindow = new FormImageWindow();
+        public string JobDirectoryPath { get; set; } = @"D:\VisionSystem\";
 
     }
 }

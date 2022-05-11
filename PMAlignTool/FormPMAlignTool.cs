@@ -33,7 +33,8 @@ namespace PMAlignTool
             {
                 myToolInfo = (IToolInfo)pmalign;
                 myPMAlign = (PMAlign)myToolInfo.tool;
-                myPMAlign.toolName = myToolInfo.FormToolName;
+                myPMAlign.toolName = myToolInfo.toolName;
+                myPMAlign.bingdingJobName = myToolInfo.bingingJobName;
                 myPMAlign.DispImage();
             }
         }
