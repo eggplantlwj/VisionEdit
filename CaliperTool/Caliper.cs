@@ -84,6 +84,8 @@ namespace CaliperTool
         /// 新的跟随姿态变化后的预期线信息
         /// </summary>
         HTuple newExpectRecStartRow = new HTuple(200), newExpectRecStartColumn = new HTuple(200), newExpectPhi = new HTuple(0);
+        [NonSerialized]
+        public HDrawingObject calibDrawObject = new HDrawingObject();
         /// <summary>
         /// 查找到的线的起点行坐标
         /// </summary>
@@ -134,10 +136,6 @@ namespace CaliperTool
                         templatePose.Y = inputPose.Y;
                         templatePose.U = inputPose.U;
                     }
-                    // 输入
-                    FormCaliper.Instance.tbx_expectCenterRow.Text = expectRecStartRow.TupleString("10.3f");
-                    FormCaliper.Instance.tbx_expectCenterCol.Text = expectRecStartColumn.TupleString("10.3f");
-                    FormCaliper.Instance.tbx_expectPhi.Text = expectAngle.TupleString("10.3f");
                     // 参数
                     FormCaliper.Instance.tbx_caliperLength1.Text = length1.TupleString("10.3f");
                     FormCaliper.Instance.tbx_caliperLength2.Text = length2.TupleString("10.3f");
@@ -266,20 +264,6 @@ namespace CaliperTool
             }
             //显示找到的线
           //  window.DispObj(LineDisp, "green");
-        }
-
-        public void SetToolStatusDisp()
-        {
-            FormCaliper.Instance.lb_RunStatus.Text = toolRunStatu == ToolRunStatu.Succeed ? "工具运行成功！" : $"工具运行异常, 异常原因：{runMessage}";
-            FormCaliper.Instance.lb_RunTime.Text = runTime;
-            if (toolRunStatu == ToolRunStatu.Succeed)
-            {
-                FormCaliper.Instance.statusStrip.BackColor = System.Drawing.Color.LimeGreen;
-            }
-            else
-            {
-                FormCaliper.Instance.statusStrip.BackColor = System.Drawing.Color.Red;
-            }
         }
     }
 }

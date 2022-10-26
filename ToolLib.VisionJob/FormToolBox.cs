@@ -60,7 +60,7 @@ namespace ToolLib.VisionJob
         {
             try
             {
-                if (tvw_ToolBox.SelectedNode.SelectedImageIndex == 0)         //如果双击的是文件夹节点，返回
+                if (tvw_ToolBox.SelectedNode.Level == 0)         //如果双击的是文件夹节点，返回
                     return;
                 if(VisionJobParams.pVisionProject.Project.Count == 0) // 若当前无流程，需要先建立项目和流程树，并对其进行初始化
                 {
@@ -69,12 +69,20 @@ namespace ToolLib.VisionJob
                 if (VisionJobParams.pVisionProject.Project.Count > 0)        //再次确认已存在流程
                 {
                     object selectTag = tvw_ToolBox.SelectedNode.Tag;
-                    OperateTreeView.Instance.Add_Tool((ToolType)Enum.Parse(typeof(ToolType), selectTag.ToString())); 
+                    if(selectTag != null)
+                    {
+                        ToolType mToolType = (ToolType)Enum.Parse(typeof(ToolType), selectTag.ToString());
+                        OperateTreeView.Instance.Add_Tool(mToolType);
+                    }
+                    else
+                    {
+                        Logger.LoggerClass.WriteLog($"{tvw_ToolBox.SelectedNode.Text} 工具尚未开发", Logger.MsgLevel.Warn);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Logger.LoggerClass.WriteLog("添加流程失败！", ex);  
+                Logger.LoggerClass.WriteLog($"添加流程失败！失败原因：{ex.Message}", ex);  
             }
         }
 

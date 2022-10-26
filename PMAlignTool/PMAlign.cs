@@ -173,8 +173,20 @@ namespace PMAlignTool
         public bool isAutoConstants { get; set; }
         public string modelFilePath { get; set; }
         public RegionType searchRegionType { get; set; }
+        /// <summary>
+        /// 文件存储路径
+        /// </summary>
+        public string trainImgPath, trainShmPath, trainModelPath, dataDirectory;
         [NonSerialized]
         public HObject SearchRegion;
+
+        public void InitTool()
+        {
+            trainImgPath = ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}_TrainImage.bmp";
+            trainShmPath = ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm";
+            trainModelPath = ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}_ModelImage.bmp";
+            dataDirectory = ConfigData.ConfigPath + $"\\{bingdingJobName}\\";
+        }
         public override void Run(SoftwareRunState softwareState)
         {
             Stopwatch sw = new Stopwatch();
@@ -372,9 +384,10 @@ namespace PMAlignTool
                 }
                 isCreateModel = true;
                 // 模板句柄信息
-                Directory.CreateDirectory(ConfigData.ConfigPath + $"\\{bingdingJobName}\\");
-                HOperatorSet.WriteShapeModel(modelID, ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm");
-
+                Directory.CreateDirectory(dataDirectory);
+                HOperatorSet.WriteShapeModel(modelID, trainShmPath);
+                HOperatorSet.WriteImage(inputImage, "bmp", 0, trainImgPath);
+                HOperatorSet.WriteImage(modelPartImage, "bmp", 0, trainModelPath);
                 if (scores != null && scores.Type != HTupleType.EMPTY)
                 {
                     templatePose = new PosXYU { X = rows[0].D, Y = cols[0].D , U = angles[0].D };
@@ -397,12 +410,12 @@ namespace PMAlignTool
 
         public int FindModelTemplate(HObject findModelImage)
         {
-            if (!File.Exists(ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm"))
+            if (!File.Exists(trainShmPath))
             {
                 LoggerClass.WriteLog($"{toolName}未创建或加载模板", MsgLevel.Exception);
                 return -1;
             }
-            HOperatorSet.ReadShapeModel(ConfigData.ConfigPath + $"\\{bingdingJobName}\\{toolName}_{pmaModelName}.Shm", out modelID);
+            HOperatorSet.ReadShapeModel(trainShmPath, out modelID);
             HObject image;
             if (searchRegionType == RegionType.AllImage)
             {
