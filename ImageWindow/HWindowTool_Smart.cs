@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HalconDotNet;
+using System.Diagnostics;
 
 namespace ViewROI
 {
@@ -80,16 +81,15 @@ namespace ViewROI
                 {
                     try
                     {
-                        int button_state;
                         double positionX, positionY;
                         string str_value;
                         string str_position;
                         bool _isXOut = true, _isYOut = true;
                         HTuple channel_count;
-
                         HOperatorSet.CountChannels(hv_Image, out channel_count);
-
-                        SmartWindow.HalconWindow.GetMpositionSubPix(out positionY, out positionX, out button_state);
+                        //SmartWindow.HalconWindow.GetMpositionSubPix(out positionY, out positionX, out button_state);
+                        positionY = e.Y;
+                        positionX = e.X;
                         str_position = String.Format("RC: {0:0},{1:0}", positionY, positionX);
 
                         _isXOut = (positionX < 0 || positionX >= hv_Width);

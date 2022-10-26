@@ -120,11 +120,11 @@ namespace PMAlignTool
             this.ckb_showCross = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dgv_matchResult = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -1546,44 +1546,62 @@ namespace PMAlignTool
             // 
             // dgv_matchResult
             // 
+            this.dgv_matchResult.AllowDrop = true;
+            this.dgv_matchResult.AllowUserToAddRows = false;
+            this.dgv_matchResult.AllowUserToDeleteRows = false;
+            this.dgv_matchResult.AllowUserToResizeRows = false;
             this.dgv_matchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_matchResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5});
+            this.Column7,
+            this.Column8,
+            this.Column9,
+            this.Column10,
+            this.Column12});
             this.dgv_matchResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_matchResult.Location = new System.Drawing.Point(0, 0);
+            this.dgv_matchResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgv_matchResult.Name = "dgv_matchResult";
+            this.dgv_matchResult.ReadOnly = true;
+            this.dgv_matchResult.RowHeadersVisible = false;
             this.dgv_matchResult.RowTemplate.Height = 23;
+            this.dgv_matchResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_matchResult.Size = new System.Drawing.Size(392, 568);
-            this.dgv_matchResult.TabIndex = 0;
+            this.dgv_matchResult.TabIndex = 15;
             // 
-            // Column1
+            // Column7
             // 
-            this.Column1.HeaderText = "序号";
-            this.Column1.Name = "Column1";
+            this.Column7.HeaderText = "编号";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 70;
             // 
-            // Column2
+            // Column8
             // 
-            this.Column2.HeaderText = "分值";
-            this.Column2.Name = "Column2";
+            this.Column8.HeaderText = "分数";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 75;
             // 
-            // Column3
+            // Column9
             // 
-            this.Column3.HeaderText = "行";
-            this.Column3.Name = "Column3";
+            this.Column9.HeaderText = "行";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 70;
             // 
-            // Column4
+            // Column10
             // 
-            this.Column4.HeaderText = "列";
-            this.Column4.Name = "Column4";
+            this.Column10.HeaderText = "列";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 70;
             // 
-            // Column5
+            // Column12
             // 
-            this.Column5.HeaderText = "角度";
-            this.Column5.Name = "Column5";
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column12.HeaderText = "角度(°)";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
             // 
             // FormPMAlignTool
             // 
@@ -1739,11 +1757,11 @@ namespace PMAlignTool
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lb_RunTime;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        public System.Windows.Forms.DataGridView dgv_matchResult;
+        internal System.Windows.Forms.DataGridView dgv_matchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
     }
 }

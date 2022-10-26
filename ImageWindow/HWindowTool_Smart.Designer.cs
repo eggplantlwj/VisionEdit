@@ -77,11 +77,11 @@ namespace ViewROI
             this.grayValueLable.BackColor = System.Drawing.Color.Transparent;
             this.grayValueLable.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grayValueLable.IsScaled = false;
-            this.grayValueLable.Location = new System.Drawing.Point(3, 430);
+            this.grayValueLable.Location = new System.Drawing.Point(3, 432);
             this.grayValueLable.MinimumSize = new System.Drawing.Size(1, 1);
             this.grayValueLable.Name = "grayValueLable";
             this.grayValueLable.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
-            this.grayValueLable.Size = new System.Drawing.Size(260, 26);
+            this.grayValueLable.Size = new System.Drawing.Size(260, 24);
             this.grayValueLable.Symbol = 61483;
             this.grayValueLable.TabIndex = 4;
             this.grayValueLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

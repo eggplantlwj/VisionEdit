@@ -55,6 +55,7 @@ namespace PMAlignTool
                     }
                 }
             }
+            myPMAlign.InitTool();
             myPMAlign.Run(SoftwareRunState.Release);
             if (myPMAlign.toolRunStatu != ToolRunStatu.Succeed)
             {

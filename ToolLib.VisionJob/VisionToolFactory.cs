@@ -82,30 +82,32 @@ namespace VisionJobFactory
             {
                 if (bShouldCrossAssembly)
                 {
-                    //Assembly[] Assemblys = AppDomain.CurrentDomain.GetAssemblies();
-                    //if (Assemblys != null)
-                    //{
-                    //    for (int i = 0, len = Assemblys.Length; i < len; i++)
-                    //    {
-                    //        CheckInAssembly(Assemblys[i], bIgnoreAbstract, bInheritAttribute);
-                    //    }
-                    //}
-                    List<Assembly> allAssemblies = new List<Assembly>();
-                    string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    string[] FILES = Directory.GetFiles(path, "*.dll");
-                    foreach (string dll in Directory.GetFiles(path, "*.dll"))
-                        allAssemblies.Add(Assembly.LoadFile(dll));
+
+
+                    Assembly[] Assemblys = AppDomain.CurrentDomain.GetAssemblies();
+                    if (Assemblys != null)
+                    {
+                        for (int i = 0, len = Assemblys.Length; i < len; i++)
+                        {
+                            CheckInAssembly(Assemblys[i], bIgnoreAbstract, bInheritAttribute);
+                        }
+                    }
+                    //List<Assembly> allAssemblies = new List<Assembly>();
+                    //string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    //string[] FILES = Directory.GetFiles(path, "*.dll");
+                    //foreach (string dll in Directory.GetFiles(path, "*.dll"))
+                    //    allAssemblies.Add(Assembly.LoadFile(dll));
 
 
                     // 手动寻找该dll，若dll名称改变需要重新编译，不智能
                     // Assembly assem = Assembly.LoadFile($"{AppDomain.CurrentDomain.BaseDirectory}ToolLib.VisionToolList.dll");
-                    if (allAssemblies != null)
-                    {
-                        for (int i = 0; i < allAssemblies.Count; i++)
-                        {
-                            CheckInAssembly(allAssemblies[i], bIgnoreAbstract, bInheritAttribute);
-                        }
-                    }
+                    //if (allAssemblies != null)
+                    //{
+                    //    for (int i = 0; i < allAssemblies.Count; i++)
+                    //    {
+                    //        CheckInAssembly(allAssemblies[i], bIgnoreAbstract, bInheritAttribute);
+                    //    }
+                    //}
 
                 }
                 else

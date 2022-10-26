@@ -69,12 +69,7 @@ namespace CaliperTool
         private void InitTool()
         {
             this.Text = myToolInfo.toolName;
-            btn_runCaliperool.Focus();
             Application.DoEvents();
-            // 预期设定值
-            tbx_expectCenterRow.Text = myCaliper.expectRecStartRow.ToString();
-            tbx_expectCenterCol.Text = myCaliper.expectRecStartColumn.ToString();
-            tbx_expectPhi.Text = myCaliper.expectAngle.ToString();
             // 预期参数
             tbx_caliperLength1.Text = myCaliper.length1.ToString();
             tbx_caliperLength2.Text = myCaliper.length2.ToString();
@@ -96,10 +91,6 @@ namespace CaliperTool
 
         private void btn_runCaliperool_Click(object sender, EventArgs e)
         {
-            // 更改界面中参数，实时更新类中参数
-            myCaliper.expectRecStartRow = Convert.ToDouble(tbx_expectCenterRow.Text.Trim());
-            myCaliper.expectRecStartColumn = Convert.ToDouble(tbx_expectCenterCol.Text.Trim());
-            myCaliper.expectAngle = Convert.ToDouble(tbx_expectPhi.Text.Trim());
             // 运行参数
             myCaliper.threshold = Convert.ToInt16(tbx_threshold.Text.Trim());
             myCaliper.length1 = Convert.ToDouble(tbx_caliperLength1.Text.Trim());
@@ -132,6 +123,11 @@ namespace CaliperTool
                     statusStrip.BackColor = Color.Red;
                 }
             }
+        }
+
+        private void tsbtRunTool_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -36,6 +36,7 @@ namespace PMAlignTool
                 myPMAlign.toolName = myToolInfo.toolName;
                 myPMAlign.bingdingJobName = myToolInfo.bingingJobName;
                 myPMAlign.DispImage();
+                myPMAlign.InitTool();
             }
         }
 
@@ -103,11 +104,22 @@ namespace PMAlignTool
             nud_ScaleRange.Value = myPMAlign.maxScale;
             tkb_contrast.Value = myPMAlign.contrast;
             #endregion
-            if(myPMAlign.modelPartImage != null)
+
+            if (myPMAlign.oldTrainImage == null && File.Exists(myPMAlign.trainImgPath) && File.Exists(myPMAlign.trainModelPath))
+            {
+                try
+                {
+                    HOperatorSet.ReadImage(out myPMAlign.oldTrainImage, myPMAlign.trainImgPath);
+                    HOperatorSet.ReadImage(out myPMAlign.modelPartImage, myPMAlign.trainModelPath);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            if (myPMAlign.modelPartImage != null)
             {
                 hWindowTool_Smart1.DispImage(myPMAlign.modelPartImage);
             }
-            // myHwindow.DispHWindow.AttachDrawingObjectToWindow(serachRegion_drawing_object);
             tsbtRunTool_Click(null, null);
              isInitTool = false;
         }
@@ -321,14 +333,27 @@ namespace PMAlignTool
 
         private void btnChangeModel_Click(object sender, EventArgs e)
         {
-            if(!File.Exists(myPMAlign.pmaModelName + ".ShapeModel"))
+            if(!File.Exists(myPMAlign.trainShmPath))
             {
-                MessageBox.Show("还未创建过模板，请先进行创建！");
+                MessageBox.Show("无已训练好的模型，请先创建模型");
                 return;
             }
-            myPMAlign.inputImage = myPMAlign.oldTrainImage;
-            myPMAlign.Run(SoftwareRunState.Debug);
-
+            else
+            {
+                if (myPMAlign.oldTrainImage == null && File.Exists(myPMAlign.trainImgPath) && File.Exists(myPMAlign.trainModelPath))
+                {
+                    try
+                    {
+                        HOperatorSet.ReadImage(out myPMAlign.oldTrainImage, myPMAlign.trainImgPath);
+                        HOperatorSet.ReadImage(out myPMAlign.modelPartImage, myPMAlign.trainModelPath);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                myPMAlign.inputImage = myPMAlign.oldTrainImage;
+                myPMAlign.Run(SoftwareRunState.Debug);
+            }
         }
 
         private void cbx_searchRegionType_SelectedIndexChanged()
